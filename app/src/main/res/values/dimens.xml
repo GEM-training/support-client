@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--global dimens-->
+    <dimen name="margin_medium">5dp</dimen>
+    <dimen name="padding_medium">5dp</dimen>
+    <dimen name="margin_global">10dp</dimen>
+
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">13sp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+
+    <dimen name="welcome_signup_bt_width">300dp</dimen>
+
+    <dimen name="navigation_bar_height">50dp</dimen>
+    <dimen name="navigation_bar_icon_height">32dp</dimen>
+    <dimen name="navigation_menu_sale_width">90dp</dimen>
+
+    <dimen name="dimen_5">5dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+
+    <!--dimens ralated to fragment customer home-->
+    <dimen name="customer_info_rl_height">200dp</dimen>
+    <dimen name="picture_width">100dp</dimen>
+    <dimen name="picture_height">100dp</dimen>
+
+    <!--dimens ralated to item product-->
+    <dimen name="list_product_search_margin_left">5dp</dimen>
+    <dimen name="common_textSize">20sp</dimen>
+    <dimen name="activity_login_padding">30dp</dimen>
+    <dimen name="activity_login_app_name_size">60sp</dimen>
+    <dimen name="activity_login_app_name_marginTop">10dp</dimen>
+    <dimen name="activity_login_app_name_marginBottom">30dp</dimen>
+    <dimen name="activity_login_signin_button_marginTop">50dp</dimen>
+    <dimen name="activity_login_signin_button_text_size">20sp</dimen>
+    <dimen name="activity_splash_textSize">70sp</dimen>
+    <dimen name="activity_welcome_appname_marginTop">10dp</dimen>
+    <dimen name="activity_welcome_appname_marginBottom">50dp</dimen>
+    <dimen name="activity_welcome_bt_textSize">18sp</dimen>
+    <dimen name="activity_welcome_setup_button_marginTop">10dp</dimen>
+    <dimen name="activity_welcome_already_marginTop">70dp</dimen>
+    <dimen name="activity_welcome_signin_marginLeft">5dp</dimen>
+    <dimen name="fragment_liststore_search_marginLeft">5dp</dimen>
+    <dimen name="fragment_liststore_search_marginRight">5dp</dimen>
+    <dimen name="fragment_liststore_number_store_textSize">20sp</dimen>
+    <dimen name="fragment_liststore_number_store_marginLeft">5dp</dimen>
+    <dimen name="fragment_welcome_header_height">180dp</dimen>
+    <dimen name="nav_header_profile_picture_height">75dp</dimen>
+    <dimen name="fragment_statistic_paddingTop">20dp</dimen>
+    <dimen name="table_column1_width">30dp</dimen>
+    <dimen name="table_column2_width">100dp</dimen>
+    <dimen name="table_column3_width">60dp</dimen>
+    <dimen name="table_column4_width">100dp</dimen>
+    <dimen name="table_column5_width">100dp</dimen>
+    <dimen name="table_column6_width">100dp</dimen>
+    <dimen name="fragment_statistic_spinner_marginBottom">10dp</dimen>
+    <dimen name="fragment_statistic_table_padding">5dp</dimen>
+    <dimen name="activity_navi_menu_marginLeft">20dp</dimen>
+    <dimen name="activity_navi_menu_ripple_dimension">10dp</dimen>
+    <dimen name="all_companies_menu_height">30dp</dimen>
+    <dimen name="all_companies_menu_name_width">150dp</dimen>
+    <dimen name="all_companies_logo_width">40dp</dimen>
+    <dimen name="company_info_logo_w">100dp</dimen>
+    <dimen name="company_info_logo_h">100dp</dimen>
+    <dimen name="company_bill_amount_w">80dp</dimen>
+    <dimen name="item_company_user_w">60dp</dimen>
+    <dimen name="item_company_icon_user_change_w">20dp</dimen>
+    <dimen name="zero">0dp</dimen>
+
+    <!-- imens ralated to item feedback-->
+    <dimen name="list_item_feedback_height">96dp</dimen>
+    <dimen name="list_item_feedback_padding_horizontal">16dp</dimen>
+    <dimen name="list_item_feedback_padding_vertical">8dp</dimen>
+    <dimen name="icon_user_size">40dp</dimen>
+
+    <dimen name="line_chart_height">250dp</dimen>
+
+    <!--/ search -->
+    <dimen name="height_search_layout">50dp</dimen>
+    <dimen name="height_edit_search">35dp</dimen>
+    <dimen name="search_margin_left">15dp</dimen>
+    <dimen name="width_search_hint">50dp</dimen>
+
+    <!--/ Enterprise -->
+    <dimen name="height_enterprise_item">40dp</dimen>
+    <dimen name="enterprise_margin_left">10dp</dimen>
+
+    <dimen name="filter_layout_height">40dp</dimen>
+    <dimen name="line_break_height">0.5dp</dimen>
+
+    <!--/ Detail -->
+    <dimen name="icon_back_width">15dp</dimen>
+    <dimen name="icon_back_height">35dp</dimen>
+    <dimen name="icon_back_margin_left">10dp</dimen>
+
+
+    <dimen name="tv_margin">16dp</dimen>
+    <dimen name="tv_device_info_margin_top">6dp</dimen>
+    <dimen name="tv_name_margin_left">6dp</dimen>
+
+    <dimen name="item_companies_menu_height">48dp</dimen>
+    <dimen name="padding_global">16dp</dimen>
+
+    <!--/ User detail -->
+    <dimen name="width_userdetail_img">130dp</dimen>
+    <dimen name="height_userdetail_img">130dp</dimen>
+    <dimen name="height_userdetail_tv_name">48dp</dimen>
+    <dimen name="width_userdetail_account_icon">25dp</dimen>
+</resources>

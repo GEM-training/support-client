@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_select_group"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/group_by_all"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="5"
+            android:text="@string/group_by_all"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/group_by_all_selected"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#cccccc"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/group_by_enterprise"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="5"
+            android:text="@string/group_by_enterprise"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/group_by_enterprise_selected"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

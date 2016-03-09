@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/companies_income"
+        android:icon="@mipmap/statistic"
+        android:title="@string/companies_income"
+        app:showAsAction="always" />
+</menu>

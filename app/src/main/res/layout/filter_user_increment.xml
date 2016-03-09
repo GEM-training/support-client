@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_select_group"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/filter_user_by_all_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_layout_height"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="@string/filter_user_by_all"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageView
+            android:id="@+id/filter_user_by_all_selected_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_break_height"
+        android:background="@color/white"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_user_by_increment_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_layout_height"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/arrow_up"
+            android:textColor="@color/green" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="@string/increment_users"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageView
+            android:id="@+id/filter_user_by_increment_selected_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_break_height"
+        android:background="@color/white"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_user_by_invariable_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_layout_height"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/minus"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="@string/invariable_users"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageView
+            android:id="@+id/filter_user_by_invariable_selected_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_break_height"
+        android:background="@color/white"></FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_user_by_decrement_ll"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/filter_layout_height"
+        android:background="@color/bg_item_group"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding_medium"
+        android:weightSum="6">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/arrow_down"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:gravity="center_vertical"
+            android:text="@string/decrement_users"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+        <ImageView
+            android:id="@+id/filter_user_by_decrement_selected_iv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/selected" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_break_height"
+        android:background="@color/white"></FrameLayout>
+</LinearLayout>
