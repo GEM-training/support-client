@@ -12,6 +12,7 @@ import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.dto.ListFeedBackDTO;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import nhom1.gem.com.exceptionplugin.common.Constant;
 import retrofit2.Call;
@@ -29,20 +30,30 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     }
 
     @Override
-    public void doLoadListFeedback() {
-        ServiceBuilder.getService().getListFeedback(0 , 20).enqueue(new Callback<ListFeedBackDTO>() {
+    public void doLoadListFeedback(int page , int size) {
+        ServiceBuilder.getService().getListFeedback(page , size).enqueue(new Callback<FeedbackBrief[]>() {
             @Override
-            public void onResponse(Call<ListFeedBackDTO> call, Response<ListFeedBackDTO> response) {
+            public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
                 if(response.isSuccess()){
-                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
+                    if(response.body().length == 0){
+                        ListFeedbackFragment.isEmpty = true;
+                    }
+
+                    Log.d("phuongtd" , "From server: " + new Gson().toJson(response.body()));
+                    Log.d("phuongtd" , "after gson: " + new Gson().toJson(new ArrayList<FeedbackBrief>(Arrays.asList(response.body()))));
+
+
+                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+
                 } else {
-                    DialogUtils.showErrorAlert(mView.getContextBase() , response.code() +" "+ response.message());
+                    DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<ListFeedBackDTO> call, Throwable t) {
+            public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
+                t.printStackTrace();
             }
         });
     }

@@ -10,13 +10,19 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.malinskiy.superrecyclerview.swipe.SwipeItemManagerInterface;
 
@@ -27,6 +33,7 @@ import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.common.util.DividerItemDecoration;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;
@@ -44,10 +51,21 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Bind(R.id.all_feedback_pb)
     ProgressBar mProgressBar;
 
+    @Bind(R.id.et_search)
+    EditText edtSearch;
+
+    @Bind(R.id.hint_search)
+    ImageView imgHintSearch;
+
     FeedbackAdapter mAdapter;
 
     private Handler mHandler;
 
+    private int page = 0;
+
+    private int pageSize = 10;
+
+    public static boolean isEmpty = false;
 
     LinearLayout mToolbarLayout;
 
@@ -61,7 +79,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     public static  boolean isCheckAll = true;
 
-    private List<FeedbackDetail> mData = new ArrayList<>();
+    private List<FeedbackBrief> mData = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +88,10 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         showProgress(mProgressBar, mRecyclerFeedback);
 
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        mToolbar.removeAllViews();
+
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_18dp);
 
         mToolbarLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tool_bar_view, null);
 
@@ -123,8 +145,40 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
-        getPresenter().doLoadListFeedback();
+        getPresenter().doLoadListFeedback(page, pageSize);
 
+        /*mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
+                if (!isEmpty) {
+                    mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
+                    getPresenter().doLoadListFeedback(page, pageSize);
+                } else {
+
+                    mRecyclerFeedback.hideMoreProgress();
+                }
+            }
+        }, 1);*/
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().compareTo("")!=0) {
+                    imgHintSearch.setVisibility(View.GONE);
+                } else{
+                    imgHintSearch.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         return view;
     }
@@ -134,20 +188,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            Log.e("ListView", "onScrollStateChanged");
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            // Could hide open views here if you wanted. //
-        }
-    };
 
     @Override
     protected int getLayoutId() {
@@ -161,13 +201,17 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     @Override
     public void onRefresh() {
-        getPresenter().doLoadListFeedback();
+        mData.clear();
+        getPresenter().doLoadListFeedback(0, pageSize);
     }
 
     @Override
-    public void onLoadListFeedbackSuccess(List<FeedbackDetail> data) {
+    public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+
+        page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
+        mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
     }
 }

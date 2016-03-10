@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivity;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
 
@@ -51,18 +52,20 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Bind(R.id.layout_user_detail)
     LinearLayout mLayoutUserDetail;
 
+    @Bind(R.id.tv_feedback_detail_enterprisename)
+    TextView mEnterprisenameTv;
+
     private String feedbackId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        feedbackId = "ff80818153552bcc01535533405c0001";
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        FeedbackDetail feedbackDetail = (FeedbackDetail) bundle.getSerializable("feedbackdetails");
-        Log.d("nghicv", feedbackDetail.toString());
-        getPresenter().getFeedbackDetail(feedbackId);
+        FeedbackBrief feedbackDetail = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
+
+        getPresenter().getFeedbackDetail(feedbackDetail.getId());
     }
 
     @Override
@@ -80,6 +83,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         mUsernameTv.setText(feedbackDetail.getUserInfo().getUsername());
 
         mUserContentTv.setText(feedbackDetail.getContent());
+        mEnterprisenameTv.setText(feedbackDetail.getUserInfo().getCompanyName());
 
         mAppVerTv.setText(feedbackDetail.getAppVersion());
         mOsTypeTv.setText(feedbackDetail.getOsType());
@@ -91,7 +95,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         Date now = new Date(utilDate.getTime());
 
         SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         String userDateDay = formatDay.format(date);
         String userDateTime = formatTime.format(date);
 

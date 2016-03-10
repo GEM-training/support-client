@@ -1,5 +1,6 @@
 package gem.com.support_client.network.dto;
 
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 
 /**
@@ -7,21 +8,21 @@ import gem.com.support_client.network.model.FeedbackDetail;
  */
 
 public class ListFeedBackDTO {
-    FeedbackDetail[] content;
+    FeedbackBrief[] content;
     int totalElements;
     int totalPages;
     boolean last;
     int size;
     int number;
-    Sort[] sort;
+    Sort sort;
     int numberOfElements;
     boolean first;
 
-    public Sort[] getSort() {
+    public Sort getSort() {
         return sort;
     }
 
-    public void setSort(Sort[] sort) {
+    public void setSort(Sort sort) {
         this.sort = sort;
     }
 
@@ -85,7 +86,7 @@ public class ListFeedBackDTO {
     public ListFeedBackDTO() {
     }
 
-    public ListFeedBackDTO(FeedbackDetail[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort[] sort, int numberOfElements, boolean first) {
+    public ListFeedBackDTO(FeedbackBrief[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort sort, int numberOfElements, boolean first) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
@@ -97,11 +98,11 @@ public class ListFeedBackDTO {
         this.first = first;
     }
 
-    public FeedbackDetail[] getContent() {
+    public FeedbackBrief[] getContent() {
         return content;
     }
 
-    public void setContent(FeedbackDetail[] content) {
+    public void setContent(FeedbackBrief[] content) {
         this.content = content;
     }
 
@@ -160,6 +161,4 @@ public class ListFeedBackDTO {
     public void setFirst(boolean first) {
         this.first = first;
     }
-
-
 }

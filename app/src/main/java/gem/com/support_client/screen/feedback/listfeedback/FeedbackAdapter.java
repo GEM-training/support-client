@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,16 +20,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 
 public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder> {
 
-    private List<FeedbackDetail> mData;
+    private List<FeedbackBrief> mData;
 
-    public FeedbackAdapter(List<FeedbackDetail> mData) {
+    public FeedbackAdapter(List<FeedbackBrief> mData) {
         this.mData = mData;
     }
 
@@ -71,21 +74,21 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
 
-        holder.tvName.setText("default name");
-        if(mData.get(position).getContent().length() < 20){
-            holder.tvSubContent.setText(mData.get(position).getContent());
+        holder.tvName.setText(mData.get(position).getUsername());
+        if(mData.get(position).getSubContent().length() < 50){
+            holder.tvSubContent.setText(mData.get(position).getSubContent());
         } else {
-            holder.tvSubContent.setText(mData.get(position).getContent().substring(0 , 20));
+            holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
 
-        holder.tvEnterprise.setText("Default Enterprise");
+        holder.tvEnterprise.setText(mData.get(position).getCompanyName());
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
         Date now = new Date(utilDate.getTime());
 
         SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         String userDateDay = formatDay.format(date);
         String userDateTime = formatTime.format(date);
 
@@ -108,11 +111,11 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return position;
     }
 
-    public void add(FeedbackDetail feedbackDetail ) {
+    public void add(FeedbackBrief feedbackDetail ) {
         insert(feedbackDetail , mData.size());
     }
 
-    public void insert(FeedbackDetail feedbackDetail, int position) {
+    public void insert(FeedbackBrief feedbackDetail, int position) {
         closeAllExcept(null);
 
         mData.add(position, feedbackDetail);
@@ -160,8 +163,8 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
 
     private static RecyclerViewClickListener mListener;
 
-    public static interface RecyclerViewClickListener{
-        public void onRecyclerViewClick(View v, int position);
+    public  interface RecyclerViewClickListener{
+         void onRecyclerViewClick(View v, int position);
     }
 
     public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){

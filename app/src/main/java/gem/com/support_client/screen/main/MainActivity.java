@@ -5,9 +5,14 @@ import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -21,6 +26,13 @@ import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandle;
+import nhom1.gem.com.exceptionplugin.common.util.DeviceUtils;
+import nhom1.gem.com.exceptionplugin.common.util.ExceptionUtils;
+import nhom1.gem.com.exceptionplugin.network.ServiceBuilder;
+import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by huylv on 22/02/2016.
@@ -50,10 +62,36 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         mAllCompaniesFragment = new AllCompaniesFragment();
         mListFeedbackFragment = new ListFeedbackFragment();
 
-        new ExceptionHandle("0000" , this);
+        new ExceptionHandle(this);
+
+
+/*
+        FeedbackDTO feedbackDTO = new FeedbackDTO();
+
+        initFeedBackDTO(feedbackDTO , new NullPointerException());
+
+        Log.d("phuongtd", new Gson().toJson(feedbackDTO));
+
+        ServiceBuilder.getService().send(feedbackDTO).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccess()){
+
+                } else {
+                    Log.d("phuongtd" , "Status: " + response.code() +" "+ response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("phuongtd" , "Fail");
+                t.printStackTrace();
+            }
+        });*/
 
 
     }
+
 
     @Override
     protected int getLayoutId() {
