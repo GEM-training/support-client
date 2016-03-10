@@ -175,6 +175,9 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 } else{
                     imgHintSearch.setVisibility(View.VISIBLE);
                 }
+                final List<FeedbackBrief> filteredModelList = filter(mData, s.toString());
+                mAdapter.animateTo(filteredModelList);
+
             }
 
             @Override
@@ -215,5 +218,18 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
         mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
+    }
+
+    private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
+        query = query.toLowerCase();
+
+        final List<FeedbackBrief> filteredModelList = new ArrayList<>();
+        for (FeedbackBrief model : models) {
+            final String text = model.getUsername().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 }
