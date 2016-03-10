@@ -168,4 +168,6 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){
         mListener = recyclerViewClickListener;
     }
+
+    
 }

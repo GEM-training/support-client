@@ -137,7 +137,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
                 Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("feedbackdetails", mData.get(position));
+                bundle.putSerializable("feedbackdetail", mData.get(position));
                 intent.putExtras(bundle);
                 getActivity().startActivity(intent);
             }
