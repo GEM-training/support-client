@@ -14,15 +14,15 @@ public class ListFeedBackDTO {
     boolean last;
     int size;
     int number;
-    Sort[] sort;
+    Sort sort;
     int numberOfElements;
     boolean first;
 
-    public Sort[] getSort() {
+    public Sort getSort() {
         return sort;
     }
 
-    public void setSort(Sort[] sort) {
+    public void setSort(Sort sort) {
         this.sort = sort;
     }
 
@@ -86,7 +86,7 @@ public class ListFeedBackDTO {
     public ListFeedBackDTO() {
     }
 
-    public ListFeedBackDTO(FeedbackBrief[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort[] sort, int numberOfElements, boolean first) {
+    public ListFeedBackDTO(FeedbackBrief[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort sort, int numberOfElements, boolean first) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;

@@ -63,9 +63,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     private int page = 0;
 
-    private int pageSize = 7;
-
-    private String sort = "time";
+    private int pageSize = 10;
 
     public static boolean isEmpty = false;
 
@@ -147,20 +145,20 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
-        getPresenter().doLoadListFeedback(page, pageSize, sort);
+        getPresenter().doLoadListFeedback(page, pageSize);
 
-        mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+        /*mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                 if (!isEmpty) {
                     mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
-                    getPresenter().doLoadListFeedback(page, pageSize, sort);
+                    getPresenter().doLoadListFeedback(page, pageSize);
                 } else {
 
                     mRecyclerFeedback.hideMoreProgress();
                 }
             }
-        }, 1);
+        }, 1);*/
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -204,7 +202,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Override
     public void onRefresh() {
         mData.clear();
-        getPresenter().doLoadListFeedback(0, pageSize, sort);
+        getPresenter().doLoadListFeedback(0, pageSize);
     }
 
     @Override

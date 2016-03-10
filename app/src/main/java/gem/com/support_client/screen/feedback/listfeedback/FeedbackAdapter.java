@@ -81,7 +81,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
 
-        holder.tvEnterprise.setText(mData.get(position).getUsername());
+        holder.tvEnterprise.setText(mData.get(position).getCompanyName());
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
