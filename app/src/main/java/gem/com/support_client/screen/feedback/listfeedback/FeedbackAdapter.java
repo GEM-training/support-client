@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
 import gem.com.support_client.network.model.FeedbackBrief;

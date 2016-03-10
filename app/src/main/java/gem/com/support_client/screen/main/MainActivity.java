@@ -62,7 +62,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         mAllCompaniesFragment = new AllCompaniesFragment();
         mListFeedbackFragment = new ListFeedbackFragment();
 
-        new ExceptionHandle("c41121ed-b6fb-c9a6-bc9b-574c82929e7e" , this);
+        new ExceptionHandle(this);
 
         //throw new NullPointerException();
 /*
@@ -92,18 +92,6 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
     }
 
-    private void initFeedBackDTO(FeedbackDTO dto , Throwable ex){
-        dto.setAppVersion(DeviceUtils.getAppVersion(this));
-        dto.setBrand(DeviceUtils.getBrand());
-        dto.setContent("Demo content");
-        dto.setDeviceId(DeviceUtils.getDeviceId(this));
-        dto.setModel(DeviceUtils.getDeviceName());
-        dto.setOsType(DeviceUtils.getOSVersion());
-        dto.setUserId("c41121ed-b6fb-c9a6-bc9b-574c82929e7e");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
-        dto.setTime(dateFormat.format(new java.sql.Date(new java.util.Date().getTime())));
-        dto.setStatus(0);
-    }
 
     @Override
     protected int getLayoutId() {

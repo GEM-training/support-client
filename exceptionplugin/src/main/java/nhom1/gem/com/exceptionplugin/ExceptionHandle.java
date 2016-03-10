@@ -25,9 +25,17 @@ import retrofit2.Response;
  */
 public class ExceptionHandle{
 
-    private String userId;
+    public static String userId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11";
 
     private Context context;
+
+    public static String  username = "default";
+
+    public static String  avatar="default";
+
+    public static String companyId = "default";
+
+    public static String companyName = "default";
 
     private Thread.UncaughtExceptionHandler defaultUEH;
 
@@ -44,8 +52,7 @@ public class ExceptionHandle{
                 }
             };
 
-    public ExceptionHandle(String userId , Context context) {
-        this.userId = userId;
+    public ExceptionHandle(Context context) {
 
         this.context = context;
 
@@ -84,10 +91,57 @@ public class ExceptionHandle{
         dto.setDeviceId(DeviceUtils.getDeviceId(context));
         dto.setModel(DeviceUtils.getDeviceName());
         dto.setOsType(DeviceUtils.getOSVersion());
-        dto.setUserId(userId);
+        dto.setUserInfo(new FeedbackDTO.UserInfo( userId, username, avatar, companyId, companyName));
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
         dto.setTime(dateFormat.format(new Timestamp(new java.util.Date().getTime())));
         dto.setStatus(0);
     }
 
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(String userId) {
+        ExceptionHandle.userId = userId;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public static String getUsername() {
+        return username;
+    }
+
+    public static void setUsername(String username) {
+        ExceptionHandle.username = username;
+    }
+
+    public static String getAvatar() {
+        return avatar;
+    }
+
+    public static void setAvatar(String avatar) {
+        ExceptionHandle.avatar = avatar;
+    }
+
+    public static String getCompanyId() {
+        return companyId;
+    }
+
+    public static void setCompanyId(String companyId) {
+        ExceptionHandle.companyId = companyId;
+    }
+
+    public static String getCompanyName() {
+        return companyName;
+    }
+
+    public static void setCompanyName(String companyName) {
+        ExceptionHandle.companyName = companyName;
+    }
 }

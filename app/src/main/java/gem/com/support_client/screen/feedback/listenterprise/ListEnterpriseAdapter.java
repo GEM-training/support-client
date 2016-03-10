@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import gem.com.support_client.R;
 import gem.com.support_client.network.model.Enterprise;
@@ -17,6 +19,8 @@ import gem.com.support_client.network.model.Enterprise;
  */
 public class ListEnterpriseAdapter extends BaseAdapter {
 
+    public static List<Enterprise> enterprises = new ArrayList<>();
+
     Context context;
 
     List<Enterprise> enterpriseList;
@@ -24,6 +28,7 @@ public class ListEnterpriseAdapter extends BaseAdapter {
     public ListEnterpriseAdapter(Context context , List<Enterprise> list){
         this.context = context;
         this.enterpriseList = list;
+        this.enterprises.addAll(list);
     }
 
     @Override
@@ -55,5 +60,24 @@ public class ListEnterpriseAdapter extends BaseAdapter {
         tvNumOfTicket.setText(enterprise.getNumOfTicket()+"");
 
         return convertView;
+    }
+
+    void filter(String charText){
+        charText = charText.toLowerCase(Locale.getDefault());
+        enterpriseList.clear();
+        if (charText.length() == 0) {
+            enterpriseList.addAll(enterprises);
+        }
+        else
+        {
+            for (Enterprise e : enterprises)
+            {
+                if (e.getCompanyName().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    enterpriseList.add(e);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }
