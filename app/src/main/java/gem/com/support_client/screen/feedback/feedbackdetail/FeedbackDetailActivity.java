@@ -51,6 +51,9 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Bind(R.id.layout_user_detail)
     LinearLayout mLayoutUserDetail;
 
+    @Bind(R.id.tv_feedback_detail_enterprisename)
+    TextView mEnterprisenameTv;
+
     private String feedbackId;
 
     @Override
@@ -79,6 +82,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         mUsernameTv.setText(feedbackDetail.getUserInfo().getUsername());
 
         mUserContentTv.setText(feedbackDetail.getContent());
+        mEnterprisenameTv.setText(feedbackDetail.getUserInfo().getCompany());
 
         mAppVerTv.setText(feedbackDetail.getAppVersion());
         mOsTypeTv.setText(feedbackDetail.getOsType());

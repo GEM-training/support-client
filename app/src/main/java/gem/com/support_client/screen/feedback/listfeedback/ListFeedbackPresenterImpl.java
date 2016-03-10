@@ -12,6 +12,7 @@ import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.dto.ListFeedBackDTO;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import nhom1.gem.com.exceptionplugin.common.Constant;
 import retrofit2.Call;
@@ -37,10 +38,10 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                     if(response.body().getContent().length == 0){
                         ListFeedbackFragment.isEmpty = true;
                     }
-                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
+                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body().getContent())));
 
                 } else {
-                    DialogUtils.showErrorAlert(mView.getContextBase() , response.code() +" "+ response.message());
+                    DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
                 }
             }
 
