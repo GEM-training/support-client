@@ -10,11 +10,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -45,6 +49,12 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     @Bind(R.id.all_feedback_pb)
     ProgressBar mProgressBar;
+
+    @Bind(R.id.et_search)
+    EditText edtSearch;
+
+    @Bind(R.id.hint_search)
+    ImageView imgHintSearch;
 
     FeedbackAdapter mAdapter;
 
@@ -138,24 +148,10 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         getPresenter().doLoadListFeedback(page, pageSize, sort);
 
-        mRecyclerFeedback.addOnItemTouchListener(new RecyclerUtils.RecyclerItemClickListener(getActivity(), new RecyclerUtils.RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                FeedbackDetail detail = mData.get(position);
-
-                Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
-                intent.putExtra("feedbackId", detail.getId());
-
-                startActivity(intent);
-
-            }
-        }));
-
-
         mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
-                if(!isEmpty) {
+                if (!isEmpty) {
                     mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
                     getPresenter().doLoadListFeedback(page, pageSize, sort);
                 } else {
@@ -163,7 +159,27 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                     mRecyclerFeedback.hideMoreProgress();
                 }
             }
-        } , 1);
+        }, 1);
+
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().compareTo("")!=0) {
+                    imgHintSearch.setVisibility(View.GONE);
+                } else{
+                    imgHintSearch.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
 
         return view;
     }
@@ -173,20 +189,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         super.onViewCreated(view, savedInstanceState);
 
     }
-
-    RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-            Log.e("ListView", "onScrollStateChanged");
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            // Could hide open views here if you wanted. //
-        }
-    };
 
     @Override
     protected int getLayoutId() {
@@ -201,7 +203,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Override
     public void onRefresh() {
         mData.clear();
-        getPresenter().doLoadListFeedback(0 , pageSize , sort);
+        getPresenter().doLoadListFeedback(0, pageSize, sort);
     }
 
     @Override

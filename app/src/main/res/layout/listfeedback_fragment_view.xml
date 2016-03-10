@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
+    <LinearLayout
+        android:id="@+id/layout_search"
+        android:background="#e1e1e1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_search_layout"
+        android:gravity="center_horizontal"
+        android:layout_weight="0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_search"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/search_margin_left"
+            android:layout_marginRight="@dimen/search_margin_left">
+
+            <EditText
+                android:background="@drawable/bg_search"
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:lines="1"></EditText>
+
+            <ImageView
+                android:id="@+id/hint_search"
+                android:src="@drawable/search_hint"
+                android:layout_width="@dimen/width_search_hint"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
     <com.malinskiy.superrecyclerview.SuperRecyclerView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/list"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_empty="@layout/emptyview"
         app:layout_moreProgress="@layout/view_more_progress"
         app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
@@ -18,6 +51,7 @@
         android:id="@+id/all_feedback_pb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
-</FrameLayout>
+</LinearLayout>
