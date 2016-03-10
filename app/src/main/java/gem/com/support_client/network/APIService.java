@@ -6,6 +6,7 @@ import gem.com.support_client.network.dto.ListFeedBackDTO;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.network.model.CustomDate;
 import gem.com.support_client.network.model.Enterprise;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.network.model.PageableResponse;
 import retrofit2.Call;
@@ -40,7 +41,7 @@ public interface APIService {
     Call<FeedbackDetail> getDetail(@Path("id") String id);
 
     @GET("/feedback")
-    Call<ListFeedBackDTO> getListFeedback(@Query("page") int page , @Query("size") int size , @Query("sort") String sort);
+    Call<FeedbackBrief[]> getListFeedback(@Query("page") int page , @Query("size") int size);
 
     @GET("/billing/invoice")
     Call<PageableResponse<Bill>> getAllBillsByCompanyId(

@@ -25,7 +25,7 @@ import retrofit2.Response;
  */
 public class ExceptionHandle{
 
-    public static String userId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11";
+    public static String userId = "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12";
 
     private Context context;
 
@@ -33,9 +33,9 @@ public class ExceptionHandle{
 
     public static String  avatar="default";
 
-    public static String companyId = "default";
+    public static String companyId = "default2";
 
-    public static String companyName = "default";
+    public static String companyName = "default2";
 
     private Thread.UncaughtExceptionHandler defaultUEH;
 

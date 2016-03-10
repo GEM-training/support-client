@@ -9,18 +9,11 @@ public class FeedbackBrief implements Serializable{
     private String id;
     private String userId;
     private String username;
-    private String company;
+    private String companyName;
+    private String companyId;
     private String subContent;
+    private String avatar;
     private String time;
-
-    public FeedbackBrief(String id, String userId, String username, String company, String subContent, String time) {
-        this.id = id;
-        this.userId = userId;
-        this.username = username;
-        this.company = company;
-        this.subContent = subContent;
-        this.time = time;
-    }
 
     public FeedbackBrief() {
     }
@@ -49,12 +42,20 @@ public class FeedbackBrief implements Serializable{
         this.username = username;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
     }
 
     public String getSubContent() {
@@ -63,6 +64,14 @@ public class FeedbackBrief implements Serializable{
 
     public void setSubContent(String subContent) {
         this.subContent = subContent;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getTime() {

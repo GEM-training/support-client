@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         new ExceptionHandle(this);
 
-        //throw new NullPointerException();
+
 /*
         FeedbackDTO feedbackDTO = new FeedbackDTO();
 
