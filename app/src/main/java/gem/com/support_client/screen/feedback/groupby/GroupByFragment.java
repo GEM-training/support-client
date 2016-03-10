@@ -17,7 +17,6 @@ import gem.com.support_client.R;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.listenterprise.ListEnterpriseFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
-import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
 
 /**
  * Created by phuongtd on 08/03/2016.
@@ -57,8 +56,7 @@ public class GroupByFragment extends Fragment {
         ListFeedbackFragment.isShowGroupBy = false;
         ListFeedbackFragment.isCheckAll = true;
         getActivity().getFragmentManager().beginTransaction().remove(this).commit();
-       // getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new ListFeedbackFragment()).commit();
-
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new ListFeedbackFragment()).commit();
         getActivity().startActivity(new Intent(getActivity() , FeedbackDetailActivity.class));
     }
 

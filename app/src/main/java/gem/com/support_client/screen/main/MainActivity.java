@@ -41,8 +41,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         super.onCreate(savedInstanceState);
         EventLogger.info("Create MainActivity");
 
-        //getFragmentManager().beginTransaction().replace(R.id.main_fl,welcomeFragment).addToBackStack(null).commit();
-        //if(getSupportActionBar()!=null) getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        getFragmentManager().beginTransaction().replace(R.id.main_fl,welcomeFragment).addToBackStack(null).commit();
+        if(getSupportActionBar()!=null) getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //setUserName(Session.getCurrentUser().getUsername());
         //setFullName(getString(R.string.username_sample));

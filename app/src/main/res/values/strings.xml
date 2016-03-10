@@ -155,4 +155,7 @@
 
     <string name="home">home</string>
     <string name="work">work</string>
+    <string name="billing">Billing</string>
+    <string name="filter_all">All ▼</string>
+    <string name="income">Income</string>
 </resources>
