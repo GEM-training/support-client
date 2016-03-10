@@ -2,6 +2,7 @@ package gem.com.support_client.screen.feedback.feedbackdetail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,7 +58,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         super.onCreate(savedInstanceState);
 
         feedbackId = "ff80818153552bcc01535533405c0001";
-
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        FeedbackDetail feedbackDetail = (FeedbackDetail) bundle.getSerializable("feedbackdetails");
+        Log.d("nghicv", feedbackDetail.toString());
         getPresenter().getFeedbackDetail(feedbackId);
     }
 
