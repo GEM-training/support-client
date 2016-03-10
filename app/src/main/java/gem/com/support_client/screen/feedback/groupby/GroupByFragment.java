@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,15 +37,20 @@ public class GroupByFragment extends Fragment {
     @Bind(R.id.group_by_enterprise_selected)
     ImageView mGroupByEnterpriseSelectedImg;
 
+    TextView mGroupByTv;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.layout_group_by,container,false);
         ButterKnife.bind(this , view);
 
+        mGroupByTv = (TextView)  getActivity().findViewById(R.id.tv_fillter);
+
         if(ListFeedbackFragment.isCheckAll){
             mGroupByAllSelectedImg.setVisibility(View.VISIBLE);
             mGroupByEnterpriseSelectedImg.setVisibility(View.GONE);
+
         } else {
             mGroupByAllSelectedImg.setVisibility(View.GONE);
             mGroupByEnterpriseSelectedImg.setVisibility(View.VISIBLE);
@@ -56,6 +62,7 @@ public class GroupByFragment extends Fragment {
     public void clickAll(){
         ListFeedbackFragment.isShowGroupBy = false;
         ListFeedbackFragment.isCheckAll = true;
+        mGroupByTv.setText(getActivity().getResources().getText(R.string.group_by_all));
         getActivity().getFragmentManager().beginTransaction().remove(this).commit();
         getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new ListFeedbackFragment()).commit();
 
@@ -65,6 +72,7 @@ public class GroupByFragment extends Fragment {
     public void clickEnterprise(){
         ListFeedbackFragment.isShowGroupBy = false;
         ListFeedbackFragment.isCheckAll = false;
+        mGroupByTv.setText(getActivity().getResources().getText(R.string.group_by_enterprise));
         getActivity().getFragmentManager().beginTransaction().remove(this).commit();
         getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl , new ListEnterpriseFragment()).commit();
 

@@ -36,9 +36,9 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                 if(response.isSuccess()){
                     if(response.body().getContent().length == 0){
                         ListFeedbackFragment.isEmpty = true;
-                    } else {
-                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
                     }
+                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
+
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() , response.code() +" "+ response.message());
                 }

@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -41,13 +43,16 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Bind(R.id.list)
     SuperRecyclerView mRecyclerFeedback;
 
+    @Bind(R.id.all_feedback_pb)
+    ProgressBar mProgressBar;
+
     FeedbackAdapter mAdapter;
 
     private Handler mHandler;
 
     private int page = 0;
 
-    private int pageSize = 15;
+    private int pageSize = 7;
 
     private String sort = "time";
 
@@ -71,7 +76,13 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  super.onCreateView(inflater, container, savedInstanceState);
 
+        showProgress(mProgressBar, mRecyclerFeedback);
+
         mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+
+        mToolbar.removeAllViews();
+
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_18dp);
 
         mToolbarLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tool_bar_view, null);
 
@@ -109,12 +120,23 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         mAdapter = new FeedbackAdapter(mData);
         mAdapter.setMode(SwipeItemManagerInterface.Mode.Single);
+        mAdapter.setOnRecyclerViewClickListener(new FeedbackAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onRecyclerViewClick(View v, int position) {
+
+                Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("feedbackdetails", mData.get(position));
+                intent.putExtras(bundle);
+                getActivity().startActivity(intent);
+            }
+        });
         mRecyclerFeedback.setAdapter(mAdapter);
         mRecyclerFeedback.setRefreshListener(this);
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
-        getPresenter().doLoadListFeedback(page , pageSize , sort);
+        getPresenter().doLoadListFeedback(page, pageSize, sort);
 
         mRecyclerFeedback.addOnItemTouchListener(new RecyclerUtils.RecyclerItemClickListener(getActivity(), new RecyclerUtils.RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -129,7 +151,20 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             }
         }));
 
-        
+
+        mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+            @Override
+            public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
+                if(!isEmpty) {
+                    mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
+                    getPresenter().doLoadListFeedback(page, pageSize, sort);
+                } else {
+
+                    mRecyclerFeedback.hideMoreProgress();
+                }
+            }
+        } , 1);
+
         return view;
     }
 
@@ -165,17 +200,17 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     @Override
     public void onRefresh() {
-        /*mHandler.postDelayed(new Runnable() {
-            public void run() {
-                mAdapter.insert("New stuff", 0);
-            }
-        }, 1000);*/
+        mData.clear();
+        getPresenter().doLoadListFeedback(0 , pageSize , sort);
     }
 
     @Override
     public void onLoadListFeedbackSuccess(List<FeedbackDetail> data) {
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+
         page++;
+        hideProgress(mProgressBar, mRecyclerFeedback);
+        mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
     }
 }
