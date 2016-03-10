@@ -2,6 +2,7 @@ package gem.com.support_client.screen.feedback.listfeedback;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
 import gem.com.support_client.network.model.FeedbackDetail;
+import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 
 public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder> {
 
@@ -136,7 +138,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         Button btnDelete;
         Button btnUndo;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
             imgUser = (CircleImageView) itemView.findViewById(R.id.avt_user);
@@ -149,7 +151,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //startActivity();
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), FeedbackDetailActivity.class));
 
                 }
             });
