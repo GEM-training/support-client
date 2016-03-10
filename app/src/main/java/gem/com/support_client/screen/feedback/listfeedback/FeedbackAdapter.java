@@ -128,7 +128,6 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         notifyItemRemoved(position);
     }
 
-
     public static class ViewHolder extends BaseSwipeAdapter.BaseSwipeableViewHolder {
         CircleImageView imgUser;
         TextView tvName;
@@ -151,10 +150,21 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), FeedbackDetailActivity.class));
-
+                    if(mListener!=null){
+                        mListener.onRecyclerViewClick(view, getPosition());
+                    }
                 }
             });
         }
+    }
+
+    private static RecyclerViewClickListener mListener;
+
+    public static interface RecyclerViewClickListener{
+        public void onRecyclerViewClick(View v, int position);
+    }
+
+    public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){
+        mListener = recyclerViewClickListener;
     }
 }
