@@ -33,6 +33,7 @@ import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.common.util.DividerItemDecoration;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;
@@ -80,7 +81,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     public static  boolean isCheckAll = true;
 
-    private List<FeedbackDetail> mData = new ArrayList<>();
+    private List<FeedbackBrief> mData = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -207,7 +208,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     }
 
     @Override
-    public void onLoadListFeedbackSuccess(List<FeedbackDetail> data) {
+    public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
 

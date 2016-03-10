@@ -83,6 +83,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_feedback_detail_enterprisename"
                         android:textSize="17sp"
                         android:layout_marginLeft="@dimen/tv_name_margin_left"
                         android:text="GEM Vietnam"
