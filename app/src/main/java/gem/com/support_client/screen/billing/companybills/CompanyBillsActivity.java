@@ -20,6 +20,7 @@ import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
+import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
 /**
  * Created by quanda on 07/03/2016.
@@ -39,6 +40,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     private LinearLayoutManager mLayoutManager;
     private static int mCurrentPage;
     private String mCompanyId;
+    private LineChartFragment lineChartFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,6 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Company");
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-
     }
 
     @Override
@@ -99,6 +100,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         EventLogger.info("Get all bills successful, current size:" + mBills.size());
         mAdapter.notifyDataSetChanged();
         hideProgress(companyBillsPb, companyBillsRv);
+
+        lineChartFragment = new LineChartFragment();
+        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
     }
 
     @Override
@@ -108,6 +112,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         EventLogger.info("Load more bills successful, current size:" + mBills.size());
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
+        //getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
     }
 
     @Override
