@@ -148,13 +148,13 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             btnDelete = (Button) itemView.findViewById(R.id.btn_delete);
             btnUndo = (Button) itemView.findViewById(R.id.btn_undo);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+           /* itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), FeedbackDetailActivity.class));
+                    //itemView.getContext().startActivity(new Intent(itemView.getContext(), FeedbackDetailActivity.class));
 
                 }
-            });
+            });*/
         }
     }
 }

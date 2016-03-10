@@ -29,12 +29,16 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     }
 
     @Override
-    public void doLoadListFeedback() {
-        ServiceBuilder.getService().getListFeedback(0 , 20).enqueue(new Callback<ListFeedBackDTO>() {
+    public void doLoadListFeedback(int page , int size , String sort) {
+        ServiceBuilder.getService().getListFeedback(page , size , sort).enqueue(new Callback<ListFeedBackDTO>() {
             @Override
             public void onResponse(Call<ListFeedBackDTO> call, Response<ListFeedBackDTO> response) {
                 if(response.isSuccess()){
-                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
+                    if(response.body().getContent().length == 0){
+                        ListFeedbackFragment.isEmpty = true;
+                    } else {
+                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackDetail>(Arrays.asList(response.body().getContent())));
+                    }
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() , response.code() +" "+ response.message());
                 }

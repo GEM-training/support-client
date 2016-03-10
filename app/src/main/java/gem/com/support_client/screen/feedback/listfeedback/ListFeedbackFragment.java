@@ -2,6 +2,7 @@ package gem.com.support_client.screen.feedback.listfeedback;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 import com.malinskiy.superrecyclerview.swipe.SwipeItemManagerInterface;
 
@@ -26,6 +28,7 @@ import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.common.util.DividerItemDecoration;
 import gem.com.support_client.network.model.FeedbackDetail;
+import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;
 
 
@@ -42,6 +45,13 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     private Handler mHandler;
 
+    private int page = 0;
+
+    private int pageSize = 15;
+
+    private String sort = "time";
+
+    public static boolean isEmpty = false;
 
     LinearLayout mToolbarLayout;
 
@@ -104,9 +114,22 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
-        getPresenter().doLoadListFeedback();
+        getPresenter().doLoadListFeedback(page , pageSize , sort);
 
+        mRecyclerFeedback.addOnItemTouchListener(new RecyclerUtils.RecyclerItemClickListener(getActivity(), new RecyclerUtils.RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                FeedbackDetail detail = mData.get(position);
 
+                Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
+                intent.putExtra("feedbackId", detail.getId());
+
+                startActivity(intent);
+
+            }
+        }));
+
+        
         return view;
     }
 
@@ -153,5 +176,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     public void onLoadListFeedbackSuccess(List<FeedbackDetail> data) {
         mData.addAll(data);
         mAdapter.notifyDataSetChanged();
+        page++;
     }
 }

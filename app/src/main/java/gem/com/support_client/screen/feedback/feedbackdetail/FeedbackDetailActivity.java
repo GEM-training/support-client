@@ -56,7 +56,9 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        feedbackId = "ff80818153552bcc01535533405c0001";
+        Bundle bundle = getIntent().getExtras();
+
+        feedbackId = bundle.getString("feedbackId");
 
         getPresenter().getFeedbackDetail(feedbackId);
     }

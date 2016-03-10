@@ -40,7 +40,7 @@ public interface APIService {
     Call<FeedbackDetail> getDetail(@Path("id") String id);
 
     @GET("/feedback")
-    Call<ListFeedBackDTO> getListFeedback(@Query("page") int page , @Query("size") int size);
+    Call<ListFeedBackDTO> getListFeedback(@Query("page") int page , @Query("size") int size , @Query("sort") String sort);
 
     @GET("/billing/invoice")
     Call<PageableResponse<Bill>> getAllBillsByCompanyId(

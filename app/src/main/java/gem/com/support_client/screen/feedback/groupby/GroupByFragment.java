@@ -57,9 +57,8 @@ public class GroupByFragment extends Fragment {
         ListFeedbackFragment.isShowGroupBy = false;
         ListFeedbackFragment.isCheckAll = true;
         getActivity().getFragmentManager().beginTransaction().remove(this).commit();
-       // getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new ListFeedbackFragment()).commit();
+        getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new ListFeedbackFragment()).commit();
 
-        getActivity().startActivity(new Intent(getActivity() , FeedbackDetailActivity.class));
     }
 
     @OnClick(R.id.group_by_enterprise)
