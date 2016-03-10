@@ -12,19 +12,22 @@ public class UserInfo implements Serializable {
     private String  email;
     private String  phone;
     private String  address;
-    private String company;
+    private String companyId;
+    private String companyName;
 
     public UserInfo() {
     }
 
-    public UserInfo(String userId, String username, String avatar, String email, String phone, String address, String company) {
+
+    public UserInfo(String userId, String username, String avatar, String email, String phone, String address, String companyId, String companyName) {
         this.userId = userId;
         this.username = username;
         this.avatar = avatar;
         this.email = email;
         this.phone = phone;
         this.address = address;
-        this.company = company;
+        this.companyId = companyId;
+        this.companyName = companyName;
     }
 
     public String getUserId() {
@@ -75,11 +78,19 @@ public class UserInfo implements Serializable {
         this.address = address;
     }
 
-    public String getCompany() {
-        return company;
+    public String getCompanyId() {
+        return companyId;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

@@ -74,6 +74,7 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     @Override
     public void onLoadListEnterpriseSuccess(List<Enterprise> enterprises) {
         enterpriseList.addAll(enterprises);
+        ListEnterpriseAdapter.enterprises.addAll(enterprises);
         listEnterpriseAdapter.notifyDataSetChanged();
     }
 }

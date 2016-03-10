@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivity;
+import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
 
@@ -62,7 +63,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        FeedbackDetail feedbackDetail = (FeedbackDetail) bundle.getSerializable("feedbackdetails");
+        FeedbackBrief feedbackDetail = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
 
         getPresenter().getFeedbackDetail(feedbackDetail.getId());
     }
@@ -82,7 +83,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         mUsernameTv.setText(feedbackDetail.getUserInfo().getUsername());
 
         mUserContentTv.setText(feedbackDetail.getContent());
-        mEnterprisenameTv.setText(feedbackDetail.getUserInfo().getCompany());
+        mEnterprisenameTv.setText(feedbackDetail.getUserInfo().getCompanyName());
 
         mAppVerTv.setText(feedbackDetail.getAppVersion());
         mOsTypeTv.setText(feedbackDetail.getOsType());
@@ -94,7 +95,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         Date now = new Date(utilDate.getTime());
 
         SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         String userDateDay = formatDay.format(date);
         String userDateTime = formatTime.format(date);
 

@@ -70,8 +70,8 @@ public class ListEnterpriseAdapter extends BaseAdapter {
         }
         else
         {
-            for (Enterprise e : enterprises)
-            {
+            for(int i= 0 ; i < enterprises.size() ; i++){
+                Enterprise e = enterprises.get(i);
                 if (e.getCompanyName().toLowerCase(Locale.getDefault()).contains(charText))
                 {
                     enterpriseList.add(e);
