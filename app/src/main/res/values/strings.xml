@@ -92,6 +92,11 @@
     <string name="navigation_customer">Customer</string>
     <string name="default_picture">Default picture</string>
 
+    <!--string related to graph-->
+
+    <string name="graph_user">Users</string>
+    <string name="graph_amount">Amount</string>
+
     <!-- navigation drawer-->
     <string name="nav_home">Home</string>
     <string name="nav_billing_support">Billing Support</string>

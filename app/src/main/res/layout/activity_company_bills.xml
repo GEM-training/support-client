@@ -78,7 +78,7 @@
             <FrameLayout
                 android:id="@+id/company_bills_chart"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/line_chart_height"></FrameLayout>
+                android:layout_height="wrap_content"></FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
