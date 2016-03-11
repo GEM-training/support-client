@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
@@ -78,14 +79,14 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
 
-        holder.tvName.setText(mData.get(position).getUsername());
+        holder.tvName.setText(StringUtils.convertName2Standard(mData.get(position).getUsername()));
         if(mData.get(position).getSubContent().length() < 50){
             holder.tvSubContent.setText(mData.get(position).getSubContent());
         } else {
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
 
-        holder.tvEnterprise.setText(mData.get(position).getCompanyName());
+        holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();

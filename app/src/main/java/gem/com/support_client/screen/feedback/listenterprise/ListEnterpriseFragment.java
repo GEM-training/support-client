@@ -16,6 +16,7 @@ import java.util.Locale;
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.model.Enterprise;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 
@@ -65,9 +66,10 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
         mEnterpriseLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("companyId" , enterpriseList.get(position).getUuid());
+                bundle.putString(Constants.COMPANY_ID, enterpriseList.get(position).getUuid());
+
+                ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
                 feedbackFragment.setArguments(bundle);
 
                 getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl  , feedbackFragment).commit();
@@ -89,7 +91,7 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     @Override
     public void onLoadListEnterpriseSuccess(List<Enterprise> enterprises) {
         enterpriseList.addAll(enterprises);
-        ListEnterpriseAdapter.enterprises.addAll(enterprises);
+        listEnterpriseAdapter.addAll(enterprises);
         listEnterpriseAdapter.notifyDataSetChanged();
     }
 }

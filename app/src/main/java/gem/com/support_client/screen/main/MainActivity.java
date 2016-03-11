@@ -1,5 +1,6 @@
 package gem.com.support_client.screen.main;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
     private ArrayList<Bill> bills;
     private CompanyBillAdapter adapter;
 
+    public static MainActivity thiz;
+
     @Bind(R.id.nav_view)
     NavigationView navigationView;
 
@@ -60,7 +63,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         //setFullName(getString(R.string.username_sample));
 
         mAllCompaniesFragment = new AllCompaniesFragment();
-        mListFeedbackFragment = new ListFeedbackFragment();
+        mListFeedbackFragment = new ListFeedbackFragment(true);
 
         new ExceptionHandle(this);
 
@@ -88,6 +91,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
                 t.printStackTrace();
             }
         });*/
+
+        thiz = this;
 
 
     }
@@ -152,5 +157,6 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 }
