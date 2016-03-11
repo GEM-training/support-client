@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
@@ -32,7 +33,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     private List<FeedbackBrief> mData;
 
     public FeedbackAdapter(List<FeedbackBrief> mData) {
-        this.mData = mData;
+        this.mData = new ArrayList<>(mData);
     }
 
     @Override
@@ -70,18 +71,22 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return viewHolder;
     }
 
+    public void setData(List<FeedbackBrief> data){
+        mData = new ArrayList<>(data);
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
 
-        holder.tvName.setText(mData.get(position).getUsername());
+        holder.tvName.setText(StringUtils.convertName2Standard(mData.get(position).getUsername()));
         if(mData.get(position).getSubContent().length() < 50){
             holder.tvSubContent.setText(mData.get(position).getSubContent());
         } else {
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
 
-        holder.tvEnterprise.setText(mData.get(position).getCompanyName());
+        holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
@@ -170,4 +175,57 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){
         mListener = recyclerViewClickListener;
     }
+
+    public void animateTo(List<FeedbackBrief> models) {
+        applyAndAnimateRemovals(models);
+        applyAndAnimateAdditions(models);
+        applyAndAnimateMovedItems(models);
+    }
+
+    private void applyAndAnimateRemovals(List<FeedbackBrief> newModels) {
+        for (int i = mData.size() - 1; i >= 0; i--) {
+            final FeedbackBrief model = mData.get(i);
+            if (!newModels.contains(model)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    private void applyAndAnimateAdditions(List<FeedbackBrief> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final FeedbackBrief model = newModels.get(i);
+            if (!mData.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<FeedbackBrief> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final FeedbackBrief model = newModels.get(toPosition);
+            final int fromPosition = mData.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public FeedbackBrief removeItem(int position) {
+        final FeedbackBrief model = mData.remove(position);
+        notifyItemRemoved(position);
+        return model;
+    }
+
+    public void addItem(int position, FeedbackBrief model) {
+        mData.add(position, model);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        final FeedbackBrief model = mData.remove(fromPosition);
+        mData.add(toPosition, model);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+    
 }

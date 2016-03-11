@@ -1,5 +1,6 @@
 package gem.com.support_client.screen.main;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -20,11 +21,14 @@ import gem.com.support_client.common.util.VarUtils;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
-import nhom1.gem.com.exceptionplugin.ExceptionHandle;
+import nhom1.gem.com.exceptionplugin.ExceptionHandlerUtil;
+import nhom1.gem.com.exceptionplugin.config.ReportCrash;
+import nhom1.gem.com.exceptionplugin.handler.ExceptionHandle;
 
 /**
  * Created by huylv on 22/02/2016.
  */
+@ReportCrash
 public class MainActivity extends BaseActivityDrawer<MainPresenter> implements MainView {
 
     private AllCompaniesFragment mAllCompaniesFragment;
@@ -32,6 +36,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
     private ArrayList<Bill> bills;
     private CompanyBillAdapter adapter;
+
+    public static MainActivity thiz;
 
     @Bind(R.id.nav_view)
     NavigationView navigationView;
@@ -52,33 +58,13 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         mAllCompaniesFragment = new AllCompaniesFragment();
         mListFeedbackFragment = new ListFeedbackFragment();
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mListFeedbackFragment = new ListFeedbackFragment(true);
 
-        new ExceptionHandle(this);
+        ExceptionHandlerUtil.init(this);
 
+        thiz = this;
 
-/*
-        FeedbackDTO feedbackDTO = new FeedbackDTO();
-
-        initFeedBackDTO(feedbackDTO , new NullPointerException());
-
-        Log.d("phuongtd", new Gson().toJson(feedbackDTO));
-
-        ServiceBuilder.getService().send(feedbackDTO).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccess()){
-
-                } else {
-                    Log.d("phuongtd" , "Status: " + response.code() +" "+ response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("phuongtd" , "Fail");
-                t.printStackTrace();
-            }
-        });*/
+      //  ExceptionHandlerUtil.sendFeedback("App hay qua :)");
 
 
     }
@@ -143,6 +129,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     public void openDrawer(){
         mDrawerLayout.openDrawer(navigationView);

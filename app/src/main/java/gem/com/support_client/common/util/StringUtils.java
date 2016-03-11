@@ -31,4 +31,19 @@ public class StringUtils {
         String date = DateFormat.format("yyyy-MM-dd", cal).toString();
         return date;
     }
+
+    public static String convertName2Standard(String name) {
+
+        if(name == null)
+            return "";
+
+        String[] tokens = name.split(" ");
+        for (int i = 0; i < tokens.length; i++)
+            tokens[i] = String.valueOf(tokens[i].charAt(0)).toUpperCase() + tokens[i].substring(1, tokens[i].length());
+
+        String convertedName = "";
+        for (String token : tokens)
+            convertedName += token + " ";
+        return convertedName.trim();
+    }
 }

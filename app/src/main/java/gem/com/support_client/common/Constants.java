@@ -25,5 +25,8 @@ public interface Constants {
     //time out when clicking back button
     int BACK_TIMEOUT = 2000;
 
+    public final  static String CONNECT_TO_SERVER_ERROR = "Connect to Server Error";
+
+    public static final String COMPANY_ID = "companyid";
     public final static String CONNECT_TO_SERVER_ERROR = "Connect to Server Error";
 }

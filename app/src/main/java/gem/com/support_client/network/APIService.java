@@ -31,6 +31,19 @@ public interface APIService {
             String sort
     );
 
+
+    @GET("/feedback/company")
+    Call<Enterprise[]> groupByEnterprise();
+
+    @GET("/feedback/{id}")
+    Call<FeedbackDetail> getDetail(@Path("id") String id);
+
+    @GET("/feedback")
+    Call<FeedbackBrief[]> getListFeedback(@Query("page") int page , @Query("size") int size);
+
+    @GET("/feedback/company/{companyId}")
+    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId , @Query("page") int page , @Query("size") int size  );
+
     @GET("/billing/invoice")
     Call<PageableResponse<Bill>> getAllBillsByCompanyId(
             @Query("companyId")

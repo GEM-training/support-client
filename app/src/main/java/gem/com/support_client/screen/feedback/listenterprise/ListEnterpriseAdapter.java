@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import gem.com.support_client.R;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Enterprise;
 
 /**
@@ -19,7 +20,7 @@ import gem.com.support_client.network.model.Enterprise;
  */
 public class ListEnterpriseAdapter extends BaseAdapter {
 
-    public static List<Enterprise> enterprises = new ArrayList<>();
+    private List<Enterprise> enterprises;
 
     Context context;
 
@@ -28,6 +29,7 @@ public class ListEnterpriseAdapter extends BaseAdapter {
     public ListEnterpriseAdapter(Context context , List<Enterprise> list){
         this.context = context;
         this.enterpriseList = list;
+        enterprises = new ArrayList<>();
         this.enterprises.addAll(list);
     }
 
@@ -56,7 +58,7 @@ public class ListEnterpriseAdapter extends BaseAdapter {
         TextView tvName = (TextView) convertView.findViewById(R.id.tv_enterprise_name);
         TextView tvNumOfTicket = (TextView) convertView.findViewById(R.id.tv_num_of_ticket);
 
-        tvName.setText(enterprise.getCompanyName());
+        tvName.setText(StringUtils.convertName2Standard(enterprise.getCompanyName()));
         tvNumOfTicket.setText(enterprise.getNumOfTicket()+"");
 
         return convertView;
@@ -79,5 +81,9 @@ public class ListEnterpriseAdapter extends BaseAdapter {
             }
         }
         notifyDataSetChanged();
+    }
+
+    public void addAll(List<Enterprise> enterprises){
+        this.enterprises.addAll(enterprises);
     }
 }

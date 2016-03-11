@@ -32,11 +32,14 @@ import java.util.List;
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DividerItemDecoration;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;
+import gem.com.support_client.screen.main.MainActivity;
+import nhom1.gem.com.exceptionplugin.common.Constant;
 
 
 /**
@@ -81,6 +84,18 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     private List<FeedbackBrief> mData = new ArrayList<>();
 
+    private String companyId = "";
+
+    private boolean isBegin = false;
+
+    public ListFeedbackFragment(){
+
+    }
+
+    public ListFeedbackFragment(boolean isBegin){
+        this.isBegin = isBegin;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  super.onCreateView(inflater, container, savedInstanceState);
@@ -97,6 +112,11 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
+        isEmpty = false;
+
+        if(isBegin){
+            isCheckAll = true;
+        }
 
         mHandler = new Handler(Looper.getMainLooper());
         mRecyclerFeedback.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -111,15 +131,15 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             @Override
             public void onClick(View v) {
 
-                GroupByFragment groupByFragment = new GroupByFragment();
-
                 if (!isShowGroupBy) {
-                    getActivity().getFragmentManager().beginTransaction().add(R.id.main_fl, groupByFragment, TAG_FRAGMENT_GROYP_BY).commit();
-                    isShowGroupBy = true;
+                        GroupByFragment groupByFragment = new GroupByFragment();
+                        MainActivity.thiz.getFragmentManager().beginTransaction().add(R.id.main_fl, groupByFragment, TAG_FRAGMENT_GROYP_BY).commit();
+                        isShowGroupBy = true;
+
                 } else {
-                    Fragment fragment = getFragmentManager().findFragmentByTag(TAG_FRAGMENT_GROYP_BY);
+                    Fragment fragment = MainActivity.thiz.getFragmentManager().findFragmentByTag(TAG_FRAGMENT_GROYP_BY);
                     if (fragment != null) {
-                        getFragmentManager().beginTransaction().remove(fragment).commit();
+                        MainActivity.thiz.getFragmentManager().beginTransaction().remove(fragment).commit();
                         isShowGroupBy = false;
                     }
                 }
@@ -145,20 +165,24 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
-        getPresenter().doLoadListFeedback(page, pageSize);
+        if(getArguments()!=null){
+            companyId = getArguments().getString(Constants.COMPANY_ID);
+        }
 
-        /*mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+        getPresenter().doLoadListFeedback(page, pageSize , companyId);
+
+        mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                 if (!isEmpty) {
                     mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
-                    getPresenter().doLoadListFeedback(page, pageSize);
+                    getPresenter().doLoadListFeedback(page, pageSize ,companyId);
                 } else {
 
                     mRecyclerFeedback.hideMoreProgress();
                 }
             }
-        }, 1);*/
+        }, 1);
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -173,6 +197,9 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 } else{
                     imgHintSearch.setVisibility(View.VISIBLE);
                 }
+                final List<FeedbackBrief> filteredModelList = filter(mData, s.toString());
+                mAdapter.animateTo(filteredModelList);
+
             }
 
             @Override
@@ -202,16 +229,30 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Override
     public void onRefresh() {
         mData.clear();
-        getPresenter().doLoadListFeedback(0, pageSize);
+        getPresenter().doLoadListFeedback(0, pageSize , companyId);
     }
 
     @Override
     public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
         mData.addAll(data);
+        mAdapter.setData(mData);
         mAdapter.notifyDataSetChanged();
 
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
         mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
+    }
+
+    private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
+        query = query.toLowerCase();
+
+        final List<FeedbackBrief> filteredModelList = new ArrayList<>();
+        for (FeedbackBrief model : models) {
+            final String text = model.getCompanyName().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 }
