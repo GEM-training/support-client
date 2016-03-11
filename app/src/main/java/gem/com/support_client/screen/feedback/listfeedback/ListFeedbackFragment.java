@@ -135,7 +135,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
                 Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("feedbackdetails", mData.get(position));
+                bundle.putSerializable("feedbackdetail", mData.get(position));
                 intent.putExtras(bundle);
                 getActivity().startActivity(intent);
             }
@@ -173,6 +173,9 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 } else{
                     imgHintSearch.setVisibility(View.VISIBLE);
                 }
+                final List<FeedbackBrief> filteredModelList = filter(mData, s.toString());
+                mAdapter.animateTo(filteredModelList);
+
             }
 
             @Override
@@ -208,10 +211,24 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Override
     public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
         mData.addAll(data);
+        mAdapter.setData(mData);
         mAdapter.notifyDataSetChanged();
 
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
         mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
+    }
+
+    private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
+        query = query.toLowerCase();
+
+        final List<FeedbackBrief> filteredModelList = new ArrayList<>();
+        for (FeedbackBrief model : models) {
+            final String text = model.getCompanyName().toLowerCase();
+            if (text.contains(query)) {
+                filteredModelList.add(model);
+            }
+        }
+        return filteredModelList;
     }
 }
