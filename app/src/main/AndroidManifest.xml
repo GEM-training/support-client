@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.billing.allincome.AllCompaniesIncomeActivity"></activity>
+        <activity android:name=".screen.billing.allincome.AllIncomesFragment"></activity>
         <activity android:name=".screen.splash.SplashActivity"></activity>
         <activity
             android:name=".screen.billing.companybills.CompanyBillsActivity"
