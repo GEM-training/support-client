@@ -106,23 +106,6 @@
 
             </FrameLayout>
 
-            <TextView
-                android:textSize="@dimen/text_size_small"
-                android:textColor="#000"
-                android:layout_marginRight="@dimen/tv_margin"
-                android:layout_marginLeft="@dimen/tv_margin"
-                android:layout_marginTop="@dimen/tv_margin"
-                android:layout_marginBottom="@dimen/tv_margin"
-                android:id="@+id/tv_user_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#cccccc">
-            </FrameLayout>
-
 
             <TextView
                 android:textSize="@dimen/text_size_medium"
@@ -223,6 +206,25 @@
                     android:layout_marginBottom="10dp"/>
 
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#cccccc">
+            </FrameLayout>
+
+            <TextView
+                android:textSize="@dimen/text_size_small"
+                android:textColor="#000"
+                android:layout_marginRight="@dimen/tv_margin"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:layout_marginTop="@dimen/tv_margin"
+                android:layout_marginBottom="@dimen/tv_margin"
+                android:id="@+id/tv_user_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
 
 
 

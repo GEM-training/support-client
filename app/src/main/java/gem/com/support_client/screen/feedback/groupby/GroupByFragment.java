@@ -1,7 +1,6 @@
 package gem.com.support_client.screen.feedback.groupby;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,10 +14,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import gem.com.support_client.R;
-import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.listenterprise.ListEnterpriseFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
-import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
+
 
 /**
  * Created by phuongtd on 08/03/2016.

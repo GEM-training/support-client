@@ -6,17 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,11 +34,9 @@ import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DividerItemDecoration;
 import gem.com.support_client.network.model.FeedbackBrief;
-import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;
 import gem.com.support_client.screen.main.MainActivity;
-import nhom1.gem.com.exceptionplugin.common.Constant;
 
 
 /**
@@ -109,7 +105,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         mToolbar.setNavigationIcon(R.drawable.ic_menu_white_18dp);
 
-        mToolbarLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tool_bar_view, null);
+        mToolbarLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tool_bar_view, container , false);
 
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -121,7 +117,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         mHandler = new Handler(Looper.getMainLooper());
         mRecyclerFeedback.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerFeedback.addItemDecoration(new DividerItemDecoration(getResources().getDrawable(R.drawable.divider)));
+        mRecyclerFeedback.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(getActivity(), R.drawable.divider)));
 
 
         mToolbar.addView(mToolbarLayout, layoutParams);
@@ -152,7 +148,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         mAdapter.setMode(SwipeItemManagerInterface.Mode.Single);
         mAdapter.setOnRecyclerViewClickListener(new FeedbackAdapter.RecyclerViewClickListener() {
             @Override
-            public void onRecyclerViewClick(View v, int position) {
+            public void onRecyclerViewClick(int position) {
 
                 Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
                 Bundle bundle = new Bundle();
@@ -180,14 +176,14 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             textView.setText(getArguments().getString("enterpriseName"));
         }
 
-        getPresenter().doLoadListFeedback(page, pageSize , companyId);
+        getPresenter().doLoadListFeedback(page, pageSize, companyId);
 
         mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                 if (!isEmpty) {
                     mRecyclerFeedback.getMoreProgressView().setMinimumHeight(20);
-                    getPresenter().doLoadListFeedback(page, pageSize ,companyId);
+                    getPresenter().doLoadListFeedback(page, pageSize, companyId);
                 } else {
 
                     mRecyclerFeedback.hideMoreProgress();
@@ -195,15 +191,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             }
         }, 1);
 
-        mRecyclerFeedback.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-               // mAdapter.notifyDataSetChanged();
-            }
-
-
-        });
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -231,11 +218,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         return view;
     }
 
-    @Override
-    public void onViewCreated(final View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
 
     @Override
     protected int getLayoutId() {

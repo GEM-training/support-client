@@ -3,8 +3,6 @@ package gem.com.support_client.screen.feedback.listfeedback;
 
 import android.util.Log;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -81,11 +79,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
         ServiceBuilder.getService().deleteFeedback(id).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccess()){
-                    Log.d("nghicv", response.isSuccess()+" ");
-                } else{
 
-                }
             }
 
             @Override

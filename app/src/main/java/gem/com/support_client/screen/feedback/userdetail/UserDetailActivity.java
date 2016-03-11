@@ -1,6 +1,5 @@
 package gem.com.support_client.screen.feedback.userdetail;
 
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import butterknife.Bind;

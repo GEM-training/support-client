@@ -1,11 +1,7 @@
 package gem.com.support_client.screen.feedback.feedbackdetail;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 
 import gem.com.support_client.common.Constants;
-import gem.com.support_client.common.util.DeviceUtils;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.model.FeedbackDetail;

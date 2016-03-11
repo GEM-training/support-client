@@ -4,7 +4,6 @@ import java.util.List;
 
 import gem.com.support_client.base.BaseView;
 import gem.com.support_client.network.model.FeedbackBrief;
-import gem.com.support_client.network.model.FeedbackDetail;
 
 /**
  * Created by phuongtd on 08/03/2016.

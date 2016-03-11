@@ -2,7 +2,6 @@ package gem.com.support_client.screen.feedback.feedbackdetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;

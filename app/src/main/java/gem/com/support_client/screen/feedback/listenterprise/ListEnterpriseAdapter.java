@@ -51,7 +51,7 @@ public class ListEnterpriseAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null)
-            convertView = LayoutInflater.from(context).inflate(R.layout.layout_item_enterprise , null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.layout_item_enterprise , parent , false);
 
         Enterprise enterprise = enterpriseList.get(position);
 
@@ -59,7 +59,7 @@ public class ListEnterpriseAdapter extends BaseAdapter {
         TextView tvNumOfTicket = (TextView) convertView.findViewById(R.id.tv_num_of_ticket);
 
         tvName.setText(StringUtils.convertName2Standard(enterprise.getCompanyName()));
-        tvNumOfTicket.setText(enterprise.getNumOfTicket()+"");
+        tvNumOfTicket.setText(String.valueOf(enterprise.getNumOfTicket()));
 
         return convertView;
     }

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
@@ -53,7 +51,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             public void onClick(View v) {
 
                 Toast.makeText(v.getContext(), "Deleted ", Toast.LENGTH_SHORT).show();
-                if(mOnClickDeleteFeedback !=null){
+                if (mOnClickDeleteFeedback != null) {
                     mOnClickDeleteFeedback.onClickDelete(mData.get(viewHolder.getLayoutPosition()));
                 }
                 remove(viewHolder.getLayoutPosition());
@@ -115,9 +113,6 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return position;
     }
 
-    public void add(FeedbackBrief feedbackDetail ) {
-        insert(feedbackDetail , mData.size());
-    }
 
     public void insert(FeedbackBrief feedbackDetail, int position) {
         closeAllExcept(null);
@@ -158,7 +153,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     if(mListener!=null){
-                        mListener.onRecyclerViewClick(view, getLayoutPosition());
+                        mListener.onRecyclerViewClick(getLayoutPosition());
                     }
                 }
             });
@@ -177,7 +172,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     }
 
     public  interface RecyclerViewClickListener{
-         void onRecyclerViewClick(View v, int position);
+         void onRecyclerViewClick(int position);
     }
 
     public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){
