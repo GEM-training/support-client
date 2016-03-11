@@ -147,7 +147,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         getPresenter().doLoadListFeedback(page, pageSize);
 
-        /*mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+        mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                 if (!isEmpty) {
@@ -158,7 +158,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                     mRecyclerFeedback.hideMoreProgress();
                 }
             }
-        }, 1);*/
+        }, 1);
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
