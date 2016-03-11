@@ -119,6 +119,7 @@
     <string name="sample_company">GemVietnam</string>
     <string name="all_income_header_amount">$</string>
     <string name="all_income_header_paid_date">Paid date</string>
+    <string name="all_income_header_date">Date</string>
 
     <!-- list feedback-->
     <string name="deleted">DELETE</string>

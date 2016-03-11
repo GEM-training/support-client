@@ -20,6 +20,7 @@ import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
@@ -27,31 +28,36 @@ import gem.com.support_client.screen.billing.graph.LineChartFragment;
  * Created by quanda on 07/03/2016.
  */
 public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresenter> implements CompanyBillsView {
+
     @Bind(R.id.company_bills_rv)
-    RecyclerView companyBillsRv;
+    RecyclerView mCompanyBillsRv;
+
     @Bind(R.id.company_bills_pb)
-    ProgressBar companyBillsPb;
+    ProgressBar mCompanyBillsPb;
+
     @Bind(R.id.company_bills_total_amount_tv)
-    TextView companyBillsTotalAmountTv;
+    TextView mCompanyBillsTotalAmountTv;
+
     @Bind(R.id.company_bills_start_time_tv)
-    TextView companyBillsStartTimeTv;
+    TextView mCompanyBillsStartTimeTv;
 
     private ArrayList<Bill> mBills;
     private BillAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-    private static int mCurrentPage;
+    private static int sCurrentPage;
     private String mCompanyId;
-    private LineChartFragment lineChartFragment;
+    private LineChartFragment mLineChartFragment;
+    private AllIncomesFragment mAllIncomesFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventLogger.info("Company Bills Activity created");
         mBills = new ArrayList<Bill>();
-        mCurrentPage = 0;
+        sCurrentPage = 0;
         mLayoutManager = new LinearLayoutManager(this);
-        companyBillsRv.setLayoutManager(mLayoutManager);
-        mAdapter = new BillAdapter(mBills, this, companyBillsRv);
+        mCompanyBillsRv.setLayoutManager(mLayoutManager);
+        mAdapter = new BillAdapter(mBills, this, mCompanyBillsRv);
 
         Intent intent = getIntent();
         mCompanyId = intent.getStringExtra(Constants.intent_companyId);
@@ -60,19 +66,16 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
             public void onLoadMore() {
                 mBills.add(null);
 //                mAdapter.notifyItemInserted(mBills.size() - 1);
-                mCurrentPage += 1;
-                getPresenter().loadMore(mCompanyId, mCurrentPage);
+                sCurrentPage += 1;
+                getPresenter().loadMore(mCompanyId, sCurrentPage);
             }
         });
 
-        companyBillsRv.setAdapter(mAdapter);
+        mCompanyBillsRv.setAdapter(mAdapter);
         getPresenter().getAllBillsByCompanyId(mCompanyId);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Company Bills");
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-
-
 
     }
 
@@ -87,6 +90,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                // back to previous fragment
                 break;
             case R.id.company_info:
                 Intent intent = new Intent(CompanyBillsActivity.this, CompanyInfoActivity.class);
@@ -102,22 +106,21 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         this.mBills.addAll(bills);
         EventLogger.info("Get all bills successful, current size:" + mBills.size());
         mAdapter.notifyDataSetChanged();
-        hideProgress(companyBillsPb, companyBillsRv);
+        hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
-        EventLogger.info("mBills size" + mBills.size());
-        long time = mBills.get(mBills.size()-1).getPaymentDate();
-        EventLogger.info("Get start time of a company" + time);
-        companyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(time));
+        // display total amount of a company
+        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mBills.get(mBills.size() - 1).getPaymentDate()));
 
-        EventLogger.info("Get total amount of a company");
+        // display total amount of a company
         double totalAmount = 0;
         for (Bill bill : mBills) {
             totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
         }
-        companyBillsTotalAmountTv.setText(totalAmount + "");
+        mCompanyBillsTotalAmountTv.setText(totalAmount + "");
 
-        lineChartFragment = new LineChartFragment();
-        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
+        // draw chart
+        mLineChartFragment = new LineChartFragment(mBills, Bill.class);
+        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
     }
 
     @Override
@@ -127,7 +130,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         EventLogger.info("Load more bills successful, current size:" + mBills.size());
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
-        //getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
+
+//        mLineChartFragment = new LineChartFragment();
+//        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
     }
 
     @Override

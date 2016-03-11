@@ -29,8 +29,8 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> storeArrayList = response.body().getContent();
-                mView.onGetAllCompaniesSuccess(storeArrayList);
+                ArrayList<Bill> bills = response.body().getContent();
+                mView.onGetAllCompaniesSuccess(bills);
             }
 
             @Override
@@ -43,13 +43,13 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
 
     @Override
     public void loadMore(int currentPage) {
-        EventLogger.info("Load more store...");
+        EventLogger.info("Load more companies bill ...");
         Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), currentPage, Constants.PAGE_SIZE, Constants.columnNameAsc);
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> moreBill = response.body().getContent();
-                mView.onLoadMoreSuccess(moreBill);
+                ArrayList<Bill> moreBills = response.body().getContent();
+                mView.onLoadMoreSuccess(moreBills);
             }
 
             @Override

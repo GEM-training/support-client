@@ -15,18 +15,19 @@ import gem.com.support_client.R;
 
 public class CustomMarkerView extends MarkerView {
 
-    private TextView tvContent;
-    public CustomMarkerView (Context context, int layoutResource) {
+    private TextView mContentTv;
+
+    public CustomMarkerView(Context context, int layoutResource) {
         super(context, layoutResource);
         // this markerview only displays a textview
-        tvContent = (TextView) findViewById(R.id.tvContent);
+        mContentTv = (TextView) findViewById(R.id.chart_content_tv);
     }
 
     // callbacks everytime the MarkerView is redrawn, can be used to update the
     // content (user-interface)
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        tvContent.setText("" + e.getVal()); // set the entry-value as the display text
+        mContentTv.setText("" + e.getVal()); // set the entry-value as the display text
     }
 
     @Override

@@ -80,8 +80,6 @@
     <dimen name="list_item_feedback_padding_vertical">8dp</dimen>
     <dimen name="icon_user_size">50dp</dimen>
 
-    <dimen name="line_chart_height">250dp</dimen>
-
     <!--/ search -->
     <dimen name="height_search_layout">50dp</dimen>
     <dimen name="height_edit_search">35dp</dimen>

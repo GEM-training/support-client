@@ -6,6 +6,7 @@ import gem.com.support_client.network.model.CustomDate;
 import gem.com.support_client.network.model.Enterprise;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
+import gem.com.support_client.network.model.Income;
 import gem.com.support_client.network.model.PageableResponse;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -17,6 +18,8 @@ import retrofit2.http.Query;
  * Created by huylv on 22/02/2016.
  */
 public interface APIService {
+
+    // billing API
     @GET("/billing/invoice")
     Call<PageableResponse<Bill>> getAllBills(
             @Query("from")
@@ -30,19 +33,6 @@ public interface APIService {
             @Query("sort")
             String sort
     );
-
-
-    @GET("/feedback/company")
-    Call<Enterprise[]> groupByEnterprise();
-
-    @GET("/feedback/{id}")
-    Call<FeedbackDetail> getDetail(@Path("id") String id);
-
-    @GET("/feedback")
-    Call<FeedbackBrief[]> getListFeedback(@Query("page") int page , @Query("size") int size);
-
-    @GET("/feedback/company/{companyId}")
-    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId , @Query("page") int page , @Query("size") int size  );
 
     @GET("/billing/invoice")
     Call<PageableResponse<Bill>> getAllBillsByCompanyId(
@@ -59,5 +49,35 @@ public interface APIService {
     @DELETE("/feedback/{id}/delete")
     Call<Void> deleteFeedback(@Path("id") String id);
 
+    @GET("/billing/revenue")
+    Call<PageableResponse<Income>> getAllIncomes(
+            @Query("page")
+            int page,
+            @Query("size")
+            int size
+//            ,
+//            @Query("sort")
+//            String sort
+    );
+
+    @GET("/billing/revenue")
+    Call<Income> getAllIncomesByCompanyId(
+            @Query("companyId")
+            String companyId
+    );
+
+
+    // feedback API
+    @GET("/feedback/company")
+    Call<Enterprise[]> groupByEnterprise();
+
+    @GET("/feedback/{id}")
+    Call<FeedbackDetail> getDetail(@Path("id") String id);
+
+    @GET("/feedback")
+    Call<FeedbackBrief[]> getListFeedback(@Query("page") int page, @Query("size") int size);
+
+    @GET("/feedback/company/{companyId}")
+    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId , @Query("page") int page , @Query("size") int size  );
 
 }
