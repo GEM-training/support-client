@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivity;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
@@ -23,7 +24,7 @@ import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
  */
 public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter> implements FeedbackDetailView{
     @Bind(R.id.img_user_back)
-    ImageView mBackImg;
+    LinearLayout mBackImg;
 
     @Bind(R.id.img_user)
     ImageView mUserImg;
@@ -64,9 +65,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        FeedbackBrief feedbackDetail = (FeedbackBrief) bundle.getSerializable("feedbackdetail");
+        FeedbackBrief feedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
 
-        getPresenter().getFeedbackDetail(feedbackDetail.getId());
+        getPresenter().getFeedbackDetail(feedbackBrief.getId());
+
     }
 
     @Override
@@ -81,10 +83,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
 
     @Override
     public void onGetDetailSuccess(FeedbackDetail feedbackDetail) {
-        mUsernameTv.setText(feedbackDetail.getUserInfo().getUsername());
+        mUsernameTv.setText(StringUtils.convertName2Standard(feedbackDetail.getUserInfo().getUsername()));
 
         mUserContentTv.setText(feedbackDetail.getContent());
-        mEnterprisenameTv.setText(feedbackDetail.getUserInfo().getCompanyName());
+        mEnterprisenameTv.setText(StringUtils.convertName2Standard(feedbackDetail.getUserInfo().getCompanyName()));
 
         mAppVerTv.setText(feedbackDetail.getAppVersion());
         mOsTypeTv.setText(feedbackDetail.getOsType());

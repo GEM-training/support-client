@@ -30,7 +30,6 @@ public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
                 if(response.isSuccess()){
                     FeedbackDetail feedbackDetail = response.body();
                     mView.onGetDetailSuccess(feedbackDetail);
-                    Log.d("phuongtd" , new Gson().toJson(feedbackDetail));
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() , response.code() + " " + response.message());
                 }

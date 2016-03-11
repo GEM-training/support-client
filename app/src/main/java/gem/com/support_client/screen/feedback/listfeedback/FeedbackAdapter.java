@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
 
 public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder> {
@@ -76,14 +78,14 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
 
-        holder.tvName.setText(mData.get(position).getUsername());
+        holder.tvName.setText(StringUtils.convertName2Standard(mData.get(position).getUsername()));
         if(mData.get(position).getSubContent().length() < 50){
             holder.tvSubContent.setText(mData.get(position).getSubContent());
         } else {
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
 
-        holder.tvEnterprise.setText(mData.get(position).getCompanyName());
+        holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
@@ -134,7 +136,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     }
 
     public static class ViewHolder extends BaseSwipeAdapter.BaseSwipeableViewHolder {
-        CircleImageView imgUser;
+        //ImageView imgUser;
         TextView tvName;
         TextView tvTime;
         TextView tvEnterprise;
@@ -145,7 +147,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         public ViewHolder(final View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
-            imgUser = (CircleImageView) itemView.findViewById(R.id.avt_user);
+            //imgUser = (ImageView) itemView.findViewById(R.id.avt_user);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvEnterprise = (TextView) itemView.findViewById(R.id.tv_enterprise);
             tvSubContent = (TextView) itemView.findViewById(R.id.tv_subcontent);

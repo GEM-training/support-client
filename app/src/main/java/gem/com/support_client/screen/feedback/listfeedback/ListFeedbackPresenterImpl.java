@@ -27,32 +27,53 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     }
 
     @Override
-    public void doLoadListFeedback(int page , int size) {
-        ServiceBuilder.getService().getListFeedback(page , size).enqueue(new Callback<FeedbackBrief[]>() {
-            @Override
-            public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
-                if(response.isSuccess()){
-                    if(response.body().length == 0){
-                        ListFeedbackFragment.isEmpty = true;
+    public void doLoadListFeedback(int page , int size , String companyId) {
+        if(ListFeedbackFragment.isCheckAll) {
+            ServiceBuilder.getService().getListFeedback(page, size).enqueue(new Callback<FeedbackBrief[]>() {
+                @Override
+                public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
+                    if (response.isSuccess()) {
+                        if (response.body().length == 0) {
+                            ListFeedbackFragment.isEmpty = true;
+                        }
+
+                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+
+                    } else {
+                        DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
                     }
-
-                    Log.d("phuongtd" , "From server: " + new Gson().toJson(response.body()));
-                    Log.d("phuongtd" , "after gson: " + new Gson().toJson(new ArrayList<FeedbackBrief>(Arrays.asList(response.body()))));
-
-
-                    mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
-
-                } else {
-                    DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
-                DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
+                    DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
+                    t.printStackTrace();
+                }
+            });
+        } else {
+            ServiceBuilder.getService().getListFeebbackOfCompany(companyId , page , size ).enqueue(new Callback<FeedbackBrief[]>() {
+                @Override
+                public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
+                    if (response.isSuccess()) {
+                        if (response.body().length == 0) {
+                            ListFeedbackFragment.isEmpty = true;
+                        }
+
+                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+
+                    } else {
+                        DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
+                    }
+                }
+
+
+                @Override
+                public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
+                    DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     @Override

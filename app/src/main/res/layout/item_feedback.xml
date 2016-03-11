@@ -8,7 +8,7 @@
         xmlns:swipe="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@id/recyclerview_swipe"
+        android:id="@+id/recyclerview_swipe"
         swipe:leftEdgeSwipeOffset="0dp"
         swipe:rightEdgeSwipeOffset="0dp">
 
@@ -16,10 +16,9 @@
             android:layout_width="200dp"
             android:layout_height="@dimen/list_item_feedback_height"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:weightSum="5"
             android:background="@color/blue_900"
-            android:tag="Bottom4">
+            android:tag="Bottom2">
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -28,6 +27,7 @@
                 android:background="#424242"
                 android:clickable="true">
                 <Button
+                    android:clickable="false"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:gravity="center"
@@ -44,6 +44,7 @@
                 android:background="#e63232"
                 android:clickable="true">
                 <Button
+                    android:clickable="false"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerInParent="true"
