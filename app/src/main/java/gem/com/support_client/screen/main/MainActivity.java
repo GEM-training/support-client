@@ -56,35 +56,11 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         mAllCompaniesFragment = new AllCompaniesFragment();
         mListFeedbackFragment = new ListFeedbackFragment(true);
 
-        ExceptionHandlerUtil.init(getApplication());
-
-        int a =4/0;
-
-/*
-        FeedbackDTO feedbackDTO = new FeedbackDTO();
-
-        initFeedBackDTO(feedbackDTO , new NullPointerException());
-
-        Log.d("phuongtd", new Gson().toJson(feedbackDTO));
-
-        ServiceBuilder.getService().send(feedbackDTO).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccess()){
-
-                } else {
-                    Log.d("phuongtd" , "Status: " + response.code() +" "+ response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("phuongtd" , "Fail");
-                t.printStackTrace();
-            }
-        });*/
+        ExceptionHandlerUtil.init(this);
 
         thiz = this;
+
+      //  ExceptionHandlerUtil.sendFeedback("App hay qua :)");
 
 
     }

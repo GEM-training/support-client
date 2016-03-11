@@ -38,8 +38,7 @@ public class ExceptionHandle  implements Thread.UncaughtExceptionHandler{
         dto.setDeviceId(DeviceUtils.getDeviceId(context));
         dto.setModel(DeviceUtils.getDeviceName());
         dto.setOsType(DeviceUtils.getOSVersion());
-        dto.setUserInfo(new FeedbackDTO.UserInfo(defaultUserId,defaultUsername,"",defaultCompanyId,defaultCompanyId));
-        dto.setStatus(0);
+        dto.setUserInfo(new FeedbackDTO.UserInfo(defaultUserId, defaultUsername, "", defaultCompanyId, defaultCompanyId));
     }
 
     public void setUserInfo(FeedbackDTO.UserInfo userInfo){
@@ -49,6 +48,7 @@ public class ExceptionHandle  implements Thread.UncaughtExceptionHandler{
     private void updateDTO(Throwable ex){
         dto.setContent(ExceptionUtils.getStackTrace(ex));
         dto.setTime(System.currentTimeMillis());
+        dto.setStatus(0);
     }
 
     public void sendFeedBackToServer(Throwable ex){
@@ -71,5 +71,23 @@ public class ExceptionHandle  implements Thread.UncaughtExceptionHandler{
     public void uncaughtException(Thread thread, Throwable ex) {
         sendFeedBackToServer(ex);
         defaultUEH.uncaughtException(thread, ex);
+    }
+
+    public void sendFeedbackOfUser(String content){
+        dto.setContent(content);
+        dto.setStatus(1);
+        dto.setTime(System.currentTimeMillis());
+        ServiceBuilder.getService().send(dto).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("phuongtd" , response.code() + " " + response.message());
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("phuongtd" , "Fail");
+                t.printStackTrace();
+            }
+        });
     }
 }

@@ -29,4 +29,8 @@ public class ExceptionHandlerUtil {
         exceptionHandle.setUserInfo(userInfo);
     }
 
+    public static void sendFeedback(String content){
+        exceptionHandle.sendFeedbackOfUser(content);
+    }
+
 }

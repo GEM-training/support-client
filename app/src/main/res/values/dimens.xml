@@ -114,4 +114,6 @@
     <dimen name="height_userdetail_tv_name">48dp</dimen>
     <dimen name="width_userdetail_account_icon">25dp</dimen>
     <dimen name="all_incomes_menu_height">30dp</dimen>
+
+    <dimen name="back_button_width">70dp</dimen>
 </resources>
