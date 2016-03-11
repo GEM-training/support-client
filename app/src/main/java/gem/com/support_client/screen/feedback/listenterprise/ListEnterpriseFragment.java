@@ -1,9 +1,11 @@
 package gem.com.support_client.screen.feedback.listenterprise;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -15,6 +17,7 @@ import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.network.model.Enterprise;
+import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 
 
 /**
@@ -56,6 +59,15 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        mEnterpriseLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
+               /* Bundle bundle
+                feedbackFragment.setArguments();*/
             }
         });
 
