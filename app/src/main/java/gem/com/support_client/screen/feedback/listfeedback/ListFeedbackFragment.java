@@ -211,6 +211,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Override
     public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
         mData.addAll(data);
+        mAdapter.setData(mData);
         mAdapter.notifyDataSetChanged();
 
         page++;
@@ -223,7 +224,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         final List<FeedbackBrief> filteredModelList = new ArrayList<>();
         for (FeedbackBrief model : models) {
-            final String text = model.getUsername().toLowerCase();
+            final String text = model.getCompanyName().toLowerCase();
             if (text.contains(query)) {
                 filteredModelList.add(model);
             }

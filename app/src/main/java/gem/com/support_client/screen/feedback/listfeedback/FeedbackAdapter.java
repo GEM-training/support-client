@@ -70,6 +70,10 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return viewHolder;
     }
 
+    public void setData(List<FeedbackBrief> data){
+        mData = new ArrayList<>(data);
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
