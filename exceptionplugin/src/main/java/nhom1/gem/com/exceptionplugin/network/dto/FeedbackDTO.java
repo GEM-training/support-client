@@ -13,7 +13,7 @@ public class FeedbackDTO extends BaseDTO{
     private String id;
     private UserInfo userInfo;
     private String content;
-    private String time;
+    private long time;
     private String appVersion;
     private String osType;
     private String deviceId;
@@ -25,7 +25,7 @@ public class FeedbackDTO extends BaseDTO{
     public FeedbackDTO() {
     }
 
-    public FeedbackDTO(String id, UserInfo userInfo, String content, String time, String appVersion, String osType, String deviceId, String model, String brand, int type, int status) {
+    public FeedbackDTO(String id, UserInfo userInfo, String content, long time, String appVersion, String osType, String deviceId, String model, String brand, int type, int status) {
         this.id = id;
         this.userInfo = userInfo;
         this.content = content;
@@ -63,11 +63,11 @@ public class FeedbackDTO extends BaseDTO{
         this.content = content;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
     }
 
