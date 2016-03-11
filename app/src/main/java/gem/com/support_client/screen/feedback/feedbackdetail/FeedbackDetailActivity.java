@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.sql.Date;
@@ -56,6 +57,12 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Bind(R.id.tv_feedback_detail_enterprisename)
     TextView mEnterprisenameTv;
 
+    @Bind(R.id.progress_feedback_detail)
+    ProgressBar mProgressBar;
+
+    @Bind(R.id.feedback_detail_content)
+    LinearLayout mDetailLayout;
+
     private String feedbackId;
 
     @Override
@@ -67,6 +74,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
 
         FeedbackBrief feedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
 
+        showProgress(mProgressBar , mDetailLayout);
         getPresenter().getFeedbackDetail(feedbackBrief.getId());
 
     }
@@ -109,6 +117,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         } else {
             mUserTimeTv.setText(userDateDay);
         }
+        hideProgress(mProgressBar , mDetailLayout);
 
     }
 
