@@ -59,4 +59,6 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
             }
         });
     }
+
+
 }

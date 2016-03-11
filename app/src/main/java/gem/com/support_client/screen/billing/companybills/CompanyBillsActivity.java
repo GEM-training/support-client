@@ -1,6 +1,8 @@
 package gem.com.support_client.screen.billing.companybills;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -48,9 +50,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     private String mCompanyId;
     private LineChartFragment mLineChartFragment;
     private AllIncomesFragment mAllIncomesFragment;
-
     private int mPosition;
 
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +62,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mLayoutManager = new LinearLayoutManager(this);
         mCompanyBillsRv.setLayoutManager(mLayoutManager);
         mAdapter = new BillAdapter(mBills, this, mCompanyBillsRv);
-
         Intent intent = getIntent();
         mCompanyId = intent.getStringExtra(Constants.intent_companyId);
-
 
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override

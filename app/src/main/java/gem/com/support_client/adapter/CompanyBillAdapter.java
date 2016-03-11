@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import gem.com.support_client.R;
 import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.common.Constants;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.screen.billing.companybills.CompanyBillsActivity;
 
@@ -88,7 +89,8 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
             /*
             query company logo and name by company id
              */
-            ((CompanyBillsViewHolder) holder).mCompanyNameTv.setText(Constants.companies.get(position).getName());
+            final int posit = StringUtils.getPositionByCompanyId(item.getCompanyId());
+            ((CompanyBillsViewHolder) holder).mCompanyNameTv.setText(Constants.companies.get(posit).getName());
             /*
             handle user increment is positive, negative or equal zero
             */
@@ -120,7 +122,7 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     Intent i = new Intent(mContext, CompanyBillsActivity.class);
                     i.putExtra(Constants.intent_companyId, item.getCompanyId());
-                    i.putExtra(Constants.position, position);
+                    i.putExtra(Constants.position, posit);
                     mContext.startActivity(i);
                 }
             });

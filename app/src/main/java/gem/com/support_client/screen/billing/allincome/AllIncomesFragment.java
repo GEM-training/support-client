@@ -122,4 +122,6 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         Income companyIncome = new Income();
         companyIncome = income;
     }
+
+
 }

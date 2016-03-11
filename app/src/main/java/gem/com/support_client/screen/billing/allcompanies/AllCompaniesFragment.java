@@ -1,11 +1,12 @@
 package gem.com.support_client.screen.billing.allcompanies;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +29,7 @@ import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.network.model.CustomDate;
 import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
@@ -122,10 +124,31 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         mStatisticIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
-                transaction.replace(R.id.main_fl, new AllIncomesFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllIncomesFragment()).addToBackStack(null).commit();
+            }
+        });
+
+        mAllCompaniesSearchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mCustomBills = new ArrayList<Bill>();
+                for (int i = 0; i < mBills.size(); ++i) {
+                    if (Constants.companies.get(i).getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                        mCustomBills.add(mBills.get(i));
+                    }
+                }
+                mAdapter.setmBills(mCustomBills);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
