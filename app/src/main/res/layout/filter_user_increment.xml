@@ -161,4 +161,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/line_break_height"
         android:background="@color/white"></FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/filter_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></FrameLayout>
 </LinearLayout>

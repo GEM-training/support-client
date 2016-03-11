@@ -35,7 +35,6 @@ public class FilterUserIncrementFragment extends Fragment {
     ImageView mFilterUserByAllDecrementSelectedIv;
 
     public FilterUserIncrementFragment() {
-
     }
 
     public FilterUserIncrementFragment(AllCompaniesFragment allCompaniesFragment) {
@@ -136,4 +135,9 @@ public class FilterUserIncrementFragment extends Fragment {
         mAllCompaniesFragment.showDecreasedUserBills();
     }
 
+    @OnClick(R.id.filter_cancel)
+    public void filterCancel() {
+        AllCompaniesFragment.sIsShowFilter = false;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+    }
 }

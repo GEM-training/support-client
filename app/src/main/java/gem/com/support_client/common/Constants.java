@@ -1,5 +1,9 @@
 package gem.com.support_client.common;
 
+import java.util.ArrayList;
+
+import gem.com.support_client.network.model.Company;
+
 /**
  * Constants for app
  * Created by neo on 2/15/2016.
@@ -27,4 +31,9 @@ public interface Constants {
 
     public static final String COMPANY_ID = "companyid";
     public final static String CONNECT_TO_SERVER_ERROR = "Connect to Server Error";
+
+    // fake company info
+    ArrayList<Company> companies = new ArrayList<Company>();
+    String position = "position";
+
 }

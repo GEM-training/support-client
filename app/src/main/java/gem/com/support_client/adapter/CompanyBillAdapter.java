@@ -82,13 +82,13 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Bill item = mBills.get(position);
         if (holder instanceof CompanyBillsViewHolder) {
             /*
             query company logo and name by company id
              */
-
+            ((CompanyBillsViewHolder) holder).mCompanyNameTv.setText(Constants.companies.get(position).getName());
             /*
             handle user increment is positive, negative or equal zero
             */
@@ -120,6 +120,7 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     Intent i = new Intent(mContext, CompanyBillsActivity.class);
                     i.putExtra(Constants.intent_companyId, item.getCompanyId());
+                    i.putExtra(Constants.position, position);
                     mContext.startActivity(i);
                 }
             });

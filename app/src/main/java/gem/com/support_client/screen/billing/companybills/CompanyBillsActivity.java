@@ -49,6 +49,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     private LineChartFragment mLineChartFragment;
     private AllIncomesFragment mAllIncomesFragment;
 
+    private int mPosition;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
 
         Intent intent = getIntent();
         mCompanyId = intent.getStringExtra(Constants.intent_companyId);
+
+
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -74,7 +78,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mCompanyBillsRv.setAdapter(mAdapter);
         getPresenter().getAllBillsByCompanyId(mCompanyId);
 
-        getSupportActionBar().setTitle("Company Bills");
+        mPosition = intent.getIntExtra(Constants.position, 0);
+        getSupportActionBar().setTitle(Constants.companies.get(mPosition).getName());
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
     }
@@ -90,14 +95,15 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // back to previous fragment
+                onBackPressed();
                 break;
             case R.id.company_info:
                 Intent intent = new Intent(CompanyBillsActivity.this, CompanyInfoActivity.class);
+                intent.putExtra(Constants.position, mPosition);
                 startActivity(intent);
                 break;
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.base.log.EventLogger;
+import gem.com.support_client.common.Constants;
 
 /**
  * Created by quanda on 09/03/2016.
@@ -31,7 +32,9 @@ public class CompanyInfoActivity extends BaseActivityToolbar<CompanyInfoPresente
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        getSupportActionBar().setTitle("Company Info");
+        int position = getIntent().getIntExtra(Constants.position, 0);
+
+        getSupportActionBar().setTitle(Constants.companies.get(position).getName());
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 

@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
  * Created by neo on 2/16/2016.
  */
 public class StringUtils {
+
+
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
