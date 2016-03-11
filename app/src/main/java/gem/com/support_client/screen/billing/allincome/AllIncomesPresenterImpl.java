@@ -24,8 +24,7 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
     @Override
     public void getAllIncomes() {
         EventLogger.info("Get all incomes...");
-        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(0, Constants.PAGE_SIZE);
-//        , Constants.columnToDESC
+        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(0, Constants.PAGE_SIZE, Constants.columnToDESC);
         call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
             public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
@@ -44,8 +43,7 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
     @Override
     public void loadMore(int currentPage) {
         EventLogger.info("Load more incomes...");
-        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(currentPage, Constants.PAGE_SIZE);
-//        , Constants.columnToDESC
+        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(currentPage, Constants.PAGE_SIZE, Constants.columnToDESC);
         call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
             public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
