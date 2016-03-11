@@ -1,4 +1,6 @@
-package gem.com.support_client.screen.billing.allcompanies;
+package gem.com.support_client.screen.billing.allincome;
+
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -13,24 +15,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by quanda on 04/03/2016.
+ * Created by quanda on 10/03/2016.
  */
-public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
-    private final AllCompaniesView mView;
+public class AllIncomesPresenterImpl implements AllIncomesPresenter {
+    private final AllIncomesView mView;
 
-    public AllCompaniesPresenterImpl(AllCompaniesView mView) {
-        this.mView = mView;
+    public AllIncomesPresenterImpl(AllIncomesView view) {
+        this.mView = view;
     }
 
     @Override
     public void getAll() {
-        EventLogger.info("Get all Companies Bill in last month...");
+        EventLogger.info("Get all incomes...");
         Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), 0, Constants.PAGE_SIZE, Constants.columnNameAsc);
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
                 ArrayList<Bill> storeArrayList = response.body().getContent();
-                mView.onGetAllCompaniesSuccess(storeArrayList);
+                Log.d(getClass().getName(), storeArrayList.get(0).toString());
+                mView.onGetAllIncomesSuccess(storeArrayList);
             }
 
             @Override

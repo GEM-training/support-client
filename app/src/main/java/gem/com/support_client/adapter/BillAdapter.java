@@ -22,6 +22,7 @@ import gem.com.support_client.network.model.Bill;
  * Created by quanda on 08/03/2016.
  */
 public class BillAdapter extends RecyclerView.Adapter {
+
     private ArrayList<Bill> mBills;
     private Context mContext;
     private final int VISIBLE_THRESHOLD = 5;

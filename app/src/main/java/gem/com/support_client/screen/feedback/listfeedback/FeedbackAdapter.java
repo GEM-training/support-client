@@ -92,7 +92,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         Date now = new Date(utilDate.getTime());
 
         SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         String userDateDay = formatDay.format(date);
         String userDateTime = formatTime.format(date);
 
