@@ -1,8 +1,6 @@
 package gem.com.support_client.network;
 
 
-import gem.com.support_client.network.dto.ListEnterpriseDTO;
-import gem.com.support_client.network.dto.ListFeedBackDTO;
 import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.network.model.CustomDate;
 import gem.com.support_client.network.model.Enterprise;
@@ -10,8 +8,8 @@ import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.network.model.PageableResponse;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -54,6 +52,9 @@ public interface APIService {
             @Query("sort")
             String sort
     );
+
+    @DELETE("/feedback/{id}/delete")
+    Call<Void> deleteFeedback(@Path("id") String id);
 
 
 }

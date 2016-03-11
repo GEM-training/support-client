@@ -11,10 +11,7 @@ import java.util.Arrays;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
-import gem.com.support_client.network.dto.ListFeedBackDTO;
 import gem.com.support_client.network.model.FeedbackBrief;
-import gem.com.support_client.network.model.FeedbackDetail;
-import nhom1.gem.com.exceptionplugin.common.Constant;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,4 +54,25 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
             }
         });
     }
+
+    @Override
+    public void deleteFeedback(String id) {
+        ServiceBuilder.getService().deleteFeedback(id).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccess()){
+                    Log.d("nghicv", response.isSuccess()+" ");
+                } else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
+            }
+        });
+    }
+
+
 }

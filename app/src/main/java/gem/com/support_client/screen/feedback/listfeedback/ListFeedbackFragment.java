@@ -63,7 +63,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     private int page = 0;
 
-    private int pageSize = 10;
+    private int pageSize = 30;
 
     public static boolean isEmpty = false;
 
@@ -140,6 +140,14 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 getActivity().startActivity(intent);
             }
         });
+
+        mAdapter.setOnClickDeleteFeedback(new FeedbackAdapter.OnClickDeleteFeedback() {
+            @Override
+            public void onClickDelete(FeedbackBrief feedbackBrief) {
+                getPresenter().deleteFeedback(feedbackBrief.getId());
+                mData.remove(feedbackBrief);
+            }
+        });
         mRecyclerFeedback.setAdapter(mAdapter);
         mRecyclerFeedback.setRefreshListener(this);
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
@@ -147,7 +155,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         getPresenter().doLoadListFeedback(page, pageSize);
 
-        /*mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
+        mRecyclerFeedback.setupMoreListener(new OnMoreListener() {
             @Override
             public void onMoreAsked(int overallItemsCount, int itemsBeforeMore, int maxLastVisiblePosition) {
                 if (!isEmpty) {
@@ -158,7 +166,17 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                     mRecyclerFeedback.hideMoreProgress();
                 }
             }
-        }, 1);*/
+        }, 1);
+
+        mRecyclerFeedback.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+               // mAdapter.notifyDataSetChanged();
+            }
+
+
+        });
 
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -216,7 +234,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
-        mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
+        //mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
     }
 
     private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
@@ -224,7 +242,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         final List<FeedbackBrief> filteredModelList = new ArrayList<>();
         for (FeedbackBrief model : models) {
-            final String text = model.getCompanyName().toLowerCase();
+            final String text = model.getUsername().toLowerCase();
             if (text.contains(query)) {
                 filteredModelList.add(model);
             }

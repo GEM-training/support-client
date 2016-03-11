@@ -64,7 +64,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        FeedbackBrief feedbackDetail = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
+        FeedbackBrief feedbackDetail = (FeedbackBrief) bundle.getSerializable("feedbackdetail");
 
         getPresenter().getFeedbackDetail(feedbackDetail.getId());
     }

@@ -1,14 +1,10 @@
 package gem.com.support_client.screen.feedback.listfeedback;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,16 +16,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
 import gem.com.support_client.network.model.FeedbackBrief;
-import gem.com.support_client.network.model.FeedbackDetail;
-import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 
 public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder> {
 
-    private List<FeedbackBrief> mData;
+    private final List<FeedbackBrief> mData;
 
     public FeedbackAdapter(List<FeedbackBrief> mData) {
         this.mData = new ArrayList<>(mData);
@@ -56,8 +49,12 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(viewHolder.getPosition());
-                Toast.makeText(v.getContext(), "Deleted " + viewHolder.getPosition(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(v.getContext(), "Deleted ", Toast.LENGTH_SHORT).show();
+                if(mOnClickDeleteFeedback !=null){
+                    mOnClickDeleteFeedback.onClickDelete(mData.get(viewHolder.getLayoutPosition()));
+                }
+                remove(viewHolder.getLayoutPosition());
             }
         });
 
@@ -71,7 +68,8 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     }
 
     public void setData(List<FeedbackBrief> data){
-        mData = new ArrayList<>(data);
+        mData.clear();
+        mData.addAll(data);
     }
 
     @Override
@@ -158,7 +156,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     if(mListener!=null){
-                        mListener.onRecyclerViewClick(view, getPosition());
+                        mListener.onRecyclerViewClick(view, getLayoutPosition());
                     }
                 }
             });
@@ -166,6 +164,15 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     }
 
     private static RecyclerViewClickListener mListener;
+    private OnClickDeleteFeedback mOnClickDeleteFeedback;
+
+    public interface OnClickDeleteFeedback{
+        void onClickDelete(FeedbackBrief position);
+    }
+
+    public void setOnClickDeleteFeedback(OnClickDeleteFeedback onClickDeleteFeedback){
+        this.mOnClickDeleteFeedback = onClickDeleteFeedback;
+    }
 
     public  interface RecyclerViewClickListener{
          void onRecyclerViewClick(View v, int position);
@@ -225,6 +232,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         mData.add(toPosition, model);
         notifyItemMoved(fromPosition, toPosition);
     }
+
 
     
 }

@@ -7,4 +7,5 @@ import gem.com.support_client.base.BasePresenter;
  */
 public interface ListFeedbackPresenter extends BasePresenter {
     void doLoadListFeedback(int page , int pageSize);
+    void deleteFeedback(String id);
 }
