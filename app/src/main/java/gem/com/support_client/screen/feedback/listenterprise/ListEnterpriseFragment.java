@@ -66,8 +66,11 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
-               /* Bundle bundle
-                feedbackFragment.setArguments();*/
+                Bundle bundle = new Bundle();
+                bundle.putString("companyId" , enterpriseList.get(position).getUuid());
+                feedbackFragment.setArguments(bundle);
+
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl  , feedbackFragment).commit();
             }
         });
 
