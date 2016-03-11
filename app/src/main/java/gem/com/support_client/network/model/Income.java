@@ -12,6 +12,7 @@ public class Income {
     private long fromDate;
     @SerializedName("to")
     private long toDate;
+    @SerializedName("numOfUser")
     private int totalUser;
     private int userIncrement;
     @SerializedName("totalRevenue")

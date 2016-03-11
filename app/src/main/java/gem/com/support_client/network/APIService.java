@@ -54,10 +54,9 @@ public interface APIService {
             @Query("page")
             int page,
             @Query("size")
-            int size
-//            ,
-//            @Query("sort")
-//            String sort
+            int size,
+            @Query("sort")
+            String sort
     );
 
     @GET("/billing/revenue")
@@ -78,6 +77,6 @@ public interface APIService {
     Call<FeedbackBrief[]> getListFeedback(@Query("page") int page, @Query("size") int size);
 
     @GET("/feedback/company/{companyId}")
-    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId , @Query("page") int page , @Query("size") int size  );
+    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId, @Query("page") int page, @Query("size") int size);
 
 }
