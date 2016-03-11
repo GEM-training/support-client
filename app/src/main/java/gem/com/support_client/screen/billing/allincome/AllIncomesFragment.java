@@ -29,6 +29,7 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
 
     @Bind(R.id.all_incomes_rv)
     RecyclerView mAllIncomesRv;
+
     @Bind(R.id.all_incomes_pb)
     ProgressBar mAllIncomesPb;
 
@@ -37,7 +38,6 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     private static int sCurrentPage;
     private LinearLayoutManager mLayoutManager;
     private LineChartFragment mLineChartFragment;
-
     private Toolbar mToolbar;
     private RelativeLayout mToolbarLayout;
 
@@ -118,7 +118,8 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     }
 
     @Override
-    public void onGetAllIncomesOfCompanySucces(Income Income) {
-
+    public void onGetAllIncomesOfCompanySucces(Income income) {
+        Income companyIncome = new Income();
+        companyIncome = income;
     }
 }

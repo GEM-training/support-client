@@ -141,6 +141,4 @@ public class IncomeAdapter extends RecyclerView.Adapter {
             progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
         }
     }
-
-
 }

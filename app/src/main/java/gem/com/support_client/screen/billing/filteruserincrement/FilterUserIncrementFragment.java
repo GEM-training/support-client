@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,23 +22,15 @@ public class FilterUserIncrementFragment extends Fragment {
 
     private AllCompaniesFragment mAllCompaniesFragment;
 
-    @Bind(R.id.filter_user_by_all_ll)
-    LinearLayout mFilterUserByAllLl;
     @Bind(R.id.filter_user_by_all_selected_iv)
     ImageView mFilterUserByAllSelectedIv;
 
-    @Bind(R.id.filter_user_by_increment_ll)
-    LinearLayout mFilterUserByIncrementLl;
     @Bind(R.id.filter_user_by_increment_selected_iv)
     ImageView mFilterUserByIncrementdSelectedIv;
 
-    @Bind(R.id.filter_user_by_invariable_ll)
-    LinearLayout mFilterUserByInvariableLl;
     @Bind(R.id.filter_user_by_invariable_selected_iv)
     ImageView mFilterUserByInvariableSelectedIv;
 
-    @Bind(R.id.filter_user_by_decrement_ll)
-    LinearLayout mFilterUserByDecrementLl;
     @Bind(R.id.filter_user_by_decrement_selected_iv)
     ImageView mFilterUserByAllDecrementSelectedIv;
 

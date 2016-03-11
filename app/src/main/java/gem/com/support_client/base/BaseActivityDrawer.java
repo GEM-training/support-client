@@ -16,31 +16,31 @@ import gem.com.support_client.R;
  */
 public abstract class BaseActivityDrawer<T extends BasePresenter> extends BaseActivityToolbar<T> implements NavigationView.OnNavigationItemSelectedListener{
 
-    private TextView nav_header_username;
-    private TextView nav_header_fullname;
+    private TextView mNavHeaderUsername;
+    private TextView mNavHeaderFullname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, mToolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View header = navigationView.getHeaderView(0);
-        nav_header_username = (TextView)header.findViewById(R.id.nav_header_username);
-        nav_header_fullname = (TextView)header.findViewById(R.id.nav_header_fullname);
+        mNavHeaderUsername = (TextView)header.findViewById(R.id.nav_header_username);
+        mNavHeaderFullname = (TextView)header.findViewById(R.id.nav_header_fullname);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     protected void setUserName(String username){
-        nav_header_username.setText(username);
+        mNavHeaderUsername.setText(username);
     }
 
     protected void setFullName(String fullName){
-        nav_header_fullname.setText(fullName);
+        mNavHeaderFullname.setText(fullName);
     }
 
     @Override

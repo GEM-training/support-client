@@ -16,8 +16,8 @@ import java.util.TimeZone;
  */
 public class EventLogger {
     public static final String APP_ID = "-Support-";
-    public static final String logDIR = "/gem-support";
-    public static final String LOG_FILE_NAME= "/log.txt";
+    public static final String LOG_DIR = "/gem-support";
+    public static final String LOG_FILE_NAME = "/log.txt";
     public static final boolean WRITE_LOGS_TO_FILE = true;
     public static final int LOG_LEVEL_VERBOSE = 4;
     public static final int LOG_LEVEL_DEBUG = 3;
@@ -51,7 +51,7 @@ public class EventLogger {
 
 
             File sdCard = Environment.getExternalStorageDirectory();
-            File dir = new File(sdCard.getAbsolutePath() + logDIR);
+            File dir = new File(sdCard.getAbsolutePath() + LOG_DIR);
             dir.mkdirs();
             File file = new File(dir, LOG_FILE_NAME);
             PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file, true), 8 * 1024));

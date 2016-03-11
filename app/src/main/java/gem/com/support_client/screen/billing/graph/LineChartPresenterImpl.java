@@ -62,5 +62,4 @@ public class LineChartPresenterImpl implements LineChartPresenter {
         }
     }
 
-
 }

@@ -20,6 +20,7 @@ import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
@@ -27,6 +28,7 @@ import gem.com.support_client.screen.billing.graph.LineChartFragment;
  * Created by quanda on 07/03/2016.
  */
 public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresenter> implements CompanyBillsView {
+
     @Bind(R.id.company_bills_rv)
     RecyclerView mCompanyBillsRv;
 
@@ -45,6 +47,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     private static int sCurrentPage;
     private String mCompanyId;
     private LineChartFragment mLineChartFragment;
+    private AllIncomesFragment mAllIncomesFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-
+                // back to previous fragment
                 break;
             case R.id.company_info:
                 Intent intent = new Intent(CompanyBillsActivity.this, CompanyInfoActivity.class);
@@ -105,16 +108,17 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mAdapter.notifyDataSetChanged();
         hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
-        EventLogger.info("Get start time of a company");
+        // display total amount of a company
         mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mBills.get(mBills.size() - 1).getPaymentDate()));
 
-        EventLogger.info("Get total amount of a company");
+        // display total amount of a company
         double totalAmount = 0;
         for (Bill bill : mBills) {
             totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
         }
         mCompanyBillsTotalAmountTv.setText(totalAmount + "");
 
+        // draw chart
         mLineChartFragment = new LineChartFragment(mBills, Bill.class);
         getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
     }

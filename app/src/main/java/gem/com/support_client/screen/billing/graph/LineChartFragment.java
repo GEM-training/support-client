@@ -31,15 +31,15 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
     private ArrayList<Bill> mBills;
     private ArrayList<Income> mIncomes;
     private final int ITEM_COUNT = 12;
-    private Class currentClass;
+    private Class mCurrentClass;
 
     public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
         if (targetClass == Bill.class) {
             mBills = (ArrayList<Bill>) arrayList;
-            currentClass = Bill.class;
+            mCurrentClass = Bill.class;
         } else if (targetClass == Income.class) {
             mIncomes = (ArrayList<Income>) arrayList;
-            currentClass = Income.class;
+            mCurrentClass = Income.class;
         }
     }
 
@@ -51,7 +51,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         //setContentView(R.layout.fragment_linechart);
 
-        if (currentClass == Bill.class) {
+        if (mCurrentClass == Bill.class) {
             // mBills = ((CompanyBillsActivity) getActivity()).getmBills();
             if (mBills.size() != 0 && mBills != null) {
                 getPresenter().initBillData(mBills);
@@ -61,7 +61,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
                 CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
                 mChart.setMarkerView(mv);
             }
-        } else if (currentClass == Income.class) {
+        } else if (mCurrentClass == Income.class) {
             if (mIncomes.size() != 0 && mIncomes != null) {
                 getPresenter().initIncomeData(mIncomes);
                 LineData data = generateLineData();

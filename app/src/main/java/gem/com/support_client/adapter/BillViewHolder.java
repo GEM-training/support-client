@@ -12,14 +12,19 @@ import gem.com.support_client.R;
  * Created by quanda on 11/03/2016.
  */
 public class BillViewHolder extends RecyclerView.ViewHolder {
+
     @Bind((R.id.item_bill_date_tv))
     TextView mBillPaidDateTv;
+
     @Bind(R.id.item_bill_number_user_tv)
     TextView mBillNumberUserTv;
+
     @Bind(R.id.item_bill_user_increment_tv)
     TextView mBillUserIncrementTv;
+
     @Bind(R.id.item_bill_number_user_increment_tv)
     TextView mBillNumberUserIncrementTv;
+
     @Bind(R.id.item_bill_amount_tv)
     TextView mAmountTv;
 

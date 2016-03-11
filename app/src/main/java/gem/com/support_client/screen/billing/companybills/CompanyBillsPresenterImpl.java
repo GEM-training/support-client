@@ -15,6 +15,7 @@ import retrofit2.Response;
  * Created by quanda on 07/03/2016.
  */
 public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
+
     private final CompanyBillsView mView;
 
     public CompanyBillsPresenterImpl(CompanyBillsView mView) {
@@ -47,8 +48,8 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> moreBill = response.body().getContent();
-                mView.onLoadMoreSuccess(moreBill);
+                ArrayList<Bill> moreBills = response.body().getContent();
+                mView.onLoadMoreSuccess(moreBills);
             }
 
             @Override
