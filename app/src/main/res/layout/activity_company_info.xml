@@ -26,42 +26,192 @@
             android:layout_gravity="center_horizontal"
             android:src="@mipmap/account_black" />
 
-        <TextView
-            android:id="@+id/company_info_name"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/sample_company"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
+            android:layout_height="0.3dp"
+            android:layout_marginTop="@dimen/tv_margin"
+            android:background="#ccc"></FrameLayout>
 
-        <TextView
-            android:id="@+id/company_info_address"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:drawableLeft="@drawable/ic_location_on_black_24dp"
-            android:text="@string/sample_address"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
+            android:layout_height="@dimen/height_userdetail_tv_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/company_info_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
-            android:text="@string/sample_email"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
+            <ImageView
+                android:layout_width="@dimen/width_userdetail_account_icon"
+                android:layout_height="@dimen/width_userdetail_account_icon"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:src="@drawable/account_icon" />
 
-        <TextView
-            android:id="@+id/company_info_phone"
+            <TextView
+                android:id="@+id/tv_user_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:text="@string/sample_username"
+                android:textColor="#000"
+                android:textSize="@dimen/text_size_medium"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:drawableLeft="@drawable/ic_phone_black_24dp"
-            android:text="@string/sample_phone"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_medium" />
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="5dp"
+            android:background="#ccc"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_userdetail_tv_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/width_userdetail_account_icon"
+                android:layout_height="@dimen/width_userdetail_account_icon"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:src="@drawable/email_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:text="@string/work"
+                android:textColor="#666"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/tv_user_detail_email_work"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="@dimen/tv_margin"
+                android:text="hopnv@gemvietnam.com"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="5dp"
+            android:background="#ccc"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_userdetail_tv_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/width_userdetail_account_icon"
+                android:layout_height="@dimen/width_userdetail_account_icon"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:src="@drawable/email_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:text="@string/home"
+                android:textColor="#666"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/tv_user_detail_email_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="@dimen/tv_margin"
+                android:text="hopnv@gemvietnam.com"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="5dp"
+            android:background="#ccc"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_userdetail_tv_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/width_userdetail_account_icon"
+                android:layout_height="@dimen/width_userdetail_account_icon"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:src="@drawable/phone_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:text="@string/work"
+                android:textColor="#666"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/tv_user_detail_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="@dimen/tv_margin"
+                android:text="+84(01673255990)"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_break_height"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_500"></FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_userdetail_tv_name"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/width_userdetail_account_icon"
+                android:layout_height="@dimen/width_userdetail_account_icon"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:src="@drawable/location_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:layout_marginTop="5dp"
+                android:lines="2"
+                android:text="@string/work"
+                android:textColor="#666"
+                android:textSize="@dimen/text_size_medium" />
+
+            <TextView
+                android:id="@+id/tv_user_detail_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="right"
+                android:lines="2"
+                android:paddingRight="@dimen/tv_margin"
+                android:text="62 Tran Thai Tong, Cau Giay, Ha Noi, Viet Nam"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/line_break_height"
+            android:layout_marginTop="@dimen/tv_margin"
+            android:background="@color/grey_500"></FrameLayout>
     </LinearLayout>
 </LinearLayout>

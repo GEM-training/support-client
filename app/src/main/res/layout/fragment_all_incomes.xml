@@ -4,61 +4,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/all_incomes_chart"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_chart_height"></FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/all_incomes_menu_height"
-        android:background="@color/green_600"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <TextView
-            android:layout_width="@dimen/zero"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="@string/all_income_header_paid_date"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_medium" />
-
-        <ImageView
-            android:layout_width="@dimen/zero"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:padding="@dimen/padding_medium"
-            android:src="@mipmap/account_white" />
-
-        <TextView
-            android:layout_width="@dimen/zero"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:text="@string/all_income_header_amount"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_medium" />
-    </LinearLayout>
-
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/all_incomes_pb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/all_incomes_rv"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        </android.support.v7.widget.RecyclerView>
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/all_incomes_chart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/all_incomes_menu_height"
+                android:background="@color/green_600"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="4"
+                    android:gravity="center"
+                    android:text="@string/all_income_header_date"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+
+                <ImageView
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_medium"
+                    android:src="@mipmap/account_white" />
+
+                <TextView
+                    android:layout_width="@dimen/zero"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:text="@string/all_income_header_amount"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/all_incomes_pb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/all_incomes_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                </android.support.v7.widget.RecyclerView>
+            </FrameLayout>
+        </LinearLayout>
+
+    </ScrollView>
 </LinearLayout>

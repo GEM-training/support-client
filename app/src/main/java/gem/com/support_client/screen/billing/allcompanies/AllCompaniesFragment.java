@@ -1,6 +1,7 @@
 package gem.com.support_client.screen.billing.allcompanies;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +32,7 @@ import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.network.model.CustomDate;
 import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.filteruserincrement.FilterUserIncrementFragment;
+import gem.com.support_client.screen.main.MainActivity;
 
 /**
  * Created by quanda on 04/03/2016.
@@ -83,7 +85,7 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
 
         mToolbar.removeAllViews();
         mToolbar.addView(mToolbarLayout, layoutParams);
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
+//        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
         mFilterUserIncrementTv = (TextView) mToolbarLayout.findViewById(R.id.toolbar_filter_tv);
         mFilterUserIncrementTv.setOnClickListener(new View.OnClickListener() {
@@ -108,19 +110,22 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         CustomDate customDate = getFirstDateOfLastMonth();
         mBillingMonthTv.setText("Billing in " + customDate.getYear() + " - " + customDate.getMonth());
 
-//        mMenu = (ImageView) getActivity().findViewById(R.id.toolbar_menu_iv);
-//        mMenu.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        mMenu = (ImageView) getActivity().findViewById(R.id.toolbar_menu_iv);
+        mMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).openDrawer();
+            }
+        });
 
         mStatisticIv = (ImageView) getActivity().findViewById(R.id.toolbar_statistic_iv);
         mStatisticIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllIncomesFragment()).commit();
+                FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main_fl, new AllIncomesFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -192,6 +197,10 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         return new AllCompaniesPresenterImpl(this);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
 
     /**
      * show all bills with increased users

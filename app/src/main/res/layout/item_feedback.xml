@@ -16,7 +16,6 @@
             android:layout_width="200dp"
             android:layout_height="@dimen/list_item_feedback_height"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:weightSum="5"
             android:background="@color/blue_900"
             android:tag="Bottom2">

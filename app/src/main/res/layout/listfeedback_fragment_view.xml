@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
     <LinearLayout
+        android:layout_alignParentTop="true"
         android:id="@+id/layout_search"
         android:background="#e1e1e1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_search_layout"
-        android:gravity="center_horizontal"
-        android:layout_weight="0">
+        android:gravity="center_horizontal">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -36,22 +36,26 @@
         </RelativeLayout>
 
     </LinearLayout>
-    <com.malinskiy.superrecyclerview.SuperRecyclerView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/list"
-        android:layout_weight="1"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_empty="@layout/emptyview"
-        app:layout_moreProgress="@layout/view_more_progress"
-        app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
-        app:recyclerClipToPadding="false"
-        app:scrollbarStyle="insideOverlay"/>
-    <ProgressBar
-        android:id="@+id/all_feedback_pb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone"/>
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_search"
+        android:layout_alignParentBottom="true">
+        <com.malinskiy.superrecyclerview.SuperRecyclerView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_empty="@layout/emptyview"
+            app:layout_moreProgress="@layout/view_more_progress"
+            app:mainLayoutId="@layout/layout_recyclerview_verticalscroll"
+            app:recyclerClipToPadding="false"
+            app:scrollbarStyle="insideOverlay"/>
+        <ProgressBar
+            android:id="@+id/all_feedback_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+    </FrameLayout>
+</RelativeLayout>

@@ -93,9 +93,7 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
             handle user increment is positive, negative or equal zero
             */
             ((CompanyBillsViewHolder) holder).mCompanyUserTv.setText(item.getNumOfUser() + "");
-
             int userIncrement = item.getUserIncrement();
-
             if (userIncrement > 0) {
                 ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText("▲");
                 ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.green_600));
@@ -111,9 +109,7 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
                 ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.black));
                 ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText("0");
                 ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.black));
-
             }
-
             ((CompanyBillsViewHolder) holder).mCompanyAmountTv.setText(item.getNumOfUser() * item.getFeePerUser() + "");
 
             /*
@@ -167,16 +163,22 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
     }
 
     class CompanyBillsViewHolder extends RecyclerView.ViewHolder {
+
         @Bind((R.id.item_company_name_tv))
         TextView mCompanyNameTv;
+
         @Bind(R.id.item_company_number_user_tv)
         TextView mCompanyUserTv;
+
         @Bind(R.id.item_company_user_increment_tv)
         TextView mCompanyUserIncrementTv;
+
         @Bind(R.id.item_company_number_user_increment_tv)
         TextView mCompanyNumberUserIncrementTv;
+
         @Bind(R.id.item_company_amount_tv)
         TextView mCompanyAmountTv;
+
         @Bind(R.id.item_company_bill_ll)
         LinearLayout mCompanyBillLl;
 
