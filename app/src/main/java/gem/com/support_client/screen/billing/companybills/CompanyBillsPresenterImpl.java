@@ -1,7 +1,5 @@
 package gem.com.support_client.screen.billing.companybills;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import gem.com.support_client.base.log.EventLogger;
@@ -30,9 +28,8 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> storeArrayList = response.body().getContent();
-                Log.d(getClass().getName(), storeArrayList.get(0).toString());
-                mView.onGetAllBillsSuccess(storeArrayList);
+                ArrayList<Bill> bills = response.body().getContent();
+                mView.onGetAllBillsSuccess(bills);
             }
 
             @Override

@@ -31,7 +31,7 @@ public class CompanyInfoActivity extends BaseActivityToolbar<CompanyInfoPresente
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        getSupportActionBar().setTitle("Company");
+        getSupportActionBar().setTitle("Company Info");
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 

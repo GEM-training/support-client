@@ -1,14 +1,11 @@
 package gem.com.support_client.screen.billing.allincome;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
-import gem.com.support_client.common.util.DateUtils;
 import gem.com.support_client.network.ServiceBuilder;
-import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.network.model.Income;
 import gem.com.support_client.network.model.PageableResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,19 +22,19 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
     }
 
     @Override
-    public void getAll() {
+    public void getAllIncomes() {
         EventLogger.info("Get all incomes...");
-        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), 0, Constants.PAGE_SIZE, Constants.columnNameAsc);
-        call.enqueue(new Callback<PageableResponse<Bill>>() {
+        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(0, Constants.PAGE_SIZE);
+//        , Constants.columnToDESC
+        call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
-            public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> storeArrayList = response.body().getContent();
-                Log.d(getClass().getName(), storeArrayList.get(0).toString());
-                mView.onGetAllIncomesSuccess(storeArrayList);
+            public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
+                ArrayList<Income> incomes = response.body().getContent();
+                mView.onGetAllIncomesSuccess(incomes);
             }
 
             @Override
-            public void onFailure(Call<PageableResponse<Bill>> call, Throwable t) {
+            public void onFailure(Call<PageableResponse<Income>> call, Throwable t) {
                 t.printStackTrace();
                 mView.onRequestError(t.getMessage());
             }
@@ -46,18 +43,39 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
 
     @Override
     public void loadMore(int currentPage) {
-        EventLogger.info("Load more store...");
-        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), currentPage, Constants.PAGE_SIZE, Constants.columnNameAsc);
-        call.enqueue(new Callback<PageableResponse<Bill>>() {
+        EventLogger.info("Load more incomes...");
+        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(currentPage, Constants.PAGE_SIZE);
+//        , Constants.columnToDESC
+        call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
-            public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> moreBill = response.body().getContent();
-                mView.onLoadMoreSuccess(moreBill);
+            public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
+                ArrayList<Income> moreIncomes = response.body().getContent();
+                mView.onLoadMoreSuccess(moreIncomes);
             }
 
             @Override
-            public void onFailure(Call<PageableResponse<Bill>> call, Throwable t) {
+            public void onFailure(Call<PageableResponse<Income>> call, Throwable t) {
                 EventLogger.info("Load more failure: " + t.getMessage());
+                mView.onRequestError(t.getMessage());
+            }
+        });
+    }
+
+
+    @Override
+    public void getAllIncomesByCompanyId(String companyId) {
+        EventLogger.info("Get all incomes by companyId...");
+        Call<Income> call = ServiceBuilder.getService().getAllIncomesByCompanyId(companyId);
+        call.enqueue(new Callback<Income>() {
+            @Override
+            public void onResponse(Call<Income> call, Response<Income> response) {
+                Income income = response.body();
+                mView.onGetAllIncomesOfCompanySucces(income);
+            }
+
+            @Override
+            public void onFailure(Call<Income> call, Throwable t) {
+                t.printStackTrace();
                 mView.onRequestError(t.getMessage());
             }
         });

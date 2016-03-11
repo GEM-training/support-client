@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.network.model.Income;
 
 /**
  * Created by huylv on 09-Mar-16.
@@ -33,19 +34,32 @@ public class LineChartPresenterImpl implements LineChartPresenter {
         this.mView = mView;
     }
 
-    public void initData(ArrayList<Bill> mBill) {
+    public void initBillData(ArrayList<Bill> bills) {
         mListNumberOfUser = new ArrayList<Entry>();
         mAmount = new ArrayList<Entry>();
         mPaidDate = new ArrayList<String>();
         // feePerUser = mBill.get(0).getFeePerUser();
-        int k=0;
-        for (int i = mBill.size()-2; i >= 0; i--) {
-            mListNumberOfUser.add(new Entry(mBill.get(i).getNumOfUser(), k));
-            mAmount.add(new Entry((float) (mBill.get(i).getNumOfUser() * mBill.get(i).getFeePerUser()), k));
-            mPaidDate.add(StringUtils.getDateFromTimestamp(mBill.get(i).getPaymentDate()));
+        int k = 0;
+        for (int i = bills.size() - 2; i >= 0; i--) {
+            mListNumberOfUser.add(new Entry(bills.get(i).getNumOfUser(), k));
+            mAmount.add(new Entry((float) (bills.get(i).getNumOfUser() * bills.get(i).getFeePerUser()), k));
+            mPaidDate.add(StringUtils.getDateFromTimestamp(bills.get(i).getPaymentDate()));
             k++;
         }
+    }
 
+    public void initIncomeData(ArrayList<Income> incomes) {
+        mListNumberOfUser = new ArrayList<Entry>();
+        mAmount = new ArrayList<Entry>();
+        mPaidDate = new ArrayList<String>();
+        // feePerUser = mBill.get(0).getFeePerUser();
+        int k = 0;
+        for (int i = incomes.size() - 2; i >= 0; i--) {
+            mListNumberOfUser.add(new Entry(incomes.get(i).getTotalUser(), k));
+            mAmount.add(new Entry((float) (incomes.get(i).getTotalIncome()), k));
+            mPaidDate.add(StringUtils.getDateFromTimestamp(incomes.get(i).getToDate()));
+            k++;
+        }
     }
 
 

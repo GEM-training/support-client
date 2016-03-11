@@ -5,14 +5,9 @@ import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -26,13 +21,6 @@ import gem.com.support_client.network.model.Bill;
 import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandle;
-import nhom1.gem.com.exceptionplugin.common.util.DeviceUtils;
-import nhom1.gem.com.exceptionplugin.common.util.ExceptionUtils;
-import nhom1.gem.com.exceptionplugin.network.ServiceBuilder;
-import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by huylv on 22/02/2016.
@@ -47,6 +35,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
     @Bind(R.id.nav_view)
     NavigationView navigationView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +51,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         mAllCompaniesFragment = new AllCompaniesFragment();
         mListFeedbackFragment = new ListFeedbackFragment();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         new ExceptionHandle(this);
 
@@ -153,4 +144,7 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         return true;
     }
 
+    public void openDrawer(){
+        mDrawerLayout.openDrawer(navigationView);
+    }
 }

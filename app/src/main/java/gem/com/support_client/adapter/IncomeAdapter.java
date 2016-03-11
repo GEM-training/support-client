@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import gem.com.support_client.R;
 import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.common.util.StringUtils;
-import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.network.model.Income;
 
 /**
- * Created by quanda on 08/03/2016.
+ * Created by quanda on 11/03/2016.
  */
-public class BillAdapter extends RecyclerView.Adapter {
+public class IncomeAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<Bill> mBills;
+    private ArrayList<Income> mIncomes;
     private Context mContext;
     private final int VISIBLE_THRESHOLD = 5;
     private final int VIEW_ITEM = 1;
@@ -30,8 +30,8 @@ public class BillAdapter extends RecyclerView.Adapter {
     private int mLastVisibleItem;
     private int mTotalItemCount;
 
-    public BillAdapter(ArrayList<Bill> bills, Context context, RecyclerView recyclerView) {
-        this.mBills = bills;
+    public IncomeAdapter(ArrayList<Income> incomes, Context context, RecyclerView recyclerView) {
+        this.mIncomes = incomes;
         this.mContext = context;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
             final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
@@ -42,6 +42,7 @@ public class BillAdapter extends RecyclerView.Adapter {
                         public void onScrolled(RecyclerView recyclerView,
                                                int dx, int dy) {
                             super.onScrolled(recyclerView, dx, dy);
+
                             mTotalItemCount = linearLayoutManager.getItemCount();
                             mLastVisibleItem = linearLayoutManager
                                     .findLastVisibleItemPosition();
@@ -76,13 +77,13 @@ public class BillAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final Bill item = mBills.get(position);
+        final Income item = mIncomes.get(position);
         if (holder instanceof BillViewHolder) {
             /*
             handle user increment is positive, negative or equal zero
              */
-            ((BillViewHolder) holder).mBillPaidDateTv.setText(StringUtils.getDateFromTimestamp(item.getPaymentDate()));
-            ((BillViewHolder) holder).mBillNumberUserTv.setText(item.getNumOfUser() + "");
+            ((BillViewHolder) holder).mBillPaidDateTv.setText(StringUtils.getDateFromTimestamp(item.getToDate()));
+            ((BillViewHolder) holder).mBillNumberUserTv.setText(item.getTotalUser() + "");
             int userIncrement = item.getUserIncrement();
             if (userIncrement > 0) {
                 ((BillViewHolder) holder).mBillUserIncrementTv.setText("▲");
@@ -101,7 +102,7 @@ public class BillAdapter extends RecyclerView.Adapter {
                 ((BillViewHolder) holder).mBillNumberUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.black));
 
             }
-            ((BillViewHolder) holder).mAmountTv.setText(item.getNumOfUser() * item.getFeePerUser() + "");
+            ((BillViewHolder) holder).mAmountTv.setText(item.getTotalIncome() + "");
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -110,12 +111,12 @@ public class BillAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return mBills.get(position) != null ? VIEW_ITEM : VIEW_PROG;
+        return mIncomes.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
 
     @Override
     public int getItemCount() {
-        return mBills.size();
+        return mIncomes.size();
     }
 
     public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
@@ -126,12 +127,13 @@ public class BillAdapter extends RecyclerView.Adapter {
         mLoading = false;
     }
 
-    public void setmBills(ArrayList<Bill> mBills) {
-        this.mBills = mBills;
+    public void setmIncomes(ArrayList<Income> incomes) {
+        this.mIncomes = incomes;
         notifyDataSetChanged();
     }
 
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+
         public final ProgressBar progressBar;
 
         public ProgressViewHolder(View itemView) {
@@ -139,5 +141,6 @@ public class BillAdapter extends RecyclerView.Adapter {
             progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
         }
     }
+
 
 }
