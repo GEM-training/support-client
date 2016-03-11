@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -167,6 +168,8 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         if(getArguments()!=null){
             companyId = getArguments().getString(Constants.COMPANY_ID);
+            TextView textView = (TextView)getActivity().findViewById(R.id.tv_fillter);
+            textView.setText(getArguments().getString("enterpriseName"));
         }
 
         getPresenter().doLoadListFeedback(page, pageSize , companyId);

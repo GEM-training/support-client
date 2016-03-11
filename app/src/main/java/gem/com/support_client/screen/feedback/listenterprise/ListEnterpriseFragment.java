@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,8 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.COMPANY_ID, enterpriseList.get(position).getUuid());
+
+                bundle.putString("enterpriseName" , enterpriseList.get(position).getCompanyName());
 
                 ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
                 feedbackFragment.setArguments(bundle);
