@@ -20,6 +20,7 @@ import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.network.model.Income;
+import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
 /**
@@ -86,6 +87,9 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
+
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllCompaniesFragment()).addToBackStack(null).commit();
+
             }
         });
 
