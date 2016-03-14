@@ -19,19 +19,15 @@
         android:orientation="vertical"
         android:padding="@dimen/padding_global">
 
-
         <ImageView
             android:id="@+id/company_info_picture_iv"
             android:layout_width="@dimen/company_info_logo_w"
             android:layout_height="@dimen/company_info_logo_h"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/margin_global"
             android:src="@mipmap/account_black" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:layout_marginTop="@dimen/tv_margin"
-            android:background="#ccc"/>
+        <include layout="@layout/line_grey"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,12 +53,8 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="62dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc"/>
+        <include layout="@layout/line_grey" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -94,12 +86,7 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="62dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc"/>
+        <include layout="@layout/line_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,13 +118,7 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <!-- TODO do not hard-code dimens -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="62dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc"/>
+        <include layout="@layout/line_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,13 +150,7 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <!-- TODO do not hard-code dimens -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_break_height"
-            android:layout_marginLeft="62dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/grey_500"/>
+        <include layout="@layout/line_grey" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -211,10 +186,7 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/line_break_height"
-            android:layout_marginTop="@dimen/tv_margin"
-            android:background="@color/grey_500"/>
+        <include layout="@layout/line_grey" />
+
     </LinearLayout>
 </LinearLayout>

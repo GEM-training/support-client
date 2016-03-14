@@ -3,7 +3,6 @@ package gem.com.support_client.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,34 +39,34 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
     private int mLastVisibleItem;
     private int mTotalItemCount;
 
-    public CompanyBillAdapter(ArrayList<Bill> mBills, Context context, RecyclerView recyclerView) {
+    public CompanyBillAdapter(ArrayList<Bill> mBills, Context context) {
         this.mBills = mBills;
         this.mContext = context;
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
-                    .getLayoutManager();
-            recyclerView
-                    .addOnScrollListener(new RecyclerView.OnScrollListener() {
-                        @Override
-                        public void onScrolled(RecyclerView recyclerView,
-                                               int dx, int dy) {
-                            super.onScrolled(recyclerView, dx, dy);
-
-                            mTotalItemCount = linearLayoutManager.getItemCount();
-                            mLastVisibleItem = linearLayoutManager
-                                    .findLastVisibleItemPosition();
-                            if (!mLoading
-                                    && mTotalItemCount <= (mLastVisibleItem + VISIBLE_THRESHOLD)) {
-                                // End has been reached
-                                // Do something
-                                if (onLoadMoreListener != null) {
-                                    onLoadMoreListener.onLoadMore();
-                                }
-                                mLoading = true;
-                            }
-                        }
-                    });
-        }
+//        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+//            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
+//                    .getLayoutManager();
+//            recyclerView
+//                    .addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                        @Override
+//                        public void onScrolled(RecyclerView recyclerView,
+//                                               int dx, int dy) {
+//                            super.onScrolled(recyclerView, dx, dy);
+//
+//                            mTotalItemCount = linearLayoutManager.getItemCount();
+//                            mLastVisibleItem = linearLayoutManager
+//                                    .findLastVisibleItemPosition();
+//                            if (!mLoading
+//                                    && mTotalItemCount <= (mLastVisibleItem + VISIBLE_THRESHOLD)) {
+//                                // End has been reached
+//                                // Do something
+//                                if (onLoadMoreListener != null) {
+//                                    onLoadMoreListener.onLoadMore();
+//                                }
+//                                mLoading = true;
+//                            }
+//                        }
+//                    });
+//        }
     }
 
     @Override

@@ -75,6 +75,14 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     private String TAG_FRAGMENT_FILTER = "filter user increment";
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBills = new ArrayList<Bill>();
+        mAdapter = new CompanyBillAdapter(mBills, getActivity());
+    }
+
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         EventLogger.info("AllCompainiesFragment create view");
@@ -89,12 +97,32 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         /**
          * bind data from arraylist to recycler view
          */
-        mBills = new ArrayList<Bill>();
         getPresenter().getAll();
         sCurrentPage = 0;
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAllCompaniesRv.setLayoutManager(mLayoutManager);
-        mAdapter = new CompanyBillAdapter(mBills, getActivity(), mAllCompaniesRv);
+
+
+        mAllCompaniesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private boolean loading = true;
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = mLayoutManager.getChildCount();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            getPresenter().loadMore(sCurrentPage);
+                        }
+                    }
+                }
+            }
+        });
+
 
         /**
          * handle on load more
@@ -187,7 +215,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
      */
     public void showInvariabledUserBills() {
         EventLogger.info("Show InvariableUserBills");
-        // TODO do not hard code
         mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_invariable));
         mCustomBills = new ArrayList<Bill>();
         int size = mBills.size();
@@ -248,7 +275,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     private void setBillMonth() {
         mBillingMonthTv = (TextView) mToolbarLayout.findViewById(R.id.toolbar_month_tv);
         CustomDate customDate = DateUtils.getFirstDateOfLastMonth();
-        // TODO use String format: "Billing in %1$d - %2$d"
         mBillingMonthTv.setText(String.format("Billing in %1$d - %2$d", customDate.getYear(), customDate.getMonth()));
     }
 

@@ -11,4 +11,5 @@ public interface CompanyBillsPresenter extends BasePresenter {
 
     void loadMore(String companyId, int currentPage);
 
+    void getCompanySubscription(String companyId);
 }

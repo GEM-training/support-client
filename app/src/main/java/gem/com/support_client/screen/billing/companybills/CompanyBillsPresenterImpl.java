@@ -1,5 +1,7 @@
 package gem.com.support_client.screen.billing.companybills;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import gem.com.support_client.base.log.EventLogger;
@@ -7,6 +9,7 @@ import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.PageableResponse;
+import gem.com.support_client.network.dto.SubscriptionDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +58,28 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
             @Override
             public void onFailure(Call<PageableResponse<Bill>> call, Throwable t) {
                 EventLogger.info("Load more failure: " + t.getMessage());
+                mView.onRequestError(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getCompanySubscription(String companyId) {
+        EventLogger.info("Get company subscription");
+        Call<SubscriptionDTO> call = ServiceBuilder.getService().getCompanySubscription(companyId);
+        call.enqueue(new Callback<SubscriptionDTO>() {
+            @Override
+            public void onResponse(Call<SubscriptionDTO> call, Response<SubscriptionDTO> response) {
+                Log.e("============",response.body().toString());
+                SubscriptionDTO subscription = response.body();
+                Log.e("============",subscription.toString());
+
+                mView.onGetSubscription(subscription);
+            }
+
+            @Override
+            public void onFailure(Call<SubscriptionDTO> call, Throwable t) {
+                EventLogger.info("Get subscription failure: " + t.getMessage());
                 mView.onRequestError(t.getMessage());
             }
         });

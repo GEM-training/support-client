@@ -1,8 +1,6 @@
 package gem.com.support_client.screen.billing.companybills;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +20,7 @@ import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.dto.Bill;
+import gem.com.support_client.network.dto.SubscriptionDTO;
 import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
@@ -52,8 +51,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     private LineChartFragment mLineChartFragment;
     private AllIncomesFragment mAllIncomesFragment;
     private int mPosition;
+    private SubscriptionDTO mSubscription;
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +64,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mAdapter = new BillAdapter(mBills, this, mCompanyBillsRv);
         Intent intent = getIntent();
         mCompanyId = intent.getStringExtra(Constants.intent_companyId);
+
+        getPresenter().getCompanySubscription((mCompanyId));
+
 
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -116,14 +118,14 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
         // display total amount of a company
-        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mBills.get(mBills.size() - 1).getPaymentDate()));
+//        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mBills.get(mBills.size() - 1).getPaymentDate()));
 
         // display total amount of a company
-        double totalAmount = 0;
-        for (Bill bill : mBills) {
-            totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
-        }
-        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", totalAmount));
+//        double totalAmount = 0;
+//        for (Bill bill : mBills) {
+//            totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
+//        }
+//        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", totalAmount));
 
         // draw chart
         mLineChartFragment = new LineChartFragment(mBills, Bill.class);
@@ -133,13 +135,20 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     @Override
     public void onLoadMoreSuccess(ArrayList<Bill> moreBills) {
         mBills.remove(mBills.size() - 1);
-        this.mBills.addAll(moreBills);
+        mBills.addAll(moreBills);
         EventLogger.info("Load more bills successful, current size:" + mBills.size());
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
 
 //        mLineChartFragment = new LineChartFragment();
 //        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+    }
+
+    @Override
+    public void onGetSubscription(SubscriptionDTO subscription) {
+        mSubscription = new SubscriptionDTO(subscription);
+        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", mSubscription.getChargedAmount()));
+        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mSubscription.getStartDate()));
     }
 
     @Override

@@ -64,11 +64,6 @@
             android:textColor="@color/black" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_break_height"
-        android:background="@color/grey_500">
-
-    </FrameLayout>
+    <include layout="@layout/line_grey"/>
 </LinearLayout>
 
