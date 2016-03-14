@@ -1,4 +1,4 @@
-package gem.com.support_client.network.model;
+package gem.com.support_client.network.dto;
 
 import java.util.ArrayList;
 import java.util.Arrays;

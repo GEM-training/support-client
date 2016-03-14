@@ -19,7 +19,7 @@ import gem.com.support_client.adapter.IncomeAdapter;
 import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
-import gem.com.support_client.network.model.Income;
+import gem.com.support_client.network.dto.Income;
 import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
@@ -34,9 +34,11 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     @Bind(R.id.all_incomes_pb)
     ProgressBar mAllIncomesPb;
 
+    // TODO move data to Presenter
     private ArrayList<Income> mIncomes;
     private IncomeAdapter mAdapter;
     private static int sCurrentPage;
+
     private LinearLayoutManager mLayoutManager;
     private LineChartFragment mLineChartFragment;
     private Toolbar mToolbar;
@@ -117,8 +119,9 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
 
+        // redraw chart ater load more incomes
 //        mLineChartFragment = new LineChartFragment(mIncomes, Income.class);
-//        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+//        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, mLineChartFragment).commit();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package gem.com.support_client.network.model;
+package gem.com.support_client.network.dto;
 
 import com.google.gson.annotations.SerializedName;
 

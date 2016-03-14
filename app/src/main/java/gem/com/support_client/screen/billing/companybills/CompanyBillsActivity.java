@@ -21,7 +21,7 @@ import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
-import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
@@ -45,8 +45,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
 
     private ArrayList<Bill> mBills;
     private BillAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
     private static int sCurrentPage;
+
+    private LinearLayoutManager mLayoutManager;
     private String mCompanyId;
     private LineChartFragment mLineChartFragment;
     private AllIncomesFragment mAllIncomesFragment;
@@ -122,7 +123,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         for (Bill bill : mBills) {
             totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
         }
-        mCompanyBillsTotalAmountTv.setText(totalAmount + "");
+        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", totalAmount));
 
         // draw chart
         mLineChartFragment = new LineChartFragment(mBills, Bill.class);

@@ -38,7 +38,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#cccccc"></FrameLayout>
+        android:background="#cccccc"/>
 
     <LinearLayout
         android:id="@+id/group_by_enterprise"

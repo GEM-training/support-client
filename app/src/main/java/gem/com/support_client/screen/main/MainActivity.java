@@ -14,7 +14,7 @@ import gem.com.support_client.base.BaseActivityDrawer;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.VarUtils;
-import gem.com.support_client.network.model.Company;
+import gem.com.support_client.network.dto.Company;
 import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandlerUtil;

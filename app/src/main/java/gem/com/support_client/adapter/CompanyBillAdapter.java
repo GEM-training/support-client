@@ -2,6 +2,7 @@ package gem.com.support_client.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,19 +20,21 @@ import gem.com.support_client.R;
 import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
-import gem.com.support_client.network.model.Bill;
+import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.screen.billing.companybills.CompanyBillsActivity;
 
 /**
  * Created by quanda on 07/03/2016.
+ * Bind data between arraylist company bill and recycler view
  */
 public class CompanyBillAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Bill> mBills;
     private Context mContext;
-    private final int VISIBLE_THRESHOLD = 5;
-    private final int VIEW_ITEM = 1;
-    private final int VIEW_PROG = 0;
+    //TODO set static for Constants
+    private static final int VISIBLE_THRESHOLD = 5;
+    private static final int VIEW_ITEM = 1;
+    private static final int VIEW_PROG = 0;
     private boolean mLoading;
     private OnLoadMoreListener onLoadMoreListener;
     private int mLastVisibleItem;
@@ -94,25 +97,25 @@ public class CompanyBillAdapter extends RecyclerView.Adapter {
             /*
             handle user increment is positive, negative or equal zero
             */
-            ((CompanyBillsViewHolder) holder).mCompanyUserTv.setText(item.getNumOfUser() + "");
+            ((CompanyBillsViewHolder) holder).mCompanyUserTv.setText(String.valueOf(item.getNumOfUser()));
             int userIncrement = item.getUserIncrement();
             if (userIncrement > 0) {
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText("▲");
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.green_600));
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText(userIncrement + "");
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.green_600));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText(mContext.getString(R.string.arrow_up));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.green_600));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText(String.valueOf(userIncrement));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.green_600));
             } else if (userIncrement < 0) {
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText("▼");
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.red_600));
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText(-userIncrement + "");
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.red_600));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText(mContext.getResources().getString(R.string.arrow_down));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.red_600));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText(String.valueOf((-1) * userIncrement));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.red_600));
             } else { /* userIncrement ==0*/
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText("━");
-                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.black));
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText("0");
-                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(mContext.getResources().getColor(R.color.black));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setText(mContext.getResources().getString(R.string.minus));
+                ((CompanyBillsViewHolder) holder).mCompanyUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setText(String.valueOf(userIncrement));
+                ((CompanyBillsViewHolder) holder).mCompanyNumberUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.black));
             }
-            ((CompanyBillsViewHolder) holder).mCompanyAmountTv.setText(item.getNumOfUser() * item.getFeePerUser() + "");
+            ((CompanyBillsViewHolder) holder).mCompanyAmountTv.setText(String.valueOf(item.getNumOfUser() * item.getFeePerUser()));
 
             /*
             handle company bill on clicked, display all bills of a selected company

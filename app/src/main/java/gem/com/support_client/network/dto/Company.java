@@ -1,4 +1,4 @@
-package gem.com.support_client.network.model;
+package gem.com.support_client.network.dto;
 
 /**
  * Created by quanda on 04/03/2016.

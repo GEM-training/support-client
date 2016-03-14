@@ -2,7 +2,7 @@ package gem.com.support_client.common;
 
 import java.util.ArrayList;
 
-import gem.com.support_client.network.model.Company;
+import gem.com.support_client.network.dto.Company;
 
 /**
  * Constants for app
@@ -29,11 +29,10 @@ public interface Constants {
     //time out when clicking back button
     int BACK_TIMEOUT = 2000;
 
-    public static final String COMPANY_ID = "companyid";
-    public final static String CONNECT_TO_SERVER_ERROR = "Connect to Server Error";
+    String COMPANY_ID = "companyId";
+    String CONNECT_TO_SERVER_ERROR = "Connect to Server Error";
 
     // fake company info
     ArrayList<Company> companies = new ArrayList<Company>();
     String position = "position";
-
 }

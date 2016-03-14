@@ -32,19 +32,19 @@ public class BillViewHolder extends RecyclerView.ViewHolder {
         return mBillPaidDateTv;
     }
 
-    public TextView getmBillNumberUserTv() {
+    public TextView getmillNumberUserTv() {
         return mBillNumberUserTv;
     }
 
-    public TextView getmBillUserIncrementTv() {
+    public TextView getBillUserIncrementTv() {
         return mBillUserIncrementTv;
     }
 
-    public TextView getmBillNumberUserIncrementTv() {
+    public TextView getBillNumberUserIncrementTv() {
         return mBillNumberUserIncrementTv;
     }
 
-    public TextView getmAmountTv() {
+    public TextView getAmountTv() {
         return mAmountTv;
     }
 

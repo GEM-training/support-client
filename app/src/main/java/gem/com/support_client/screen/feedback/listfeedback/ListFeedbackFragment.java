@@ -32,7 +32,7 @@ import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.common.Constants;
-import gem.com.support_client.common.util.DividerItemDecoration;
+import gem.com.support_client.adapter.listener.DividerItemDecoration;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import gem.com.support_client.screen.feedback.groupby.GroupByFragment;

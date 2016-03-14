@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
-import gem.com.support_client.network.model.Bill;
-import gem.com.support_client.network.model.Income;
+import gem.com.support_client.network.dto.Bill;
+import gem.com.support_client.network.dto.Income;
 
 /**
  * Created by huylv on 07-Mar-16.

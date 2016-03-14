@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.3dp"
             android:layout_marginTop="@dimen/tv_margin"
-            android:background="#ccc"></FrameLayout>
+            android:background="#ccc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="5dp"
-            android:background="#ccc"></FrameLayout>
+            android:background="#ccc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
             android:layout_height="0.5dp"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="5dp"
-            android:background="#ccc"></FrameLayout>
+            android:background="#ccc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -131,12 +131,13 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <FrameLayout
+        <!-- TODO do not hard-code dimens -->
+        <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="5dp"
-            android:background="#ccc"></FrameLayout>
+            android:background="#ccc"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -168,12 +169,13 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <FrameLayout
+        <!-- TODO do not hard-code dimens -->
+        <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_break_height"
             android:layout_marginLeft="62dp"
             android:layout_marginTop="5dp"
-            android:background="@color/grey_500"></FrameLayout>
+            android:background="@color/grey_500"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -209,10 +211,10 @@
                 android:textColor="#000" />
         </LinearLayout>
 
-        <FrameLayout
+        <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/line_break_height"
             android:layout_marginTop="@dimen/tv_margin"
-            android:background="@color/grey_500"></FrameLayout>
+            android:background="@color/grey_500"/>
     </LinearLayout>
 </LinearLayout>

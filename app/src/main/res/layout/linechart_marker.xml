@@ -19,5 +19,6 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:textAppearance="?android:attr/textAppearanceSmall" />
+    <!-- Use sp for text size-->
 
 </RelativeLayout>

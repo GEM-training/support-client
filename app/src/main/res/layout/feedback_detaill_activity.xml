@@ -9,23 +9,26 @@
         android:background="@color/bg_tool_bar"
         android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/img_user_back"
-            android:layout_width="@dimen/back_button_width"
-            android:layout_height="match_parent">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/img_user_back"-->
+            <!--android:layout_width="@dimen/back_button_width"-->
+            <!--android:layout_height="match_parent">-->
             <ImageView
+                android:id="@+id/img_user_back"
                 android:layout_marginLeft="@dimen/icon_back_margin_left"
                 android:layout_gravity="center_vertical"
-                android:layout_width="@dimen/icon_back_width"
-                android:layout_height="@dimen/icon_back_height"
+                android:layout_width="@dimen/back_button_width"
+                android:layout_height="match_parent"
+                android:scaleType="fitStart"
                 android:src="@drawable/back_icon"/>
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,7 +37,7 @@
         <LinearLayout
             android:id="@+id/feedback_detail_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
@@ -99,6 +102,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- TODO create new layout or style-->
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
