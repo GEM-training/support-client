@@ -1,5 +1,6 @@
 package gem.com.support_client.screen.feedback.userdetail;
 
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import butterknife.Bind;
@@ -13,7 +14,7 @@ import gem.com.support_client.base.BaseActivity;
 public class UserDetailActivity extends BaseActivity<UserDetailPresenter> implements UserDetailView {
 
     @Bind(R.id.img_user_detail_back)
-    LinearLayout mUserDetailbackImg;
+    ImageView mUserDetailbackImg;
     @Override
     protected int getLayoutId() {
         return R.layout.layout_user_detail_activity;
