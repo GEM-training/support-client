@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -138,8 +139,9 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
 
-//        mLineChartFragment = new LineChartFragment();
-//        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+        mLineChartFragment = new LineChartFragment(mBills, Bill.class);
+        //Log.d("111", mBills.get(mBills.size()-1).toString());
+        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
     }
 
     @Override
