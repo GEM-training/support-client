@@ -21,4 +21,6 @@ public interface LineChartPresenter extends BasePresenter {
     public void initBillData(ArrayList<Bill> bills);
 
     public void initIncomeData(ArrayList<Income> incomes);
+
+    public int getNumberOfItem();
 }

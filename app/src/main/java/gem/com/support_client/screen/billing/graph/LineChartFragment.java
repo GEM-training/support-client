@@ -32,7 +32,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
     private ArrayList<Income> mIncomes;
     private final int ITEM_COUNT = 12;
     private Class mCurrentClass;
-
+    
     public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
         if (targetClass == Bill.class) {
             mBills = (ArrayList<Bill>) arrayList;
@@ -41,6 +41,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
             mIncomes = (ArrayList<Income>) arrayList;
             mCurrentClass = Income.class;
         }
+
     }
 
 
@@ -81,30 +82,6 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
     }
 
     protected void config() {
-        /*mChart.setDescription("");
-        mChart.setBackgroundColor(Color.WHITE);
-        //mChart.setDrawGridBackground(false);
-
-        YAxis rightAxis = mChart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinValue(0f);
-
-        rightAxis.setTextColor(Color.rgb(233,133,43));
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinValue(0f);
-        leftAxis.setTextColor(Color.rgb(6,189,109));
-
-        //mChart.setVisibleXRangeMaximum(5);
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawAxisLine(false);
-        mChart.setHighlightPerTapEnabled(true);
-        mChart.setHighlightPerDragEnabled(true);
-        mChart.setTouchEnabled(true);
-        mChart.getLegend().setEnabled(false);
-        mChart.invalidate();*/
-
         mChart.setDescription("");
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setDrawGridBackground(false);
@@ -123,12 +100,12 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
         LineData data = generateLineData();
         mChart.setData(data);
         mChart.setVisibleXRangeMaximum(5);
+        mChart.moveViewToX(getPresenter().getNumberOfItem()-5);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         mChart.setHighlightPerTapEnabled(true);
 
-        /*CustomMarkerView mv = new CustomMarkerView (getActivity(), R.layout.linechart_marker);
-        mChart.setMarkerView(mv);*/
+
         mChart.setTouchEnabled(true);
         mChart.getLegend().setEnabled(false);
         mChart.invalidate();
@@ -182,84 +159,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
         lineData = new LineData(getPresenter().getmPaidDate(), dataSets);
         return lineData;
     }
+
 }
 
- /*   private LineDataSet generateLineDataLeft() {
-
-        //LineData d = new LineData();
-
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        //entries = getPresenter().getmListNumberOfUser();
-
-        for (int index = 0; index < itemcount; index++)
-            entries.add(new Entry(getRandom(75000, 15000), index));
-
-        LineDataSet set = new LineDataSet(entries, "User");
-        set.setColor(Color.rgb(6,189,109));
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.rgb(6,189,109));
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.rgb(6,189,109));
-        set.setDrawCubic(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.rgb(6,189,109));
-        set.setDrawValues(false);
-        set.setAxisDependency(YAxis.AxisDependency.LEFT);
-
-        //d.addDataSet(set);
-        return set;
-    }
-
-    private LineDataSet generateLineDataRight() {
-        ArrayList<Entry> entries = getPresenter().getmListNumberOfUser();
-        *//*for (int index = 0; index < itemcount; index++) {
-            entries.add(new Entry(getRandom(25, 5), index));
-        }*//*
-        Log.e("bbb", String.valueOf(entries.get(1)));
-        LineDataSet set = new LineDataSet(entries, "Amount");
-        set.setColor(Color.rgb(233,133,43));
-        set.setLineWidth(2.5f);
-        set.setCircleColor(Color.rgb(233,133,43));
-        set.setCircleRadius(5f);
-        set.setFillColor(Color.rgb(233,133,43));
-        set.setDrawCubic(true);
-        set.setValueTextSize(10f);
-        set.setValueTextColor(Color.rgb(233,133,43));
-        set.setDrawValues(false);
-        set.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        //d.addDataSet(set);
-        return set;
-    }
-
-    private ArrayList<Entry> getData(){
-        ArrayList<Entry> entries = new ArrayList<Entry>();
-        for (int index = 0; index < itemcount; index++)
-            entries.add(new Entry(getRandom(25, 5), index));
-        return entries;
-    }
-    private LineData generateLineData(){
-        LineData lineData;
-        ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        LineDataSet set1 = generateLineDataLeft();
-        LineDataSet set2 = generateLineDataRight();
-        dataSets.add(set1);
-        dataSets.add(set2);
-        lineData = new LineData(getListValue(), dataSets);
-        return lineData;
-    }
-
-    private ArrayList<String> getListValue(){
-        String[] mMonths = new String[] {
-                "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
-        };
-        ArrayList<String> months = new ArrayList<String>();
-        for(int i = 0; i < mMonths.length; i++){
-            months.add(mMonths[i]);
-        }
-        return months;
-    }
-    private int getRandom(int range, int startsfrom) {
-        return (int) (Math.random() * range) + startsfrom;
-    }
-}*/
 

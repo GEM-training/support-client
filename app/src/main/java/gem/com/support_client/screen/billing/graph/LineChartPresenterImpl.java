@@ -62,4 +62,7 @@ public class LineChartPresenterImpl implements LineChartPresenter {
         }
     }
 
+    public int getNumberOfItem(){
+        return mPaidDate.size();
+    }
 }
