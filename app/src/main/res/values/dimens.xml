@@ -75,7 +75,7 @@
     <dimen name="zero">0dp</dimen>
 
     <!-- imens ralated to item feedback-->
-    <dimen name="list_item_feedback_height">96dp</dimen>
+    <dimen name="list_item_feedback_height">80dp</dimen>
     <dimen name="list_item_feedback_padding_horizontal">16dp</dimen>
     <dimen name="list_item_feedback_padding_vertical">8dp</dimen>
     <dimen name="icon_user_size">50dp</dimen>

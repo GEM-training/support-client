@@ -85,6 +85,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         } else {
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
+        holder.tvName.setSelected(true);
 
         holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
 

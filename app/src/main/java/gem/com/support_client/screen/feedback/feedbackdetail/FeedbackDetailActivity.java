@@ -130,6 +130,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
 
     @OnClick(R.id.layout_user_detail)
     public void clickUserDetail(){
-        startActivity(new Intent(FeedbackDetailActivity.this , UserDetailActivity.class));
+        Intent intent = new Intent(FeedbackDetailActivity.this , UserDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("feedbackbrief", mFeedbackBrief);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

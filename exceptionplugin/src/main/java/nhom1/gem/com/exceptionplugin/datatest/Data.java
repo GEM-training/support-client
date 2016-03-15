@@ -35,6 +35,10 @@ public class Data {
     "Đặng Aanh Quân",
     "Summer Hancock"};
 
+    public static int[] company = {
+        0 , 1 ,2 , 0 ,1 ,2 ,0 ,1 ,2 , 0 ,1 ,2 ,0 ,1 ,2 , 0 ,1 ,2 , 0, 1 ,2 , 0 ,1 ,2 , 0 ,1 ,2 ,0 ,1 ,2
+    };
+
     public static String[] userId = {"001b6c7f-0b8a-43b9-b35d-6489e6daee91" ,
     "002b6c7f-0b8a-43b9-b35d-6489e6daee91",
     "003b6c7f-0b8a-43b9-b35d-6489e6daee91",
@@ -87,10 +91,8 @@ public class Data {
 
             userInfo.setUserId(UUIDDemo.getUUID());
 
-            int  n = rand.nextInt(companyName.length - 1);
-
-            userInfo.setCompanyName(companyName[n]);
-            userInfo.setCompanyId(companyId[n]);
+            userInfo.setCompanyName(companyName[company[i]]);
+            userInfo.setCompanyId(companyId[company[i]]);
 
             userInfos.add(userInfo);
         }
