@@ -182,8 +182,8 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 } else{
                     imgHintSearch.setVisibility(View.VISIBLE);
                 }
-                final List<FeedbackBrief> filteredModelList = filter(getPresenter().getListData(), s.toString());
-                getPresenter().getAdapter().animateTo(filteredModelList);
+
+                getPresenter().getAdapter().animateTo(getPresenter().filter(s.toString()));
 
             }
 
@@ -224,19 +224,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         hideProgress(mProgressBar, mRecyclerFeedback);
         mRecyclerFeedback.setRefreshing(false);
         mRecyclerFeedback.setLoadingMore(false);
-    }
-
-    private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
-        query = query.toLowerCase();
-
-        final List<FeedbackBrief> filteredModelList = new ArrayList<>();
-        for (FeedbackBrief model : models) {
-            final String text = model.getUsername().toLowerCase();
-            if (text.contains(query)) {
-                filteredModelList.add(model);
-            }
-        }
-        return filteredModelList;
     }
 
 }

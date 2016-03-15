@@ -13,4 +13,5 @@ public interface ListFeedbackPresenter extends BasePresenter {
     void doLoadListFeedback(int page , int pageSize , String companyId);
     FeedbackAdapter getAdapter();
     List<FeedbackBrief> getListData();
+    List<FeedbackBrief> filter(String query);
 }

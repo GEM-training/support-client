@@ -27,6 +27,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     private ListFeedbackView mView;
     FeedbackAdapter mAdapter;
     private List<FeedbackBrief> mData = new ArrayList<>();
+    private List<FeedbackBrief> filteredDatas;
 
     public ListFeedbackPresenterImpl(ListFeedbackView view){
         this.mView = view;
@@ -38,7 +39,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
 
                 Intent intent = new Intent(mView.getContextBase(), FeedbackDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("feedbackdetails", mData.get(position));
+                bundle.putSerializable("feedbackdetails", filteredDatas.get(position));
                 intent.putExtras(bundle);
                 mView.getContextBase().startActivity(intent);
             }
@@ -65,6 +66,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                         }
 
                         mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        filteredDatas = new ArrayList<FeedbackBrief>(mData);
                         mAdapter.setData(mData);
                         mAdapter.notifyDataSetChanged();
 
@@ -117,6 +119,20 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     @Override
     public List<FeedbackBrief> getListData() {
         return mData;
+    }
+
+    @Override
+    public List<FeedbackBrief> filter(String query) {
+        query = query.toLowerCase();
+
+        filteredDatas= new ArrayList<>();
+        for (FeedbackBrief model : mData) {
+            final String text = model.getUsername().toLowerCase();
+            if (text.contains(query)) {
+                filteredDatas.add(model);
+            }
+        }
+        return filteredDatas;
     }
 
     @Override
