@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by huylv on 22/02/2016.
  */
 public class ServiceBuilder {
-    private static final String BASE_URL = "http://172.16.10.93:8080";
+    private static final String BASE_URL = "http://172.16.10.71:8080";
 
     private static Retrofit sInstance;
     private static APIService sService;

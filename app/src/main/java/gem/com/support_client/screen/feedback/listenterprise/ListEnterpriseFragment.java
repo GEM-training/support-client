@@ -31,16 +31,11 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     @Bind(R.id.et_search_enterprise)
     EditText mSearchEdt;
 
-    List<Enterprise> enterpriseList = new ArrayList<>();
-
-    ListEnterpriseAdapter listEnterpriseAdapter;
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listEnterpriseAdapter = new ListEnterpriseAdapter(getActivity() , enterpriseList);
-        mEnterpriseLv.setAdapter(listEnterpriseAdapter);
+        mEnterpriseLv.setAdapter(getPresenter().getAdapter());
 
         getPresenter().getListEnterPrise();
 
@@ -53,7 +48,7 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text = mSearchEdt.getText().toString().toLowerCase(Locale.getDefault());
-                listEnterpriseAdapter.filter(text);
+                getPresenter().getAdapter().filter(text);
             }
 
             @Override
@@ -66,9 +61,9 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.COMPANY_ID, enterpriseList.get(position).getUuid());
+                bundle.putString(Constants.COMPANY_ID, getPresenter().getListData().get(position).getUuid());
 
-                bundle.putString("enterpriseName" , enterpriseList.get(position).getCompanyName());
+                bundle.putString("enterpriseName" , getPresenter().getListData().get(position).getCompanyName());
 
                 ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
                 feedbackFragment.setArguments(bundle);
@@ -90,9 +85,7 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     }
 
     @Override
-    public void onLoadListEnterpriseSuccess(List<Enterprise> enterprises) {
-        enterpriseList.addAll(enterprises);
-        listEnterpriseAdapter.addAll(enterprises);
-        listEnterpriseAdapter.notifyDataSetChanged();
+    public void onLoadListEnterpriseSuccess() {
+
     }
 }

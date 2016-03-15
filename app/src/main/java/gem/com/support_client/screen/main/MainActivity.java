@@ -75,15 +75,15 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         thiz = this;
 
-      /*  List<FeedbackDTO.UserInfo> userInfos = Data.listUserInfo();
+        List<FeedbackDTO.UserInfo> userInfos = Data.listUserInfo();
 
         Random random = new Random();
 
         int  i = random.nextInt(userInfos.size() - 1);
 
-        ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));*/
+        ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
 
-       // throw new NullPointerException();
+        ExceptionHandlerUtil.sendFeedback("Good Application !");
 
     }
 
