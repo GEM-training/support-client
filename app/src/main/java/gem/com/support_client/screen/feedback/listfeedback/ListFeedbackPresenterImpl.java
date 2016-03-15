@@ -27,6 +27,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     private ListFeedbackView mView;
     FeedbackAdapter mAdapter;
     private List<FeedbackBrief> mData = new ArrayList<>();
+    private List<FeedbackBrief> filteredDatas;
 
     public ListFeedbackPresenterImpl(ListFeedbackView view){
         this.mView = view;
@@ -38,7 +39,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
 
                 Intent intent = new Intent(mView.getContextBase(), FeedbackDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("feedbackdetails", mData.get(position));
+                bundle.putSerializable("feedbackdetails", filteredDatas.get(position));
                 intent.putExtras(bundle);
                 mView.getContextBase().startActivity(intent);
             }
@@ -46,9 +47,9 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
 
         mAdapter.setOnClickDeleteFeedback(new FeedbackAdapter.OnClickDeleteFeedback() {
             @Override
-            public void onClickDelete(FeedbackBrief feedbackBrief) {
-                deleteFeedback(feedbackBrief.getId());
-                mData.remove(feedbackBrief);
+            public void onClickDelete(FeedbackBrief feedbackBrief, int positon) {
+                deleteFeedback(feedbackBrief, positon);
+
             }
         });
     }
@@ -65,6 +66,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                         }
 
                         mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        filteredDatas = new ArrayList<FeedbackBrief>(mData);
                         mAdapter.setData(mData);
                         mAdapter.notifyDataSetChanged();
 
@@ -72,6 +74,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
 
                     } else {
                         DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
+                        mView.onLoadListFeedbackFail();
                     }
                 }
 
@@ -79,6 +82,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                 public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
                     DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
                     t.printStackTrace();
+                    mView.onLoadListFeedbackFail();
                 }
             });
         } else {
@@ -123,16 +127,36 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     }
 
     @Override
-    public void deleteFeedback(String id) {
-        ServiceBuilder.getService().deleteFeedback(id).enqueue(new Callback<Void>() {
+    public List<FeedbackBrief> filter(String query) {
+        query = query.toLowerCase();
+
+        filteredDatas= new ArrayList<>();
+        for (FeedbackBrief model : mData) {
+            final String text = model.getUsername().toLowerCase();
+            if (text.contains(query)) {
+                filteredDatas.add(model);
+            }
+        }
+        return filteredDatas;
+    }
+
+    @Override
+    public void deleteFeedback(final FeedbackBrief feedbackBrief, final int position) {
+        ServiceBuilder.getService().deleteFeedback(feedbackBrief.getId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccess()){
+                    mData.remove(feedbackBrief);
+                } else {
 
+                    mAdapter.insert(feedbackBrief, position);
+                }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
+                mAdapter.insert(feedbackBrief, position);
             }
         });
     }
