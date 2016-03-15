@@ -8,4 +8,5 @@ import gem.com.support_client.network.model.FeedbackDetail;
  */
 public interface FeedbackDetailView extends BaseView<FeedbackDetailPresenter> {
     void onGetDetailSuccess(FeedbackDetail feedbackDetail);
+    void onGetDetailFail();
 }

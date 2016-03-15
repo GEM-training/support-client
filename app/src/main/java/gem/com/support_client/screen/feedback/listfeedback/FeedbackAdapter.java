@@ -138,7 +138,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         TextView tvSubContent;
         Button btnDelete;
         Button btnUndo;
-        ImageView imgUser;
+        CircleImageView imgUser;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -149,7 +149,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             tvSubContent = (TextView) itemView.findViewById(R.id.tv_subcontent);
             btnDelete = (Button) itemView.findViewById(R.id.btn_delete);
             btnUndo = (Button) itemView.findViewById(R.id.btn_undo);
-            imgUser = (ImageView) itemView.findViewById(R.id.avt_user);
+            imgUser = (CircleImageView) itemView.findViewById(R.id.avt_user);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

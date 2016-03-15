@@ -67,7 +67,7 @@
             android:paddingBottom="@dimen/list_item_feedback_padding_vertical"
             android:background="@color/white"
             android:elevation="5dp">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="@dimen/icon_user_size"
                 android:layout_weight="0"
                 android:layout_height="@dimen/icon_user_size"
