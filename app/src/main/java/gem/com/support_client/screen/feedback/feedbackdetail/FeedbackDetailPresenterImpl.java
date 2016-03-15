@@ -28,12 +28,14 @@ public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
                     mView.onGetDetailSuccess(feedbackDetail);
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() , response.code() + " " + response.message());
+                    mView.onGetDetailFail();
                 }
             }
 
             @Override
             public void onFailure(Call<FeedbackDetail> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
+                mView.onGetDetailFail();
             }
         });
     }
