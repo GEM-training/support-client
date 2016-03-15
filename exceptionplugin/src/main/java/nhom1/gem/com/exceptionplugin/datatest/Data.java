@@ -63,7 +63,7 @@ public class Data {
             "http://img.faceyourmanga.com/mangatars/0/0/691/normal_5176.png" ,
             "http://img.faceyourmanga.com/mangatars/0/6/6110/normal_7004.png" ,
             "http://img.faceyourmanga.com/mangatars/0/2/2797/normal_3810.png" ,
-            "http://img.faceyourmanga.com/mangatars/0/6/6110/normal_7004.png",
+            "http://img.faceyourmanga.com/mangatars/0/1/1451/normal_2674.png",
             "http://img.faceyourmanga.com/mangatars/0/1/1033/normal_1688.png",
             "http://img.faceyourmanga.com/mangatars/0/6/6110/normal_6861.png",
             "default.png",
