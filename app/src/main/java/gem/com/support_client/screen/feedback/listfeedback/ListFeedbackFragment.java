@@ -149,7 +149,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
 
         if(getArguments()!=null){
-            companyId = getArguments().getString(Constants.COMPANY_ID);
+            companyId = getArguments().getString("enterpriseId");
             TextView textView = (TextView)getActivity().findViewById(R.id.tv_fillter);
             textView.setText(getArguments().getString("enterpriseName"));
         }

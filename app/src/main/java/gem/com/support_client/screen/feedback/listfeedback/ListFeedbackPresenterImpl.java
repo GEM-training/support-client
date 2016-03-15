@@ -89,6 +89,11 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                         if (response.body().length == 0) {
                             ListFeedbackFragment.isEmpty = true;
                         }
+                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        mAdapter.setData(mData);
+                        mAdapter.notifyDataSetChanged();
+
+                        mView.onLoadListFeedbackSuccess();
 
                         mView.onLoadListFeedbackSuccess();
 

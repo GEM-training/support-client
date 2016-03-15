@@ -2,11 +2,13 @@ package gem.com.support_client.screen.feedback.feedbackdetail;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -17,6 +19,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivity;
+import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
@@ -25,9 +28,7 @@ import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
 /**
  * Created by phuongtd on 09/03/2016.
  */
-public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter> implements FeedbackDetailView{
-    @Bind(R.id.img_user_back)
-    ImageView mBackImg;
+public class FeedbackDetailActivity extends BaseActivityToolbar<FeedbackDetailPresenter> implements FeedbackDetailView{
 
     @Bind(R.id.img_user)
     ImageView mUserImg;
@@ -69,6 +70,9 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -130,10 +134,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         mDetailLayout.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.img_user_back)
+  /*  @OnClick(R.id.img_user_back)
     public void back(){
         finish();
-    }
+    }*/
 
     @OnClick(R.id.layout_user_detail)
     public void clickUserDetail(){
@@ -142,5 +146,11 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         bundle.putSerializable("feedbackbrief", mFeedbackBrief);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

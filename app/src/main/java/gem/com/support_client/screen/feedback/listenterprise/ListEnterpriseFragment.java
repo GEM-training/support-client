@@ -69,6 +69,7 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
                 bundle.putString(Constants.COMPANY_ID, getPresenter().getListData().get(position).getUuid());
 
                 bundle.putString("enterpriseName" , getPresenter().getListData().get(position).getCompanyName());
+                bundle.putString("enterpriseId" , getPresenter().getListData().get(position).getUuid());
 
                 ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
                 feedbackFragment.setArguments(bundle);

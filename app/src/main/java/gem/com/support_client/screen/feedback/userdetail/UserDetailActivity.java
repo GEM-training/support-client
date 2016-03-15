@@ -1,6 +1,7 @@
 package gem.com.support_client.screen.feedback.userdetail;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,15 +12,13 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivity;
+import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.network.model.FeedbackBrief;
 
 /**
  * Created by phuongtd on 09/03/2016.
  */
-public class UserDetailActivity extends BaseActivity<UserDetailPresenter> implements UserDetailView {
-
-    @Bind(R.id.img_user_detail_back)
-    ImageView mUserDetailbackImg;
+public class UserDetailActivity extends BaseActivityToolbar<UserDetailPresenter> implements UserDetailView {
 
     @Bind(R.id.tv_user_detail_name)
     TextView mUsernameTv;
@@ -32,6 +31,9 @@ public class UserDetailActivity extends BaseActivity<UserDetailPresenter> implem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_action_back);
 
         Bundle bundle = getIntent().getExtras();
         feedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackbrief");
@@ -50,8 +52,9 @@ public class UserDetailActivity extends BaseActivity<UserDetailPresenter> implem
         return new UserDetailPresenterImpl(this);
     }
 
-    @OnClick(R.id.img_user_detail_back)
-    public void onBackPress(){
-        finish();
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
