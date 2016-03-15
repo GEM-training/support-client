@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.balysv.materialripple.MaterialRippleLayout;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,10 +26,10 @@ import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 public class GroupByFragment extends Fragment {
 
     @Bind(R.id.group_by_all)
-    LinearLayout mGroupByAllLayout;
+    MaterialRippleLayout mGroupByAllLayout;
 
     @Bind(R.id.group_by_enterprise)
-    LinearLayout mGroupByEnterpriseLayout;
+    MaterialRippleLayout mGroupByEnterpriseLayout;
 
     @Bind(R.id.group_by_all_selected)
     ImageView mGroupByAllSelectedImg;

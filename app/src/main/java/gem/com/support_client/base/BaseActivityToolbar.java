@@ -1,9 +1,12 @@
 package gem.com.support_client.base;
 
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import gem.com.support_client.R;
 

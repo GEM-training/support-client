@@ -94,4 +94,9 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     public void onLoadListEnterpriseSuccess() {
         hideProgress(progressBar , mEnterpriseLv);
     }
+
+    @Override
+    public void onLoadFail() {
+        hideProgress(progressBar , mEnterpriseLv);
+    }
 }

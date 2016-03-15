@@ -19,7 +19,7 @@ public class ServiceBuilder {
     private static Retrofit getRetrofit() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).readTimeout(5 , TimeUnit.SECONDS).connectTimeout(5 , TimeUnit.SECONDS).build();
         if (sInstance == null) {
             sInstance = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

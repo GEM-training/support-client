@@ -28,11 +28,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/layout_user_detail"
-                android:background="@color/bg_user_info_in_feedback_detail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_of_userinfo_in_feedback_detail"
+                app:mrl_rippleAlpha="0.2"
+                app:mrl_rippleColor="#585858"
+                app:mrl_rippleHover="true"
+                app:mrl_rippleOverlay="true">
+
+            <LinearLayout
+
+                android:background="@color/bg_user_info_in_feedback_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="5">
 
@@ -89,6 +98,7 @@
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
 
             <!-- TODO create new layout or style-->
             <FrameLayout

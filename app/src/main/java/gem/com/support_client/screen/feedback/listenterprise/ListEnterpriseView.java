@@ -10,4 +10,5 @@ import gem.com.support_client.network.model.Enterprise;
  */
 public interface ListEnterpriseView extends BaseView<ListEnterprisePresenter> {
     void onLoadListEnterpriseSuccess();
+    void onLoadFail();
 }

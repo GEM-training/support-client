@@ -1,6 +1,7 @@
 package gem.com.support_client.screen.feedback.feedbackdetail;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
@@ -55,7 +57,7 @@ public class FeedbackDetailActivity extends BaseActivityToolbar<FeedbackDetailPr
     TextView mModelTv;
 
     @Bind(R.id.layout_user_detail)
-    LinearLayout mLayoutUserDetail;
+    MaterialRippleLayout mLayoutUserDetail;
 
     @Bind(R.id.tv_feedback_detail_enterprisename)
     TextView mEnterprisenameTv;
@@ -79,7 +81,7 @@ public class FeedbackDetailActivity extends BaseActivityToolbar<FeedbackDetailPr
 
         mFeedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
 
-        showProgress(mProgressBar , mDetailLayout);
+        showProgress(mProgressBar, mDetailLayout);
         getPresenter().getFeedbackDetail(mFeedbackBrief.getId());
 
     }

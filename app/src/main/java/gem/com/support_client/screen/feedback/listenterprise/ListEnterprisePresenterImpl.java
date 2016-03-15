@@ -54,12 +54,14 @@ public class ListEnterprisePresenterImpl implements ListEnterprisePresenter {
                     mView.onLoadListEnterpriseSuccess();
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() ,response.code() + " "+ response.message());
+                    mView.onLoadFail();
                 }
             }
 
             @Override
             public void onFailure(Call<ListEnterpriseDTO> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
+                mView.onLoadFail();
             }
         });
     }
