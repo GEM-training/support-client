@@ -27,6 +27,7 @@ public class ListEnterprisePresenterImpl implements ListEnterprisePresenter {
 
         listEnterpriseAdapter = new ListEnterpriseAdapter(mView.getContextBase() , enterpriseList);
 
+
     }
 
     @Override

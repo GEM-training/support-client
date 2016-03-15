@@ -57,7 +57,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     @Bind(R.id.hint_search)
     ImageView imgHintSearch;
 
-    FeedbackAdapter mAdapter;
 
     private Handler mHandler;
 
@@ -79,7 +78,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     public static  boolean isCheckAll = true;
 
-    private List<FeedbackBrief> mData = new ArrayList<>();
 
     private String companyId = "";
 
@@ -103,7 +101,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
         mToolbar.removeAllViews();
 
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_18dp);
+        mToolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
 
         mToolbarLayout = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.tool_bar_view, container , false);
 
@@ -129,9 +127,9 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             public void onClick(View v) {
 
                 if (!isShowGroupBy) {
-                        GroupByFragment groupByFragment = new GroupByFragment();
-                        MainActivity.thiz.getFragmentManager().beginTransaction().add(R.id.main_fl, groupByFragment, TAG_FRAGMENT_GROYP_BY).commit();
-                        isShowGroupBy = true;
+                    GroupByFragment groupByFragment = new GroupByFragment();
+                    MainActivity.thiz.getFragmentManager().beginTransaction().add(R.id.main_fl, groupByFragment, TAG_FRAGMENT_GROYP_BY).commit();
+                    isShowGroupBy = true;
 
                 } else {
                     Fragment fragment = MainActivity.thiz.getFragmentManager().findFragmentByTag(TAG_FRAGMENT_GROYP_BY);
@@ -144,28 +142,8 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             }
         });
 
-        mAdapter = new FeedbackAdapter(mData);
-        mAdapter.setMode(SwipeItemManagerInterface.Mode.Single);
-        mAdapter.setOnRecyclerViewClickListener(new FeedbackAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onRecyclerViewClick(int position) {
 
-                Intent intent = new Intent(getActivity(), FeedbackDetailActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("feedbackdetails", mData.get(position));
-                intent.putExtras(bundle);
-                getActivity().startActivity(intent);
-            }
-        });
-
-        mAdapter.setOnClickDeleteFeedback(new FeedbackAdapter.OnClickDeleteFeedback() {
-            @Override
-            public void onClickDelete(FeedbackBrief feedbackBrief) {
-                getPresenter().deleteFeedback(feedbackBrief.getId());
-                mData.remove(feedbackBrief);
-            }
-        });
-        mRecyclerFeedback.setAdapter(mAdapter);
+        mRecyclerFeedback.setAdapter(getPresenter().getAdapter());
         mRecyclerFeedback.setRefreshListener(this);
         mRecyclerFeedback.setRefreshingColorResources(android.R.color.holo_orange_light,
                 android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_red_light);
@@ -191,7 +169,6 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
             }
         }, 1);
 
-
         edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -205,8 +182,8 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
                 } else{
                     imgHintSearch.setVisibility(View.VISIBLE);
                 }
-                final List<FeedbackBrief> filteredModelList = filter(mData, s.toString());
-                mAdapter.animateTo(filteredModelList);
+                final List<FeedbackBrief> filteredModelList = filter(getPresenter().getListData(), s.toString());
+                getPresenter().getAdapter().animateTo(filteredModelList);
 
             }
 
@@ -231,19 +208,14 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     @Override
     public void onRefresh() {
-        mData.clear();
+        getPresenter().getListData().clear();
         getPresenter().doLoadListFeedback(0, pageSize , companyId);
     }
 
     @Override
-    public void onLoadListFeedbackSuccess(List<FeedbackBrief> data) {
-        mData.addAll(data);
-        mAdapter.setData(mData);
-        mAdapter.notifyDataSetChanged();
-
+    public void onLoadListFeedbackSuccess() {
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
-        //mRecyclerFeedback.getMoreProgressView().setVisibility(View.INVISIBLE);
     }
 
     private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {
@@ -258,4 +230,5 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
         }
         return filteredModelList;
     }
+
 }

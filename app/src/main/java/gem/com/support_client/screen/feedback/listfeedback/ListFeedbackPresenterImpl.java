@@ -1,15 +1,21 @@
 package gem.com.support_client.screen.feedback.listfeedback;
 
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+
+import com.malinskiy.superrecyclerview.swipe.SwipeItemManagerInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.model.FeedbackBrief;
+import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,9 +25,32 @@ import retrofit2.Response;
  */
 public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     private ListFeedbackView mView;
+    FeedbackAdapter mAdapter;
+    private List<FeedbackBrief> mData = new ArrayList<>();
 
     public ListFeedbackPresenterImpl(ListFeedbackView view){
         this.mView = view;
+        mAdapter = new FeedbackAdapter(mData);
+        mAdapter.setMode(SwipeItemManagerInterface.Mode.Single);
+        mAdapter.setOnRecyclerViewClickListener(new FeedbackAdapter.RecyclerViewClickListener() {
+            @Override
+            public void onRecyclerViewClick(int position) {
+
+                Intent intent = new Intent(mView.getContextBase(), FeedbackDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("feedbackdetails", mData.get(position));
+                intent.putExtras(bundle);
+                mView.getContextBase().startActivity(intent);
+            }
+        });
+
+        mAdapter.setOnClickDeleteFeedback(new FeedbackAdapter.OnClickDeleteFeedback() {
+            @Override
+            public void onClickDelete(FeedbackBrief feedbackBrief) {
+                deleteFeedback(feedbackBrief.getId());
+                mData.remove(feedbackBrief);
+            }
+        });
     }
 
     @Override
@@ -35,7 +64,11 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                             ListFeedbackFragment.isEmpty = true;
                         }
 
-                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        mAdapter.setData(mData);
+                        mAdapter.notifyDataSetChanged();
+
+                        mView.onLoadListFeedbackSuccess();
 
                     } else {
                         DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
@@ -57,7 +90,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                             ListFeedbackFragment.isEmpty = true;
                         }
 
-                        mView.onLoadListFeedbackSuccess(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+                        mView.onLoadListFeedbackSuccess();
 
                     } else {
                         DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
@@ -72,6 +105,16 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                 }
             });
         }
+    }
+
+    @Override
+    public FeedbackAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public List<FeedbackBrief> getListData() {
+        return mData;
     }
 
     @Override

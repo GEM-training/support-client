@@ -6,6 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.util.List;
@@ -83,8 +84,6 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
 
-        ExceptionHandlerUtil.sendFeedback("Good Application !");
-
     }
 
 
@@ -150,4 +149,5 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
     public void openDrawer() {
         mDrawerLayout.openDrawer(navigationView);
     }
+
 }

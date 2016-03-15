@@ -9,5 +9,5 @@ import gem.com.support_client.network.model.FeedbackBrief;
  * Created by phuongtd on 08/03/2016.
  */
 public interface ListFeedbackView extends BaseView<ListFeedbackPresenter> {
-    void onLoadListFeedbackSuccess(List<FeedbackBrief> data);
+    void onLoadListFeedbackSuccess();
 }
