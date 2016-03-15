@@ -208,6 +208,7 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
 
     @Override
     public void onRefresh() {
+        edtSearch.setText("");
         getPresenter().getListData().clear();
         getPresenter().doLoadListFeedback(0, pageSize , companyId);
     }
@@ -216,6 +217,13 @@ public class ListFeedbackFragment extends BaseFragment<ListFeedbackPresenter> im
     public void onLoadListFeedbackSuccess() {
         page++;
         hideProgress(mProgressBar, mRecyclerFeedback);
+    }
+
+    @Override
+    public void onLoadListFeedbackFail() {
+        hideProgress(mProgressBar, mRecyclerFeedback);
+        mRecyclerFeedback.setRefreshing(false);
+        mRecyclerFeedback.setLoadingMore(false);
     }
 
     private List<FeedbackBrief> filter(List<FeedbackBrief> models, String query) {

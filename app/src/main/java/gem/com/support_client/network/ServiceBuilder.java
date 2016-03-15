@@ -1,5 +1,7 @@
 package gem.com.support_client.network;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -18,7 +20,6 @@ public class ServiceBuilder {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
-
         if (sInstance == null) {
             sInstance = new Retrofit.Builder()
                     .baseUrl(BASE_URL)

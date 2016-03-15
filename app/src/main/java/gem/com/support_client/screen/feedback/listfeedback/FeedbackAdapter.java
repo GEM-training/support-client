@@ -48,7 +48,8 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
 
                 Toast.makeText(v.getContext(), "Deleted ", Toast.LENGTH_SHORT).show();
                 if (mOnClickDeleteFeedback != null) {
-                    mOnClickDeleteFeedback.onClickDelete(mData.get(viewHolder.getLayoutPosition()));
+                    mOnClickDeleteFeedback.onClickDelete(mData.get(viewHolder.getLayoutPosition()),
+                            viewHolder.getLayoutPosition());
                 }
                 remove(viewHolder.getLayoutPosition());
             }
@@ -165,7 +166,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
     private OnClickDeleteFeedback mOnClickDeleteFeedback;
 
     public interface OnClickDeleteFeedback{
-        void onClickDelete(FeedbackBrief position);
+        void onClickDelete(FeedbackBrief feedbackBrief, int position);
     }
 
     public void setOnClickDeleteFeedback(OnClickDeleteFeedback onClickDeleteFeedback){

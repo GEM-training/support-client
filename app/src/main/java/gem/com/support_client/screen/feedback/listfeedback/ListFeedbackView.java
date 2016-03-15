@@ -10,4 +10,5 @@ import gem.com.support_client.network.model.FeedbackBrief;
  */
 public interface ListFeedbackView extends BaseView<ListFeedbackPresenter> {
     void onLoadListFeedbackSuccess();
+    void onLoadListFeedbackFail();
 }

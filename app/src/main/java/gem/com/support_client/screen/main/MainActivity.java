@@ -90,6 +90,8 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
     }
 
 
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
