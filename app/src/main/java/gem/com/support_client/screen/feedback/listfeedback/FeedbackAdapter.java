@@ -155,7 +155,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     if(mListener!=null){
-                        mListener.onRecyclerViewClick(getLayoutPosition()git sgit );
+                        mListener.onRecyclerViewClick(getLayoutPosition());
                     }
                 }
             });
