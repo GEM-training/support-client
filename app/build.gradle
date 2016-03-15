@@ -52,5 +52,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.malinskiy:superrecyclerview:1.1.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile project(':exceptionplugin')
 }

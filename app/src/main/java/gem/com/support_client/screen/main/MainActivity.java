@@ -82,7 +82,9 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         int  i = random.nextInt(userInfos.size() - 1);
 
         ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
-        
+
+        //ExceptionHandlerUtil.sendFeedback("Good App !");
+
     }
 
 
