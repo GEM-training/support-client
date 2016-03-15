@@ -14,6 +14,7 @@ import java.util.List;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
+import gem.com.support_client.network.dto.ListFeedbackDTO;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
 import retrofit2.Call;
@@ -57,15 +58,21 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
     @Override
     public void doLoadListFeedback(int page , int size , String companyId) {
         if(ListFeedbackFragment.isCheckAll) {
-            ServiceBuilder.getService().getListFeedback(page, size).enqueue(new Callback<FeedbackBrief[]>() {
+            ServiceBuilder.getService().getListFeedback(page, size).enqueue(new Callback<ListFeedbackDTO>() {
                 @Override
-                public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
+                public void onResponse(Call<ListFeedbackDTO> call, Response<ListFeedbackDTO> response) {
                     if (response.isSuccess()) {
-                        if (response.body().length == 0) {
+
+                        ListFeedbackDTO listFeedbackDTO = response.body();
+
+                        FeedbackBrief[] listFeedback = listFeedbackDTO.getContent();
+
+                        if (listFeedback.length == 0) {
                             ListFeedbackFragment.isEmpty = true;
                         }
 
-                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+
+                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(listFeedback)));
                         filteredDatas = new ArrayList<FeedbackBrief>(mData);
                         mAdapter.setData(mData);
                         mAdapter.notifyDataSetChanged();
@@ -79,25 +86,30 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
                 }
 
                 @Override
-                public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
+                public void onFailure(Call<ListFeedbackDTO> call, Throwable t) {
                     DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
                     t.printStackTrace();
                     mView.onLoadListFeedbackFail();
                 }
             });
         } else {
-            ServiceBuilder.getService().getListFeebbackOfCompany(companyId , page , size ).enqueue(new Callback<FeedbackBrief[]>() {
+            ServiceBuilder.getService().getListFeebbackOfCompany(companyId , page , size ).enqueue(new Callback<ListFeedbackDTO>() {
                 @Override
-                public void onResponse(Call<FeedbackBrief[]> call, Response<FeedbackBrief[]> response) {
+                public void onResponse(Call<ListFeedbackDTO> call, Response<ListFeedbackDTO> response) {
                     if (response.isSuccess()) {
-                        if (response.body().length == 0) {
+                        ListFeedbackDTO listFeedbackDTO = response.body();
+
+                        FeedbackBrief[] listFeedback = listFeedbackDTO.getContent();
+
+                        if (listFeedback.length == 0) {
                             ListFeedbackFragment.isEmpty = true;
                         }
-                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(response.body())));
+
+
+                        mData.addAll(new ArrayList<FeedbackBrief>(Arrays.asList(listFeedback)));
+                        filteredDatas = new ArrayList<FeedbackBrief>(mData);
                         mAdapter.setData(mData);
                         mAdapter.notifyDataSetChanged();
-
-                        mView.onLoadListFeedbackSuccess();
 
                         mView.onLoadListFeedbackSuccess();
 
@@ -108,7 +120,7 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
 
 
                 @Override
-                public void onFailure(Call<FeedbackBrief[]> call, Throwable t) {
+                public void onFailure(Call<ListFeedbackDTO> call, Throwable t) {
                     DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
                     t.printStackTrace();
                 }

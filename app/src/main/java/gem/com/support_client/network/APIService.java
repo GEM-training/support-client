@@ -3,12 +3,15 @@ package gem.com.support_client.network;
 
 import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.CustomDate;
+import gem.com.support_client.network.dto.ListEnterpriseDTO;
+import gem.com.support_client.network.dto.ListFeedbackDTO;
 import gem.com.support_client.network.dto.SubscriptionDTO;
 import gem.com.support_client.network.model.Enterprise;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.network.dto.Income;
 import gem.com.support_client.network.dto.PageableResponse;
+import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -71,15 +74,15 @@ public interface APIService {
     Call<Void> deleteFeedback(@Path("id") String id);
 
     @GET("/feedback/company")
-    Call<Enterprise[]> groupByEnterprise();
+    Call<ListEnterpriseDTO> groupByEnterprise();
 
     @GET("/feedback/{id}")
     Call<FeedbackDetail> getDetail(@Path("id") String id);
 
     @GET("/feedback")
-    Call<FeedbackBrief[]> getListFeedback(@Query("page") int page, @Query("size") int size);
+    Call<ListFeedbackDTO> getListFeedback(@Query("page") int page, @Query("size") int size);
 
     @GET("/feedback/company/{companyId}")
-    Call<FeedbackBrief[]> getListFeebbackOfCompany(@Path("companyId") String companyId, @Query("page") int page, @Query("size") int size);
+    Call<ListFeedbackDTO> getListFeebbackOfCompany(@Path("companyId") String companyId, @Query("page") int page, @Query("size") int size);
 
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
+import gem.com.support_client.network.dto.ListEnterpriseDTO;
 import gem.com.support_client.network.model.Enterprise;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,11 +43,11 @@ public class ListEnterprisePresenterImpl implements ListEnterprisePresenter {
 
     @Override
     public void getListEnterPrise() {
-        ServiceBuilder.getService().groupByEnterprise().enqueue(new Callback<Enterprise[]>() {
+        ServiceBuilder.getService().groupByEnterprise().enqueue(new Callback<ListEnterpriseDTO>() {
             @Override
-            public void onResponse(Call<Enterprise[]> call, Response<Enterprise[]> response) {
+            public void onResponse(Call<ListEnterpriseDTO> call, Response<ListEnterpriseDTO> response) {
                 if(response.isSuccess()){
-                    Enterprise[] enterprises = response.body();
+                    Enterprise[] enterprises = response.body().getContent();
                     enterpriseList.addAll(new ArrayList<Enterprise>(Arrays.asList(enterprises)));
                     listEnterpriseAdapter.addAll(new ArrayList<Enterprise>(Arrays.asList(enterprises)));
                     listEnterpriseAdapter.notifyDataSetChanged();
@@ -57,7 +58,7 @@ public class ListEnterprisePresenterImpl implements ListEnterprisePresenter {
             }
 
             @Override
-            public void onFailure(Call<Enterprise[]> call, Throwable t) {
+            public void onFailure(Call<ListEnterpriseDTO> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase() , Constants.CONNECT_TO_SERVER_ERROR);
             }
         });

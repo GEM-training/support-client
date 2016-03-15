@@ -1,12 +1,12 @@
 package gem.com.support_client.network.dto;
 
-import gem.com.support_client.network.model.Enterprise;
+import gem.com.support_client.network.model.FeedbackBrief;
 
 /**
- * Created by phuongtd on 08/03/2016.
+ * Created by phuongtd on 15/03/2016.
  */
-public class ListEnterpriseDTO{
-    Enterprise[] content;
+public class ListFeedbackDTO {
+    FeedbackBrief[] content;
 
     int totalElements;
     int totalPages;
@@ -74,7 +74,7 @@ public class ListEnterpriseDTO{
         }
     }
 
-    public ListEnterpriseDTO(Enterprise[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort sort, int numberOfElements, boolean first) {
+    public ListFeedbackDTO(FeedbackBrief[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort sort, int numberOfElements, boolean first) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
@@ -86,11 +86,11 @@ public class ListEnterpriseDTO{
         this.first = first;
     }
 
-    public Enterprise[] getContent() {
+    public FeedbackBrief[] getContent() {
         return content;
     }
 
-    public void setContent(Enterprise[] content) {
+    public void setContent(FeedbackBrief[] content) {
         this.content = content;
     }
 
