@@ -34,10 +34,7 @@
             android:src="@drawable/selected" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_break_height"
-        android:background="@color/white"></FrameLayout>
+    <include layout="@layout/line_white" />
 
     <LinearLayout
         android:id="@+id/filter_user_by_increment_ll"
@@ -59,6 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/padding_medium"
             android:layout_weight="5"
             android:gravity="center_vertical"
             android:text="@string/increment_users"
@@ -75,10 +73,7 @@
             android:src="@drawable/selected" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_break_height"
-        android:background="@color/white"></FrameLayout>
+    <include layout="@layout/line_white" />
 
     <LinearLayout
         android:id="@+id/filter_user_by_invariable_ll"
@@ -93,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
+            android:padding="1dp"
             android:text="@string/minus"
             android:textColor="@color/white" />
 
@@ -100,6 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_medium"
             android:layout_weight="5"
             android:gravity="center_vertical"
             android:text="@string/invariable_users"
@@ -116,10 +113,7 @@
             android:src="@drawable/selected" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/line_break_height"
-        android:background="@color/white"></FrameLayout>
+    <include layout="@layout/line_white" />
 
     <LinearLayout
         android:id="@+id/filter_user_by_decrement_ll"
@@ -141,6 +135,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_medium"
             android:layout_weight="5"
             android:gravity="center_vertical"
             android:text="@string/decrement_users"
@@ -157,8 +152,10 @@
             android:src="@drawable/selected" />
     </LinearLayout>
 
+    <include layout="@layout/line_white" />
+
     <FrameLayout
+        android:id="@+id/filter_cancel"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/line_break_height"
-        android:background="@color/white"></FrameLayout>
+        android:layout_height="match_parent" />
 </LinearLayout>

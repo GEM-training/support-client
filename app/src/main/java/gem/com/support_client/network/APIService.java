@@ -1,13 +1,14 @@
 package gem.com.support_client.network;
 
 
-import gem.com.support_client.network.model.Bill;
-import gem.com.support_client.network.model.CustomDate;
+import gem.com.support_client.network.dto.Bill;
+import gem.com.support_client.network.dto.CustomDate;
+import gem.com.support_client.network.dto.SubscriptionDTO;
 import gem.com.support_client.network.model.Enterprise;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.network.model.FeedbackDetail;
-import gem.com.support_client.network.model.Income;
-import gem.com.support_client.network.model.PageableResponse;
+import gem.com.support_client.network.dto.Income;
+import gem.com.support_client.network.dto.PageableResponse;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -46,9 +47,6 @@ public interface APIService {
             String sort
     );
 
-    @DELETE("/feedback/{id}/delete")
-    Call<Void> deleteFeedback(@Path("id") String id);
-
     @GET("/billing/revenue")
     Call<PageableResponse<Income>> getAllIncomes(
             @Query("page")
@@ -65,8 +63,13 @@ public interface APIService {
             String companyId
     );
 
+    @GET("/billing/subscription/{id}")
+    Call<SubscriptionDTO> getCompanySubscription(@Path("id") String companyId);
 
     // feedback API
+    @DELETE("/feedback/{id}/delete")
+    Call<Void> deleteFeedback(@Path("id") String id);
+
     @GET("/feedback/company")
     Call<Enterprise[]> groupByEnterprise();
 

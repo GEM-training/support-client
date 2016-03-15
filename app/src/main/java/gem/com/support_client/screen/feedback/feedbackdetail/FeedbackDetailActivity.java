@@ -24,7 +24,7 @@ import gem.com.support_client.screen.feedback.userdetail.UserDetailActivity;
  */
 public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter> implements FeedbackDetailView{
     @Bind(R.id.img_user_back)
-    LinearLayout mBackImg;
+    ImageView mBackImg;
 
     @Bind(R.id.img_user)
     ImageView mUserImg;
@@ -62,6 +62,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Bind(R.id.feedback_detail_content)
     LinearLayout mDetailLayout;
 
+    // TODO
     private String feedbackId;
 
     @Override

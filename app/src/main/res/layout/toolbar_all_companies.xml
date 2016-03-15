@@ -12,6 +12,8 @@
         android:src="@drawable/ic_menu_white_24dp" />
 
     <LinearLayout
+        android:id="@+id/toolbar_filter_ll"
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -30,7 +32,7 @@
             android:id="@+id/toolbar_filter_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/filter_all"
+            android:text="@string/filter_selected_all"
             android:textColor="@color/white" />
     </LinearLayout>
 

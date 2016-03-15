@@ -5,8 +5,8 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 
 import gem.com.support_client.base.BasePresenter;
-import gem.com.support_client.network.model.Bill;
-import gem.com.support_client.network.model.Income;
+import gem.com.support_client.network.dto.Bill;
+import gem.com.support_client.network.dto.Income;
 
 /**
  * Created by huylv on 09-Mar-16.
@@ -21,4 +21,6 @@ public interface LineChartPresenter extends BasePresenter {
     public void initBillData(ArrayList<Bill> bills);
 
     public void initIncomeData(ArrayList<Income> incomes);
+
+    public int getNumberOfItem();
 }

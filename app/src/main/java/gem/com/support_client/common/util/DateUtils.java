@@ -2,7 +2,7 @@ package gem.com.support_client.common.util;
 
 import java.util.Calendar;
 
-import gem.com.support_client.network.model.CustomDate;
+import gem.com.support_client.network.dto.CustomDate;
 
 /**
  * Created by quanda on 10/03/2016.

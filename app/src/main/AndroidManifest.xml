@@ -18,18 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".screen.billing.allincome.AllIncomesFragment"></activity>
-        <activity android:name=".screen.splash.SplashActivity"></activity>
+        <activity android:name=".screen.splash.SplashActivity" />
         <activity
             android:name=".screen.billing.companybills.CompanyBillsActivity"
-            android:parentActivityName=".screen.main.MainActivity"></activity>
-
-        <activity android:name=".screen.billing.companyinfo.CompanyInfoActivity"></activity>
-
-        <activity android:name=".screen.feedback.feedbackdetail.FeedbackDetailActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".screen.feedback.userdetail.UserDetailActivity" android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
+            android:parentActivityName=".screen.main.MainActivity" />
+        <activity android:name=".screen.billing.companyinfo.CompanyInfoActivity" />
+        <activity
+            android:name=".screen.feedback.feedbackdetail.FeedbackDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".screen.feedback.userdetail.UserDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
 </manifest>
