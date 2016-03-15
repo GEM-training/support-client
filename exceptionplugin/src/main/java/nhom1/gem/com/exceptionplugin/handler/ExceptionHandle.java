@@ -38,7 +38,7 @@ public class ExceptionHandle  implements Thread.UncaughtExceptionHandler{
         dto.setDeviceId(DeviceUtils.getDeviceId(context));
         dto.setModel(DeviceUtils.getDeviceName());
         dto.setOsType(DeviceUtils.getOSVersion());
-        dto.setUserInfo(new FeedbackDTO.UserInfo(defaultUserId, defaultUsername, "", defaultCompanyId, defaultCompanyId));
+        dto.setUserInfo(new FeedbackDTO.UserInfo(defaultUserId, defaultUsername, "", defaultCompanyId, defaultCompanyName));
     }
 
     public void setUserInfo(FeedbackDTO.UserInfo userInfo){

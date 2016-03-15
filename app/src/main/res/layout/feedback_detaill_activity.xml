@@ -39,9 +39,9 @@
 
             <LinearLayout
                 android:id="@+id/layout_user_detail"
-                android:background="#f2f2f2"
+                android:background="@color/bg_user_info_in_feedback_detail"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/height_of_userinfo_in_feedback_detail"
                 android:orientation="horizontal"
                 android:weightSum="5">
 
@@ -52,7 +52,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="80dp" />
+                    android:layout_height="@dimen/height_img_user_feedback_detail" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -69,7 +69,7 @@
                         <TextView
                             android:singleLine="true"
                             android:layout_marginLeft="@dimen/tv_name_margin_left"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="@dimen/tv_margin"
                             android:textStyle="bold"
                             android:textColor="@color/bg_tool_bar"
                             android:id="@+id/tv_user_name"
@@ -80,9 +80,9 @@
 
                         <TextView
                             android:id="@+id/tv_user_time"
-                            android:textSize="15sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_marginRight="10dp"
+                            android:textSize="@dimen/text_size_medium"
+                            android:layout_marginTop="@dimen/tv_margin"
+                            android:layout_marginRight="@dimen/time_feedback_detail_margin_right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true" />
@@ -92,7 +92,7 @@
 
                     <TextView
                         android:id="@+id/tv_feedback_detail_enterprisename"
-                        android:textSize="17sp"
+                        android:textSize="@dimen/text_size_medium"
                         android:layout_marginLeft="@dimen/tv_name_margin_left"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
@@ -102,7 +102,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#cccccc">
+                android:background="@color/divider">
 
             </FrameLayout>
 
@@ -210,7 +210,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="#cccccc">
+                android:background="@color/divider">
             </FrameLayout>
 
             <TextView

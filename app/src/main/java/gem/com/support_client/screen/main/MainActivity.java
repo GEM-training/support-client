@@ -8,6 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.List;
+import java.util.Random;
+
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivityDrawer;
@@ -18,6 +21,9 @@ import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
 import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandlerUtil;
 import nhom1.gem.com.exceptionplugin.config.ReportCrash;
+import nhom1.gem.com.exceptionplugin.datatest.Data;
+import nhom1.gem.com.exceptionplugin.handler.ExceptionHandle;
+import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
 
 /**
  * Created by huylv on 22/02/2016.
@@ -54,7 +60,16 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         thiz = this;
 
-        //  ExceptionHandlerUtil.sendFeedback("App hay qua :)");
+      /*  List<FeedbackDTO.UserInfo> userInfos = Data.listUserInfo();
+
+        Random random = new Random();
+
+        int  i = random.nextInt(userInfos.size() - 1);
+
+        ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));*/
+
+       // throw new NullPointerException();
+
     }
 
 

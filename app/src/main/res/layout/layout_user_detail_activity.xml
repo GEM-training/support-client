@@ -43,7 +43,7 @@
     
     <FrameLayout
         android:layout_marginTop="@dimen/tv_margin"
-        android:background="#ccc"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"></FrameLayout>
 
@@ -72,9 +72,9 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginLeft="62dp"
+        android:layout_marginLeft="@dimen/divider_margin_left"
         android:layout_marginTop="5dp"
-        android:background="#ccc"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"></FrameLayout>
 
@@ -109,9 +109,9 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginLeft="62dp"
+        android:layout_marginLeft="@dimen/divider_margin_left"
         android:layout_marginTop="5dp"
-        android:background="#ccc"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"></FrameLayout>
 
@@ -146,7 +146,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginLeft="62dp"
+        android:layout_marginLeft="@dimen/divider_margin_left"
         android:layout_marginTop="5dp"
         android:background="#ccc"
         android:layout_width="match_parent"
@@ -183,7 +183,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:layout_marginLeft="62dp"
+        android:layout_marginLeft="@dimen/divider_margin_left"
         android:layout_marginTop="5dp"
         android:background="#ccc"
         android:layout_width="match_parent"
@@ -207,6 +207,7 @@
             android:textSize="@dimen/text_size_medium"
             android:textColor="#666"
             android:text="@string/work"
+            android:layout_marginRight="@dimen/tv_margin"
             android:layout_marginLeft="@dimen/tv_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

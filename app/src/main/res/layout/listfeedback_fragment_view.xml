@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_alignParentTop="true"
         android:id="@+id/layout_search"
-        android:background="#e1e1e1"
+        android:background="@color/bg_search_edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_search_layout"
         android:gravity="center_horizontal">
