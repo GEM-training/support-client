@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +32,16 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     @Bind(R.id.et_search_enterprise)
     EditText mSearchEdt;
 
+    @Bind(R.id.progress_list_enterprise)
+    ProgressBar progressBar;
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         mEnterpriseLv.setAdapter(getPresenter().getAdapter());
 
+        showProgress(progressBar , mEnterpriseLv);
         getPresenter().getListEnterPrise();
 
         mSearchEdt.addTextChangedListener(new TextWatcher() {
@@ -86,6 +91,6 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
 
     @Override
     public void onLoadListEnterpriseSuccess() {
-
+        hideProgress(progressBar , mEnterpriseLv);
     }
 }
