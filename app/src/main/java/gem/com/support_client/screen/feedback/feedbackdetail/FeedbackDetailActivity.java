@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
@@ -62,9 +64,7 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
     @Bind(R.id.feedback_detail_content)
     LinearLayout mDetailLayout;
 
-    // TODO
-    private String feedbackId;
-
+    FeedbackBrief mFeedbackBrief;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,10 +72,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
-        FeedbackBrief feedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
+        mFeedbackBrief = (FeedbackBrief) bundle.getSerializable("feedbackdetails");
 
         showProgress(mProgressBar , mDetailLayout);
-        getPresenter().getFeedbackDetail(feedbackBrief.getId());
+        getPresenter().getFeedbackDetail(mFeedbackBrief.getId());
 
     }
 
@@ -100,6 +100,8 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
         mOsTypeTv.setText(feedbackDetail.getOsType());
         mModelTv.setText(feedbackDetail.getModel());
         mBrandTv.setText(feedbackDetail.getBrand());
+
+        Picasso.with(this).load(mFeedbackBrief.getAvatar()).placeholder(R.drawable.default_user).error(R.drawable.default_user).into(mUserImg);
 
         java.sql.Date date = new java.sql.Date(Long.decode(feedbackDetail.getTime()));
         java.util.Date utilDate = new java.util.Date();
@@ -128,6 +130,10 @@ public class FeedbackDetailActivity extends BaseActivity<FeedbackDetailPresenter
 
     @OnClick(R.id.layout_user_detail)
     public void clickUserDetail(){
-        startActivity(new Intent(FeedbackDetailActivity.this , UserDetailActivity.class));
+        Intent intent = new Intent(FeedbackDetailActivity.this , UserDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("feedbackbrief", mFeedbackBrief);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

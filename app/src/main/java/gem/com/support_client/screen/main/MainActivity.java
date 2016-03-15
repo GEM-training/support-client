@@ -84,6 +84,9 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
 
+
+        //ExceptionHandlerUtil.sendFeedback("Good App !");
+
     }
 
 

@@ -5,17 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malinskiy.superrecyclerview.swipe.BaseSwipeAdapter;
 import com.malinskiy.superrecyclerview.swipe.SwipeLayout;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.FeedbackBrief;
@@ -75,8 +78,11 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         } else {
             holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
+        holder.tvName.setSelected(true);
 
         holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
+
+        Picasso.with(holder.btnUndo.getContext()).load(mData.get(position).getAvatar()).placeholder(R.drawable.default_user).error(R.drawable.default_user).into(holder.imgUser);
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
@@ -131,6 +137,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         TextView tvSubContent;
         Button btnDelete;
         Button btnUndo;
+        ImageView imgUser;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -141,6 +148,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
             tvSubContent = (TextView) itemView.findViewById(R.id.tv_subcontent);
             btnDelete = (Button) itemView.findViewById(R.id.btn_delete);
             btnUndo = (Button) itemView.findViewById(R.id.btn_undo);
+            imgUser = (ImageView) itemView.findViewById(R.id.avt_user);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

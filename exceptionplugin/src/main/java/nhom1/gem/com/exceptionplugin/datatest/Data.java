@@ -35,6 +35,10 @@ public class Data {
     "Đặng Aanh Quân",
     "Summer Hancock"};
 
+    public static int[] company = {
+        0 , 1 ,2 , 0 ,1 ,2 ,0 ,1 ,2 , 0 ,1 ,2 ,0 ,1 ,2 , 0 ,1 ,2 , 0, 1 ,2 , 0 ,1 ,2 , 0 ,1 ,2 ,0 ,1 ,2
+    };
+
     public static String[] userId = {"001b6c7f-0b8a-43b9-b35d-6489e6daee91" ,
     "002b6c7f-0b8a-43b9-b35d-6489e6daee91",
     "003b6c7f-0b8a-43b9-b35d-6489e6daee91",
@@ -57,15 +61,15 @@ public class Data {
 
 
     public static String[] avatars = {
-            "avatar01.png" ,
-            "avatar02.png" ,
-            "avatar03.png" ,
-            "avatar04.png" ,
-            "avatar05.png" ,
-            "avatar06.png" ,
-            "avatar07.png",
-            "avatar08.png",
-            "avatar09.png",
+            "http://img.faceyourmanga.com/mangatars/0/2/2729/normal_3206.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/0/408/normal_1590.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/0/216/normal_725.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/0/691/normal_5176.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/6/6110/normal_7004.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/2/2797/normal_3810.png" ,
+            "http://img.faceyourmanga.com/mangatars/0/1/1451/normal_2674.png",
+            "http://img.faceyourmanga.com/mangatars/0/1/1033/normal_1688.png",
+            "http://img.faceyourmanga.com/mangatars/0/6/6110/normal_6861.png",
             "default.png",
             "default.png",
             "default.png",
@@ -87,10 +91,8 @@ public class Data {
 
             userInfo.setUserId(UUIDDemo.getUUID());
 
-            int  n = rand.nextInt(companyName.length - 1);
-
-            userInfo.setCompanyName(companyName[n]);
-            userInfo.setCompanyId(companyId[n]);
+            userInfo.setCompanyName(companyName[company[i]]);
+            userInfo.setCompanyId(companyId[company[i]]);
 
             userInfos.add(userInfo);
         }

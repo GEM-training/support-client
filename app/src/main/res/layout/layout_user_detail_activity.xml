@@ -10,12 +10,12 @@
         android:orientation="horizontal">
 
             <ImageView
+                android:layout_marginLeft="@dimen/icon_back_margin_left"
                 android:scaleType="fitStart"
                 android:id="@+id/img_user_detail_back"
-                android:layout_marginLeft="@dimen/icon_back_margin_left"
                 android:layout_gravity="center_vertical"
-                android:layout_width="@dimen/back_button_width"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_back"/>
     </LinearLayout>
 
