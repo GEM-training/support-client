@@ -1,7 +1,5 @@
 package gem.com.support_client.screen.billing.companybills;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 import gem.com.support_client.base.log.EventLogger;
@@ -70,10 +68,7 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         call.enqueue(new Callback<SubscriptionDTO>() {
             @Override
             public void onResponse(Call<SubscriptionDTO> call, Response<SubscriptionDTO> response) {
-                Log.e("============",response.body().toString());
                 SubscriptionDTO subscription = response.body();
-                Log.e("============",subscription.toString());
-
                 mView.onGetSubscription(subscription);
             }
 

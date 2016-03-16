@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
@@ -68,7 +67,6 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
 
         getPresenter().getCompanySubscription((mCompanyId));
 
-
         mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
@@ -83,8 +81,11 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         getPresenter().getAllBillsByCompanyId(mCompanyId);
 
         mPosition = intent.getIntExtra(Constants.position, 0);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(Constants.companies.get(mPosition).getName());
+
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
 
     }
 
@@ -118,16 +119,6 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mAdapter.notifyDataSetChanged();
         hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
-        // display total amount of a company
-//        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mBills.get(mBills.size() - 1).getPaymentDate()));
-
-        // display total amount of a company
-//        double totalAmount = 0;
-//        for (Bill bill : mBills) {
-//            totalAmount += (bill.getNumOfUser() * bill.getFeePerUser());
-//        }
-//        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", totalAmount));
-
         // draw chart
         mLineChartFragment = new LineChartFragment(mBills, Bill.class);
         getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
@@ -141,16 +132,16 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         mAdapter.notifyDataSetChanged();
         mAdapter.setLoaded();
 
-        mLineChartFragment = new LineChartFragment(mBills, Bill.class);
-        //Log.d("111", mBills.get(mBills.size()-1).toString());
-        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+//        mLineChartFragment = new LineChartFragment(mBills, Bill.class);
+//        //Log.d("111", mBills.get(mBills.size()-1).toString());
+//        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
     }
 
     @Override
     public void onGetSubscription(SubscriptionDTO subscription) {
         mSubscription = new SubscriptionDTO(subscription);
         mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", mSubscription.getChargedAmount()));
-        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mSubscription.getStartDate()));
+        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mSubscription.getJoinDate()));
     }
 
     @Override

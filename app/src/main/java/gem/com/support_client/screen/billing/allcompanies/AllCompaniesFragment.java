@@ -102,7 +102,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAllCompaniesRv.setLayoutManager(mLayoutManager);
 
-
         mAllCompaniesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private boolean loading = true;
             @Override
@@ -122,7 +121,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
                 }
             }
         });
-
 
         /**
          * handle on load more

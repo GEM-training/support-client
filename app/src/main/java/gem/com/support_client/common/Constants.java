@@ -25,7 +25,7 @@ public interface Constants {
     String columnToDESC = "to,DESC";
 
     //num of item per page when getting store list
-    int PAGE_SIZE = 10;
+    int PAGE_SIZE = 20;
     //time out when clicking back button
     int BACK_TIMEOUT = 2000;
 

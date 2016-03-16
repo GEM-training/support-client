@@ -120,8 +120,8 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         mAdapter.setLoaded();
 
         // redraw chart ater load more incomes
-        mLineChartFragment = new LineChartFragment(mIncomes, Income.class);
-        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, mLineChartFragment).commit();
+//        mLineChartFragment = new LineChartFragment(mIncomes, Income.class);
+//        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, mLineChartFragment).commit();
     }
 
     @Override
@@ -129,6 +129,4 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         Income companyIncome = new Income();
         companyIncome = income;
     }
-
-
 }

@@ -51,10 +51,10 @@ public class StringUtils {
 
     public static int getPositionByCompanyId(String companyId) {
         switch (companyId) {
-            case "de305d54-75b4-431b-adb2-eb6b9e546018":
+            case "de305d54-75b4-431b-adb2-eb6b9e546011":
                 // mapping with honda
                 return 0;
-            case "de305d54-75b4-431b-adb2-eb6b9e546011":
+            case "de305d54-75b4-431b-adb2-eb6b9e546018":
                 // mapping with yamaha
                 return 1;
             case "de305d54-75b4-431b-adb2-eb6b9e546024":

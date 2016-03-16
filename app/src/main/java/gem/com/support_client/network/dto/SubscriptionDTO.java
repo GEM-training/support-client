@@ -8,6 +8,7 @@ public class SubscriptionDTO {
     private String subscriptionType;
     private long startDate;
     private long expirationDate;
+    private long joinDate;
     private double chargedAmount;
 
     public SubscriptionDTO() {
@@ -19,14 +20,24 @@ public class SubscriptionDTO {
         this.startDate = subscriptionDTO.getStartDate();
         this.expirationDate = subscriptionDTO.getExpirationDate();
         this.chargedAmount = subscriptionDTO.getChargedAmount();
+        this.joinDate = subscriptionDTO.getJoinDate();
     }
 
-    public SubscriptionDTO(String companyId, String subscriptionType, long startDate, long expirationDate, double chargedAmount) {
+    public SubscriptionDTO(String companyId, String subscriptionType, long startDate, long expirationDate, long joinDate, double chargedAmount) {
         this.companyId = companyId;
         this.subscriptionType = subscriptionType;
         this.startDate = startDate;
         this.expirationDate = expirationDate;
+        this.joinDate = joinDate;
         this.chargedAmount = chargedAmount;
+    }
+
+    public long getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(long joinDate) {
+        this.joinDate = joinDate;
     }
 
     public String getCompanyId() {
@@ -72,11 +83,12 @@ public class SubscriptionDTO {
     @Override
     public String toString() {
         return "SubscriptionDTO{" +
-                "chargedAmount=" + chargedAmount +
-                ", companyId='" + companyId + '\'' +
+                "companyId='" + companyId + '\'' +
                 ", subscriptionType='" + subscriptionType + '\'' +
                 ", startDate=" + startDate +
                 ", expirationDate=" + expirationDate +
+                ", joinDate=" + joinDate +
+                ", chargedAmount=" + chargedAmount +
                 '}';
     }
 }
