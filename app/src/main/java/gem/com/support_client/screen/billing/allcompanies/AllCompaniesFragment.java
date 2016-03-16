@@ -49,8 +49,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     @Bind(R.id.all_companies_hint_search_iv)
     ImageView mAllCompaniesHintSearchIv;
 
-    private static int sCurrentPage;
-    private Toolbar mToolbar;
     private RelativeLayout mToolbarLayout;
     private TextView mBillingMonthTv;
     private ImageView mMenu;
@@ -64,23 +62,17 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     private String TAG_FRAGMENT_FILTER = "filter user increment";
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         EventLogger.info("AllCompainiesFragment create view");
 
         customToolbar();
-        setBillMonth();
 
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mAllCompaniesRv.setLayoutManager(mLayoutManager);
         mAllCompaniesRv.setAdapter(getPresenter().getAdapter());
         showProgress(mAllCompaniesPb, mAllCompaniesRv);
         getPresenter().getAll();
-        sCurrentPage = 0;
 
         handleMenuIconOnclick();
         handleStatisticIconOnClick();
@@ -126,8 +118,6 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
      */
     @Override
     public void handleLoadMore() {
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAllCompaniesRv.setLayoutManager(mLayoutManager);
         mAllCompaniesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             private boolean loading = true;
 
@@ -142,9 +132,8 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
                     if (loading) {
                         if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
                             loading = false;
-                            sCurrentPage += 1;
 //                            showProgress(mAllCompaniesPb, mAllCompaniesRv);
-                            getPresenter().loadMore(sCurrentPage);
+                            getPresenter().loadMore();
                         }
                     }
                 }
@@ -205,20 +194,16 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
      * custom toolbar
      */
     private void customToolbar() {
-        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         mToolbarLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.toolbar_all_companies, null);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         /**
          * romove current toolbar and add custom toolbar
          */
-        mToolbar.removeAllViews();
-        mToolbar.addView(mToolbarLayout, layoutParams);
-    }
+        toolbar.removeAllViews();
+        toolbar.addView(mToolbarLayout, layoutParams);
 
-    /**
-     * set date of bill is last month
-     */
-    private void setBillMonth() {
+        // set bill month
         mBillingMonthTv = (TextView) mToolbarLayout.findViewById(R.id.toolbar_month_tv);
         CustomDate customDate = DateUtils.getFirstDateOfLastMonth();
         mBillingMonthTv.setText(String.format("Billing in %1$d - %2$d", customDate.getYear(), customDate.getMonth()));

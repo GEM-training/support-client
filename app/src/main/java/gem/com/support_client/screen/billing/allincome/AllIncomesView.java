@@ -1,7 +1,5 @@
 package gem.com.support_client.screen.billing.allincome;
 
-import java.util.ArrayList;
-
 import gem.com.support_client.base.BaseView;
 import gem.com.support_client.network.dto.Income;
 
@@ -10,10 +8,11 @@ import gem.com.support_client.network.dto.Income;
  */
 public interface AllIncomesView extends BaseView<AllIncomesPresenter> {
 
-    void onGetAllIncomesSuccess(ArrayList<Income> incomes);
+    void onGetAllIncomesSuccess();
 
-    void onLoadMoreSuccess(ArrayList<Income> moreIncomes);
+    void onLoadMoreSuccess();
 
     void onGetAllIncomesOfCompanySucces(Income income);
 
+    void handleLoadMore();
 }

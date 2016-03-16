@@ -22,21 +22,14 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
     private ArrayList<Bill> mBills;
     private ArrayList<Bill> mCustomBills;
     private CompanyBillAdapter mAdapter;
+    private int mCurrentPage;
 
     public AllCompaniesPresenterImpl(AllCompaniesView mView) {
         this.mView = mView;
         mBills = new ArrayList<Bill>();
+        mCustomBills = new ArrayList<Bill>();
         mAdapter = new CompanyBillAdapter(mBills, mView.getContextBase());
-    }
-
-    @Override
-    public ArrayList<Bill> getListCustomBills() {
-        return mCustomBills;
-    }
-
-    @Override
-    public ArrayList<Bill> getListBills() {
-        return mBills;
+        mCurrentPage = 0;
     }
 
     @Override
@@ -53,10 +46,9 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
 //                ArrayList<Bill> bills = response.body().getContent();
 //                mView.onGetAllCompaniesSuccess(bills);
-                mCustomBills = new ArrayList<Bill>(response.body().getContent());
-                mBills = new ArrayList<Bill>(response.body().getContent());
+                mCustomBills.addAll(response.body().getContent());
+                mBills.addAll(response.body().getContent());
                 mAdapter.setBills(mCustomBills);
-                mAdapter.notifyDataSetChanged();
                 mView.onGetAllCompaniesSuccess();
             }
 
@@ -69,9 +61,10 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
     }
 
     @Override
-    public void loadMore(int currentPage) {
+    public void loadMore() {
+        mCurrentPage++;
         EventLogger.info("Load more companies bill ...");
-        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), currentPage, Constants.PAGE_SIZE, Constants.columnNameAsc);
+        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBills(DateUtils.getFirstDateOfLastMonth(), DateUtils.getLastDateOfLastMonth(), mCurrentPage, Constants.PAGE_SIZE, Constants.columnNameAsc);
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
@@ -148,9 +141,9 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
     /**
      * find company by company name
      */
-    public void findCompanyByName(CharSequence s){
+    public void findCompanyByName(CharSequence s) {
         // filter list companies by name
-        mCustomBills .clear();
+        mCustomBills.clear();
         int size = mBills.size();
         for (int i = 0; i < size; ++i) {
             if (Constants.companies.get(i).getName().toLowerCase().contains(s.toString().toLowerCase())) {

@@ -2,6 +2,7 @@ package gem.com.support_client.screen.billing.allincome;
 
 import java.util.ArrayList;
 
+import gem.com.support_client.adapter.IncomeAdapter;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.ServiceBuilder;
@@ -16,9 +17,15 @@ import retrofit2.Response;
  */
 public class AllIncomesPresenterImpl implements AllIncomesPresenter {
     private final AllIncomesView mView;
+    private ArrayList<Income> mIncomes;
+    private IncomeAdapter mAdapter;
+    private int mCurrentPage;
 
     public AllIncomesPresenterImpl(AllIncomesView view) {
         this.mView = view;
+        mIncomes = new ArrayList<Income>();
+        mAdapter = new IncomeAdapter(mIncomes, mView.getContextBase());
+        mCurrentPage = 0;
     }
 
     @Override
@@ -28,8 +35,9 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
         call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
             public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
-                ArrayList<Income> incomes = response.body().getContent();
-                mView.onGetAllIncomesSuccess(incomes);
+                mIncomes.addAll(response.body().getContent());
+                mAdapter.setIncomes(mIncomes);
+                mView.onGetAllIncomesSuccess();
             }
 
             @Override
@@ -41,14 +49,16 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
     }
 
     @Override
-    public void loadMore(int currentPage) {
+    public void loadMore() {
+        mCurrentPage++;
         EventLogger.info("Load more incomes...");
-        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(currentPage, Constants.PAGE_SIZE, Constants.columnToDESC);
+        Call<PageableResponse<Income>> call = ServiceBuilder.getService().getAllIncomes(mCurrentPage, Constants.PAGE_SIZE, Constants.columnToDESC);
         call.enqueue(new Callback<PageableResponse<Income>>() {
             @Override
             public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
-                ArrayList<Income> moreIncomes = response.body().getContent();
-                mView.onLoadMoreSuccess(moreIncomes);
+                mIncomes.addAll(response.body().getContent());
+                mAdapter.notifyDataSetChanged();
+                mView.onLoadMoreSuccess();
             }
 
             @Override
@@ -77,5 +87,15 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
                 mView.onRequestError(t.getMessage());
             }
         });
+    }
+
+    @Override
+    public IncomeAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    @Override
+    public ArrayList<Income> getListIncomes() {
+        return mIncomes;
     }
 }
