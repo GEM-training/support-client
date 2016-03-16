@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:gravity="center_vertical"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="@dimen/divider_marrgin_top">
 
         <ImageView
             android:src="@drawable/account_icon"
@@ -63,7 +63,7 @@
     <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -97,7 +97,7 @@
 
 
     <LinearLayout
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -121,7 +121,7 @@
             android:id="@+id/tv_user_detail_email_home"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="hopnv@gemvietnam.com"
+            android:text="@string/email_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -130,7 +130,7 @@
    <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -154,7 +154,7 @@
             android:id="@+id/tv_user_detail_phone"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="+84(01673255990)"
+            android:text="@string/phone_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -163,6 +163,7 @@
     <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -175,7 +176,7 @@
             android:src="@drawable/location_icon"/>
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/divider_marrgin_top"
             android:lines="2"
             android:textSize="@dimen/text_size_medium"
             android:textColor="#666"
@@ -186,24 +187,17 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/divider_marrgin_top"
             android:lines="2"
             android:id="@+id/tv_user_detail_address"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="62 Tran Thai Tong, Cau Giay, Ha Noi, Viet Nam"
+            android:text="@string/address_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <include layout="@layout/full_width_divider"></include>
-
-
-
-
-
-
-
 
 </LinearLayout>
