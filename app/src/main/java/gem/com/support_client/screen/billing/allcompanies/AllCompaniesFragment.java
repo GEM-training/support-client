@@ -20,18 +20,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import gem.com.support_client.R;
-import gem.com.support_client.adapter.CompanyBillAdapter;
-import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
-import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DateUtils;
-import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.CustomDate;
 import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.filteruserincrement.FilterUserIncrementFragment;
@@ -55,12 +49,7 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     @Bind(R.id.all_companies_hint_search_iv)
     ImageView mAllCompaniesHintSearchIv;
 
-    // TODO move all data to Presenter
-    private ArrayList<Bill> mBills;
-    private ArrayList<Bill> mCustomBills;
-    private CompanyBillAdapter mAdapter;
     private static int sCurrentPage;
-
     private Toolbar mToolbar;
     private RelativeLayout mToolbarLayout;
     private TextView mBillingMonthTv;
@@ -77,10 +66,8 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mBills = new ArrayList<Bill>();
-        mAdapter = new CompanyBillAdapter(mBills, getActivity());
-    }
 
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,52 +76,19 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
 
         customToolbar();
         setBillMonth();
-        handleMenuIconOnclick();
-        handleFilterUser();
-        handleStatisticIconOnClick();
-        handleTextSearch();
 
-        /**
-         * bind data from arraylist to recycler view
-         */
+        mAllCompaniesRv.setAdapter(getPresenter().getAdapter());
+        showProgress(mAllCompaniesPb, mAllCompaniesRv);
         getPresenter().getAll();
         sCurrentPage = 0;
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAllCompaniesRv.setLayoutManager(mLayoutManager);
 
-        mAllCompaniesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            private boolean loading = true;
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (dy > 0) //check for scroll down
-                {
-                    int visibleItemCount = mLayoutManager.getChildCount();
-                    int totalItemCount = mLayoutManager.getItemCount();
-                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+        handleMenuIconOnclick();
+        handleStatisticIconOnClick();
 
-                    if (loading) {
-                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
-                            loading = false;
-                            getPresenter().loadMore(sCurrentPage);
-                        }
-                    }
-                }
-            }
-        });
+        handleFilterUser();
+        handleTextSearch();
 
-        /**
-         * handle on load more
-         */
-        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mBills.add(null);
-//                mAdapter.notifyItemInserted(mBills.size() - 1);
-                sCurrentPage += 1;
-                getPresenter().loadMore(sCurrentPage);
-            }
-        });
-        mAllCompaniesRv.setAdapter(mAdapter);
+        handleLoadMore();
 
         return view;
     }
@@ -142,11 +96,10 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     /**
      * handle text search on text change
      */
-    private void handleTextSearch() {
+    public void handleTextSearch() {
         mAllCompaniesSearchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -159,21 +112,42 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
                     mAllCompaniesHintSearchIv.setVisibility(View.VISIBLE);
                 }
 
-                // filter list companies by name
-                mCustomBills = new ArrayList<Bill>();
-                int size = mBills.size();
-                for (int i = 0; i < size; ++i) {
-                    if (Constants.companies.get(i).getName().toLowerCase().contains(s.toString().toLowerCase())) {
-                        mCustomBills.add(mBills.get(i));
-                    }
-                }
-                mAdapter.setmBills(mCustomBills);
-                mAdapter.notifyDataSetChanged();
+                getPresenter().findCompanyByName(s);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+    }
 
+    /**
+     * handle loadmore
+     */
+    @Override
+    public void handleLoadMore() {
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mAllCompaniesRv.setLayoutManager(mLayoutManager);
+        mAllCompaniesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private boolean loading = true;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = mLayoutManager.getChildCount();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+                            sCurrentPage += 1;
+//                            showProgress(mAllCompaniesPb, mAllCompaniesRv);
+                            getPresenter().loadMore(sCurrentPage);
+                        }
+                    }
+                }
             }
         });
     }
@@ -192,20 +166,21 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     }
 
     /**
+     * show all bills
+     */
+    public void showAllBills() {
+        EventLogger.info("Show AllCompaniesBills");
+        mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_all));
+        getPresenter().loadAllBills();
+    }
+
+    /**
      * show all bills with increased users
      */
     public void showIncreasedUserBills() {
-        EventLogger.info("Show IncreasedUserBills");
+        EventLogger.info("Show Increased User Bills");
         mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_increased));
-        mCustomBills = new ArrayList<Bill>();
-        int size = mBills.size();
-        for (int i = 0; i < size; ++i) {
-            if (mBills.get(i).getUserIncrement() > 0) {
-                mCustomBills.add(mBills.get(i));
-            }
-        }
-        mAdapter.setmBills(mCustomBills);
-        mAdapter.notifyDataSetChanged();
+        getPresenter().loadIncreasedUserBills();
     }
 
     /**
@@ -214,15 +189,7 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     public void showInvariabledUserBills() {
         EventLogger.info("Show InvariableUserBills");
         mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_invariable));
-        mCustomBills = new ArrayList<Bill>();
-        int size = mBills.size();
-        for (int i = 0; i < size; ++i) {
-            if (mBills.get(i).getUserIncrement() == 0) {
-                mCustomBills.add(mBills.get(i));
-            }
-        }
-        mAdapter.setmBills(mCustomBills);
-        mAdapter.notifyDataSetChanged();
+        getPresenter().loadInvariabledUserBills();
     }
 
     /**
@@ -231,26 +198,7 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     public void showDecreasedUserBills() {
         EventLogger.info("Show DecreasedUserBills");
         mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_decreased));
-        mCustomBills = new ArrayList<Bill>();
-        int size = mBills.size();
-        for (int i = 0; i < size; ++i) {
-            if (mBills.get(i).getUserIncrement() < 0) {
-                mCustomBills.add(mBills.get(i));
-            }
-        }
-        mAdapter.setmBills(mCustomBills);
-        mAdapter.notifyDataSetChanged();
-    }
-
-    /**
-     * show all bills
-     */
-    public void showAllBills() {
-        EventLogger.info("Show AllCompaniesBills");
-        mFilterUserIncrementTv.setText(getActivity().getResources().getString(R.string.filter_selected_all));
-        mCustomBills = new ArrayList<Bill>(mBills);
-        mAdapter.setmBills(mCustomBills);
-        mAdapter.notifyDataSetChanged();
+        getPresenter().loadDecreasedUserBills();
     }
 
     /**
@@ -327,21 +275,15 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
     }
 
     @Override
-    public void onGetAllCompaniesSuccess(ArrayList<Bill> bills) {
-        this.mBills.clear();
-        this.mBills.addAll(bills);
-        EventLogger.info("Get all companies bill successful, current size:" + mBills.size());
-        mAdapter.notifyDataSetChanged();
+    public void onGetAllCompaniesSuccess() {
+        EventLogger.info("get all companies bill successful");
         hideProgress(mAllCompaniesPb, mAllCompaniesRv);
     }
 
     @Override
-    public void onLoadMoreSuccess(ArrayList<Bill> moreBill) {
-        mBills.remove(mBills.size() - 1);
-        this.mBills.addAll(moreBill);
-        EventLogger.info("Load more companies bill successful, current size:" + mBills.size());
-        mAdapter.notifyDataSetChanged();
-        mAdapter.setLoaded();
+    public void onLoadMoreSuccess() {
+        EventLogger.info("Load more companies bill successful");
+//        hideProgress(mAllCompaniesPb, mAllCompaniesRv);
     }
 
     @Override

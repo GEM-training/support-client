@@ -6,7 +6,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,7 +23,6 @@ import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandlerUtil;
 import nhom1.gem.com.exceptionplugin.config.ReportCrash;
 import nhom1.gem.com.exceptionplugin.datatest.Data;
-import nhom1.gem.com.exceptionplugin.handler.ExceptionHandle;
 import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
 
 /**
@@ -50,10 +48,12 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
         Constants.companies.add(new Company(3, "logo_hyundai", "Huyndai", "Hai Ba Trung, Ha Noi", "(+84)94862364", "huyndai@huyndai.com.vn", "012365798"));
         Constants.companies.add(new Company(4, "logo_bmw", "BMW", "Cau Giay, Ha Noi", "042468354", "bmw@bmw.com.vn", "012365798"));
         Constants.companies.add(new Company(5, "logo_mercedes_Benzo", "Mercedes Benz", "Cau Giay, Ha Noi", "042468354", "mercedesbenz@mercedesbenz.com.vn", "012365798"));
-        Constants.companies.add(new Company(6, "KIA logo", "KIA", "Cau Giay, Ha Noi", "042468354", "kia@kia.com.vn", "012365798"));
-        Constants.companies.add(new Company(7, "THACO logo", "THACO", "Cau Giay, Ha Noi", "042468354", "thaco@thaco.com.vn", "012365798"));
-        Constants.companies.add(new Company(8, "Lamborghini logo", "Lamborghini", "Cau Giay, Ha Noi", "042468354", "lamborghini@lamborghini.com.vn", "012365798"));
-        Constants.companies.add(new Company(9, "Marda logo", "Marda", "Cau Giay, Ha Noi", "042468354", "marda@marda.com.vn", "012365798"));
+        Constants.companies.add(new Company(6, "logo_KIA", "KIA", "Cau Giay, Ha Noi", "042468354", "kia@kia.com.vn", "012365798"));
+        Constants.companies.add(new Company(7, "logo_THACO", "THACO", "Cau Giay, Ha Noi", "042468354", "thaco@thaco.com.vn", "012365798"));
+        Constants.companies.add(new Company(8, "logo_Lamborghini", "Lamborghini", "Cau Giay, Ha Noi", "042468354", "lamborghini@lamborghini.com.vn", "012365798"));
+        Constants.companies.add(new Company(9, "logo_Marda", "Marda", "Cau Giay, Ha Noi", "042468354", "marda@marda.com.vn", "012365798"));
+        Constants.companies.add(new Company(10, "logo_Bentley", "Bentley", "Hai Ba Trung, Ha Noi", "042468354", "bentley@bentley.com.vn", "012365798"));
+        Constants.companies.add(new Company(11, "logo_Ford", "Ford", "Cau Giay, Ha Noi", "042468354", "ford@ford.com.vn", "012365798"));
     }
 
     @Override

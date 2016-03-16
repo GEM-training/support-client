@@ -2,6 +2,7 @@ package gem.com.support_client.screen.billing.allcompanies;
 
 import java.util.ArrayList;
 
+import gem.com.support_client.adapter.CompanyBillAdapter;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.DateUtils;
@@ -18,8 +19,29 @@ import retrofit2.Response;
 public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
     private final AllCompaniesView mView;
 
+    private ArrayList<Bill> mBills;
+    private ArrayList<Bill> mCustomBills;
+    private CompanyBillAdapter mAdapter;
+
     public AllCompaniesPresenterImpl(AllCompaniesView mView) {
         this.mView = mView;
+        mBills = new ArrayList<Bill>();
+        mAdapter = new CompanyBillAdapter(mBills, mView.getContextBase());
+    }
+
+    @Override
+    public ArrayList<Bill> getListCustomBills() {
+        return mCustomBills;
+    }
+
+    @Override
+    public ArrayList<Bill> getListBills() {
+        return mBills;
+    }
+
+    @Override
+    public CompanyBillAdapter getAdapter() {
+        return mAdapter;
     }
 
     @Override
@@ -29,8 +51,13 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> bills = response.body().getContent();
-                mView.onGetAllCompaniesSuccess(bills);
+//                ArrayList<Bill> bills = response.body().getContent();
+//                mView.onGetAllCompaniesSuccess(bills);
+                mCustomBills = new ArrayList<Bill>(response.body().getContent());
+                mBills = new ArrayList<Bill>(response.body().getContent());
+                mAdapter.setBills(mCustomBills);
+                mAdapter.notifyDataSetChanged();
+                mView.onGetAllCompaniesSuccess();
             }
 
             @Override
@@ -48,8 +75,10 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> moreBills = response.body().getContent();
-                mView.onLoadMoreSuccess(moreBills);
+                mBills.addAll(response.body().getContent());
+                mCustomBills.addAll(response.body().getContent());
+                mAdapter.notifyDataSetChanged();
+                mView.onLoadMoreSuccess();
             }
 
             @Override
@@ -58,5 +87,76 @@ public class AllCompaniesPresenterImpl implements AllCompaniesPresenter {
                 mView.onRequestError(t.getMessage());
             }
         });
+    }
+
+    /**
+     * load all bills
+     */
+    public void loadAllBills() {
+        EventLogger.info("Load All Companies Bills");
+        mCustomBills.clear();
+        mCustomBills.addAll(mBills);
+        mAdapter.setBills(mCustomBills);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * load all bills with increased users
+     */
+    public void loadIncreasedUserBills() {
+        EventLogger.info("Load Increased User Bills");
+        mCustomBills.clear();
+        int size = mBills.size();
+        for (int i = 0; i < size; ++i) {
+            if (mBills.get(i).getUserIncrement() > 0) {
+                mCustomBills.add(mBills.get(i));
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * load all bills with invariable users
+     */
+    public void loadInvariabledUserBills() {
+        EventLogger.info("Load Invariable User Bills");
+        mCustomBills.clear();
+        int size = mBills.size();
+        for (int i = 0; i < size; ++i) {
+            if (mBills.get(i).getUserIncrement() == 0) {
+                mCustomBills.add(mBills.get(i));
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * load all bills with decreased users
+     */
+    public void loadDecreasedUserBills() {
+        EventLogger.info("Load Decreased User Bills");
+        mCustomBills.clear();
+        int size = mBills.size();
+        for (int i = 0; i < size; ++i) {
+            if (mBills.get(i).getUserIncrement() < 0) {
+                mCustomBills.add(mBills.get(i));
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * find company by company name
+     */
+    public void findCompanyByName(CharSequence s){
+        // filter list companies by name
+        mCustomBills .clear();
+        int size = mBills.size();
+        for (int i = 0; i < size; ++i) {
+            if (Constants.companies.get(i).getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                mCustomBills.add(mBills.get(i));
+            }
+        }
+        mAdapter.notifyDataSetChanged();
     }
 }
