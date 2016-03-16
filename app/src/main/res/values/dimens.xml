@@ -120,6 +120,8 @@
     <dimen name="time_feedback_detail_margin_right">10dp</dimen>
     <dimen name="divider_margin_left">62dp</dimen>
 
+    <dimen name = "divider_marrgin_top">4.5dp</dimen>
+
     <dimen name="group_by_height">48dp</dimen>
     <dimen name="img_selected_height">17dp</dimen>
 </resources>

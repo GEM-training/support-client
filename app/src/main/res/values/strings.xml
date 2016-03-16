@@ -163,4 +163,8 @@
     <string name="filter_selected_invariable">Invariable Users ▼</string>
     <string name="filter_selected_decreased">Decreased Users ▼</string>
     <string name="income">Income</string>
+
+    <string name="address_demo">62 Tran Thai Tong, Cau Giay, Ha Noi, Viet Nam</string>
+    <string name="phone_demo">+84(01673255990)</string>
+    <string name="email_demo">hopnv@gemvietnam.com</string>
 </resources>

@@ -100,13 +100,7 @@
             </LinearLayout>
             </com.balysv.materialripple.MaterialRippleLayout>
 
-            <!-- TODO create new layout or style-->
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/divider">
-
-            </FrameLayout>
+            <include layout="@layout/full_width_divider"></include>
 
 
             <TextView
@@ -209,11 +203,7 @@
 
             </LinearLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/divider">
-            </FrameLayout>
+            <include layout="@layout/full_width_divider"></include>
 
             <TextView
                 android:textSize="@dimen/text_size_small"
@@ -225,9 +215,6 @@
                 android:id="@+id/tv_user_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
-
-
 
 
         </LinearLayout>
