@@ -50,6 +50,7 @@ public class CompanyInfoActivity extends BaseActivityToolbar<CompanyInfoPresente
         }
         int position = getIntent().getIntExtra(Constants.position, 0);
 
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle(Constants.companies.get(position).getName());
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 

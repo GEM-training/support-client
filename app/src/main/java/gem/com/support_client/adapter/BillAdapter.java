@@ -97,7 +97,7 @@ public class BillAdapter extends RecyclerView.Adapter {
                 ((BillViewHolder) holder).mBillUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.red_600));
                 ((BillViewHolder) holder).mBillNumberUserIncrementTv.setText(String.valueOf((-1) * userIncrement));
                 ((BillViewHolder) holder).mBillNumberUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.red_600));
-            } else { /* userIncrement ==0*/
+            } else { /* userIncrement == 0*/
                 ((BillViewHolder) holder).mBillUserIncrementTv.setText(mContext.getResources().getString(R.string.minus));
                 ((BillViewHolder) holder).mBillUserIncrementTv.setTextColor(ContextCompat.getColor(mContext, R.color.black));
                 ((BillViewHolder) holder).mBillNumberUserIncrementTv.setText(String.valueOf(userIncrement));
