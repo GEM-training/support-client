@@ -21,7 +21,8 @@
         android:layout_width="@dimen/width_userdetail_img"
         android:layout_height="@dimen/height_userdetail_img"
         android:padding="3dp"
-        android:background="@drawable/border_image">
+        android:background="@drawable/border_image"
+        android:layout_marginBottom="@dimen/tv_margin">
 
         <ImageView
             android:id="@+id/img_user_icon"
@@ -31,18 +32,15 @@
 
 
     </LinearLayout>
-    
-    <FrameLayout
-        android:layout_marginTop="@dimen/tv_margin"
-        android:background="@color/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"/>
+
+    <include layout="@layout/full_width_divider"></include>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="5dp">
 
         <ImageView
             android:src="@drawable/account_icon"
@@ -62,14 +60,10 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="@dimen/divider_margin_left"
-        android:layout_marginTop="5dp"
-        android:background="@color/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+    <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -99,14 +93,11 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="@dimen/divider_margin_left"
-        android:layout_marginTop="5dp"
-        android:background="@color/divider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+    <include layout="@layout/margin_left_62dp_divider"></include>
+
 
     <LinearLayout
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -136,14 +127,10 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="@dimen/divider_margin_left"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+   <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -173,12 +160,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="@dimen/divider_margin_left"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+    <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -215,11 +197,7 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginTop="@dimen/tv_margin"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"/>
+    <include layout="@layout/full_width_divider"></include>
 
 
 

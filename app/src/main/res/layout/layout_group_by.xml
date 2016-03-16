@@ -31,7 +31,7 @@
             android:layout_weight="5"
             android:text="@string/group_by_all"
             android:textColor="#ffffff"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <ImageView
             android:id="@+id/group_by_all_selected"
@@ -49,6 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#cccccc"/>
+
+
+    <include layout="@layout/full_width_divider"></include>
 
 
     <com.balysv.materialripple.MaterialRippleLayout
