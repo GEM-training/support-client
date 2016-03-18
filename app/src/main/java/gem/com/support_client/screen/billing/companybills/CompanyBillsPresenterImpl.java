@@ -21,6 +21,7 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
     private ArrayList<Bill> mBills;
     private BillAdapter mAdapter;
     private int mCurrentPage;
+    private SubscriptionDTO mSubscription;
 
     public CompanyBillsPresenterImpl(CompanyBillsView mView) {
         this.mView = mView;
@@ -78,8 +79,8 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         call.enqueue(new Callback<SubscriptionDTO>() {
             @Override
             public void onResponse(Call<SubscriptionDTO> call, Response<SubscriptionDTO> response) {
-                SubscriptionDTO subscription = response.body();
-                mView.onGetSubscription(subscription);
+                mSubscription = response.body();
+                mView.onGetSubscription();
             }
 
             @Override
@@ -96,5 +97,9 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
 
     public BillAdapter getAdapter() {
         return mAdapter;
+    }
+
+    public SubscriptionDTO getSubscription() {
+        return mSubscription;
     }
 }

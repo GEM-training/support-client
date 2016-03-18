@@ -16,6 +16,7 @@ public class LineChartPresenterImpl implements LineChartPresenter {
     private ArrayList<Entry> mListNumberOfUser;
     private ArrayList<Entry> mAmount;
     private ArrayList<String> mPaidDate;
+
     //private double feePerUser;
 
     public ArrayList<Entry> getmListNumberOfUser() {
@@ -40,7 +41,7 @@ public class LineChartPresenterImpl implements LineChartPresenter {
         mPaidDate = new ArrayList<String>();
         // feePerUser = mBill.get(0).getFeePerUser();
         int k = 0;
-        for (int i = bills.size() - 2; i >= 0; i--) {
+        for (int i = bills.size() - 1; i >= 0; i--) {
             mListNumberOfUser.add(new Entry(bills.get(i).getNumOfUser(), k));
             mAmount.add(new Entry((float) (bills.get(i).getNumOfUser() * bills.get(i).getFeePerUser()), k));
             mPaidDate.add(StringUtils.getDateFromTimestamp(bills.get(i).getPaymentDate()));
@@ -54,7 +55,7 @@ public class LineChartPresenterImpl implements LineChartPresenter {
         mPaidDate = new ArrayList<String>();
         // feePerUser = mBill.get(0).getFeePerUser();
         int k = 0;
-        for (int i = incomes.size() - 2; i >= 0; i--) {
+        for (int i = incomes.size() - 1; i >= 0; i--) {
             mListNumberOfUser.add(new Entry(incomes.get(i).getTotalUser(), k));
             mAmount.add(new Entry((float) (incomes.get(i).getTotalIncome()), k));
             mPaidDate.add(StringUtils.getDateFromTimestamp(incomes.get(i).getToDate()));

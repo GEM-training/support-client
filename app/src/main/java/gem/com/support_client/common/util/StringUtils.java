@@ -60,24 +60,32 @@ public class StringUtils {
             case "de305d54-75b4-431b-adb2-eb6b9e546024":
                 // mapping with suzuki
                 return 2;
-            case "de305d54-75b4-431b-adb2-eb6b9e546091":
-                // maping with hyundai
+            case "de305d54-75b4-431b-adb2-eb6b9e546030":
+                // mapping with hyundai
                 return 3;
-            case "de305d54-75b4-431b-adb2-eb6b9e546083":
-                return 4;
-            case "de305d54-75b4-431b-adb2-eb6b9e546084":
-                return 5;
-            case "de305d54-75b4-431b-adb2-eb6b9e546085":
-                return 6;
-            case "de305d54-75b4-431b-adb2-eb6b9e546086":
-                return 7;
-            case "de305d54-75b4-431b-adb2-eb6b9e546087":
-                return 8;
-            case "de305d54-75b4-431b-adb2-eb6b9e546088":
-                return 9;
-            case "de305d54-75b4-431b-adb2-eb6b9e546089":
-                return 10;
             case "de305d54-75b4-431b-adb2-eb6b9e546090":
+                // mapping with ford
+                return 4;
+            case "de305d54-75b4-431b-adb2-eb6b9e546089":
+
+                return 5;
+            case "de305d54-75b4-431b-adb2-eb6b9e546088":
+
+                return 6;
+            case "de305d54-75b4-431b-adb2-eb6b9e546087":
+
+                return 7;
+            case "de305d54-75b4-431b-adb2-eb6b9e546086":
+
+                return 8;
+            case "de305d54-75b4-431b-adb2-eb6b9e546085":
+
+                return 9;
+            case "de305d54-75b4-431b-adb2-eb6b9e546084":
+
+                return 10;
+            case "de305d54-75b4-431b-adb2-eb6b9e546083":
+
                 return 11;
         }
         return 0;

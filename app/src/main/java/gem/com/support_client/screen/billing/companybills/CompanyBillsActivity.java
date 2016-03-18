@@ -17,7 +17,6 @@ import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.SubscriptionDTO;
-import gem.com.support_client.screen.billing.allincome.AllIncomesFragment;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
@@ -38,8 +37,6 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     TextView mCompanyBillsStartTimeTv;
 
     private LinearLayoutManager mLayoutManager;
-    private LineChartFragment mLineChartFragment;
-    private AllIncomesFragment mAllIncomesFragment;
 
     private String mCompanyId;
     private int mPosition;
@@ -50,21 +47,16 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         super.onCreate(savedInstanceState);
         EventLogger.info("Company Bills Activity created");
 
-        customToolbar();
 
         mLayoutManager = new LinearLayoutManager(this);
         mCompanyBillsRv.setLayoutManager(mLayoutManager);
-
         Intent intent = getIntent();
         mCompanyId = intent.getStringExtra(Constants.intent_companyId);
-
+        mPosition = intent.getIntExtra(Constants.position, 0);
         getPresenter().getCompanySubscription((mCompanyId));
-
         mCompanyBillsRv.setAdapter(getPresenter().getAdapter());
         getPresenter().getAllBillsByCompanyId(mCompanyId);
-
-        mPosition = intent.getIntExtra(Constants.position, 0);
-
+        customToolbar();
         handleLoadMore();
     }
 
@@ -129,8 +121,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
         // draw chart
-        mLineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
-        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
+        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
     }
 
     @Override
@@ -138,15 +130,14 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         EventLogger.info("Load more bills successful:");
 
         // redraw chart when load more bills
-        mLineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
-        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, mLineChartFragment).commit();
+        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
+        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
     }
 
     @Override
-    public void onGetSubscription(SubscriptionDTO subscription) {
-        mSubscription = new SubscriptionDTO(subscription);
-        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", mSubscription.getChargedAmount()));
-        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(mSubscription.getJoinDate()));
+    public void onGetSubscription() {
+        mCompanyBillsTotalAmountTv.setText(String.format("%.1f ($)", getPresenter().getSubscription().getChargedAmount()));
+        mCompanyBillsStartTimeTv.setText(StringUtils.getDateFromTimestamp(getPresenter().getSubscription().getJoinDate()));
     }
 
     @Override

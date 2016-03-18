@@ -30,20 +30,23 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
 
     private ArrayList<Bill> mBills;
     private ArrayList<Income> mIncomes;
-    private final int ITEM_COUNT = 12;
     private Class mCurrentClass;
-    
-    public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
-        if (targetClass == Bill.class) {
-            mBills = (ArrayList<Bill>) arrayList;
-            mCurrentClass = Bill.class;
-        } else if (targetClass == Income.class) {
-            mIncomes = (ArrayList<Income>) arrayList;
-            mCurrentClass = Income.class;
-        }
 
+    public void setCurrentClass(Class currentClass) {
+        this.mCurrentClass = currentClass;
     }
 
+    public LineChartFragment() {
+    }
+
+    public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
+        mCurrentClass = targetClass;
+        if (mCurrentClass == Bill.class) {
+            mBills = (ArrayList<Bill>) arrayList;
+        } else if (mCurrentClass == Income.class) {
+            mIncomes = (ArrayList<Income>) arrayList;
+        }
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -53,7 +56,6 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
         //setContentView(R.layout.fragment_linechart);
 
         if (mCurrentClass == Bill.class) {
-            // mBills = ((CompanyBillsActivity) getActivity()).getmBills();
             if (mBills.size() != 0 && mBills != null) {
                 getPresenter().initBillData(mBills);
                 LineData data = generateLineData();
@@ -72,8 +74,6 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
                 mChart.setMarkerView(mv);
             }
         }
-
-
     }
 
     @Override
@@ -100,12 +100,10 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
         LineData data = generateLineData();
         mChart.setData(data);
         mChart.setVisibleXRangeMaximum(5);
-        mChart.moveViewToX(getPresenter().getNumberOfItem()-5);
+        mChart.moveViewToX(getPresenter().getNumberOfItem() - 5);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         mChart.setHighlightPerTapEnabled(true);
-
-
         mChart.setTouchEnabled(true);
         mChart.getLegend().setEnabled(false);
         mChart.invalidate();

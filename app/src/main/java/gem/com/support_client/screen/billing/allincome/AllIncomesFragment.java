@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import butterknife.Bind;
 import gem.com.support_client.R;
@@ -31,8 +30,8 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     @Bind(R.id.all_incomes_pb)
     ProgressBar mAllIncomesPb;
 
-    @Bind(R.id.all_incomes_sv)
-    ScrollView mAllIncomesCv;
+//    @Bind(R.id.all_incomes_sv)
+//    ScrollView mAllIncomesCv;
 
     private LinearLayoutManager mLayoutManager;
 
@@ -46,6 +45,7 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAllIncomesRv.setLayoutManager(mLayoutManager);
         mAllIncomesRv.setAdapter(getPresenter().getAdapter());
+        mAllIncomesRv.setNestedScrollingEnabled(true);
         showProgress(mAllIncomesPb, mAllIncomesRv);
         getPresenter().getAllIncomes();
 
@@ -120,13 +120,14 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         EventLogger.info("Load more incomes successful");
 
         // redraw chart ater load more incomes
-        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getListIncomes(), Income.class);
-        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
+//        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getListIncomes(), Income.class);
+//        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
     }
 
     @Override
     public void onGetAllIncomesOfCompanySucces() {
         // handle on get all income of company success
+
     }
 
     @Override
