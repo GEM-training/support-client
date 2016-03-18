@@ -125,9 +125,8 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     }
 
     @Override
-    public void onGetAllIncomesOfCompanySucces(Income income) {
-        Income companyIncome = new Income();
-        companyIncome = income;
+    public void onGetAllIncomesOfCompanySucces() {
+        // handle on get all income of company success
     }
 
     @Override

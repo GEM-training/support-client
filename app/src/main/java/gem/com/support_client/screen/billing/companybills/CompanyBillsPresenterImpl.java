@@ -2,6 +2,7 @@ package gem.com.support_client.screen.billing.companybills;
 
 import java.util.ArrayList;
 
+import gem.com.support_client.adapter.BillAdapter;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.ServiceBuilder;
@@ -16,11 +17,16 @@ import retrofit2.Response;
  * Created by quanda on 07/03/2016.
  */
 public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
-
     private final CompanyBillsView mView;
+    private ArrayList<Bill> mBills;
+    private BillAdapter mAdapter;
+    private int mCurrentPage;
 
     public CompanyBillsPresenterImpl(CompanyBillsView mView) {
         this.mView = mView;
+        mBills = new ArrayList<>();
+        mAdapter = new BillAdapter(mBills, mView.getContextBase());
+        mCurrentPage = 0;
     }
 
     @Override
@@ -30,8 +36,9 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> bills = response.body().getContent();
-                mView.onGetAllBillsSuccess(bills);
+                mBills.addAll(response.body().getContent());
+                mAdapter.setBills(mBills);
+                mView.onGetAllBillsSuccess();
             }
 
             @Override
@@ -43,14 +50,17 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
     }
 
     @Override
-    public void loadMore(String companyId, int currentPage) {
+    public void loadMore(String companyId) {
+        mCurrentPage++;
         EventLogger.info("Load more bills of a company");
-        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBillsByCompanyId(companyId, currentPage, Constants.PAGE_SIZE, Constants.columnPaidDateDESC);
+        Call<PageableResponse<Bill>> call = ServiceBuilder.getService().getAllBillsByCompanyId(companyId, mCurrentPage, Constants.PAGE_SIZE, Constants.columnPaidDateDESC);
         call.enqueue(new Callback<PageableResponse<Bill>>() {
             @Override
             public void onResponse(Call<PageableResponse<Bill>> call, Response<PageableResponse<Bill>> response) {
-                ArrayList<Bill> moreBills = response.body().getContent();
-                mView.onLoadMoreSuccess(moreBills);
+                mBills.addAll(response.body().getContent());
+                mAdapter.notifyDataSetChanged();
+
+                mView.onLoadMoreSuccess();
             }
 
             @Override
@@ -78,5 +88,13 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
                 mView.onRequestError(t.getMessage());
             }
         });
+    }
+
+    public ArrayList<Bill> getBills() {
+        return mBills;
+    }
+
+    public BillAdapter getAdapter() {
+        return mAdapter;
     }
 }

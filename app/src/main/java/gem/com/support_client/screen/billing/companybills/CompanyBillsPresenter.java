@@ -1,6 +1,10 @@
 package gem.com.support_client.screen.billing.companybills;
 
+import java.util.ArrayList;
+
+import gem.com.support_client.adapter.BillAdapter;
 import gem.com.support_client.base.BasePresenter;
+import gem.com.support_client.network.dto.Bill;
 
 /**
  * Created by quanda on 07/03/2016.
@@ -9,7 +13,11 @@ public interface CompanyBillsPresenter extends BasePresenter {
 
     void getAllBillsByCompanyId(String companyId);
 
-    void loadMore(String companyId, int currentPage);
+    void loadMore(String companyId);
 
     void getCompanySubscription(String companyId);
+
+    ArrayList<Bill> getBills();
+
+    BillAdapter getAdapter();
 }

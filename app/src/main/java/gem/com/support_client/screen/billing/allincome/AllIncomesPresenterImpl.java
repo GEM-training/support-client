@@ -58,6 +58,7 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
             public void onResponse(Call<PageableResponse<Income>> call, Response<PageableResponse<Income>> response) {
                 mIncomes.addAll(response.body().getContent());
                 mAdapter.notifyDataSetChanged();
+
                 mView.onLoadMoreSuccess();
             }
 
@@ -78,7 +79,8 @@ public class AllIncomesPresenterImpl implements AllIncomesPresenter {
             @Override
             public void onResponse(Call<Income> call, Response<Income> response) {
                 Income income = response.body();
-                mView.onGetAllIncomesOfCompanySucces(income);
+
+                mView.onGetAllIncomesOfCompanySucces();
             }
 
             @Override

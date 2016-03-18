@@ -22,45 +22,12 @@ public class IncomeAdapter extends RecyclerView.Adapter {
     public ArrayList<Income> getmIncomes() {
         return mIncomes;
     }
-
     private ArrayList<Income> mIncomes;
     private Context mContext;
-//    private static final int VISIBLE_THRESHOLD = 5;
-//    private static final int VIEW_ITEM = 1;
-//    private static final int VIEW_PROG = 0;
-//    private boolean mLoading;
-//    private OnLoadMoreListener onLoadMoreListener;
-//    private int mLastVisibleItem;
-//    private int mTotalItemCount;
 
     public IncomeAdapter(ArrayList<Income> incomes, Context context) {
         this.mIncomes = incomes;
         this.mContext = context;
-//        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-//            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
-//                    .getLayoutManager();
-//            recyclerView
-//                    .addOnScrollListener(new RecyclerView.OnScrollListener() {
-//                        @Override
-//                        public void onScrolled(RecyclerView recyclerView,
-//                                               int dx, int dy) {
-//                            super.onScrolled(recyclerView, dx, dy);
-//
-//                            mTotalItemCount = linearLayoutManager.getItemCount();
-//                            mLastVisibleItem = linearLayoutManager
-//                                    .findLastVisibleItemPosition();
-//                            if (!mLoading
-//                                    && mTotalItemCount <= (mLastVisibleItem + VISIBLE_THRESHOLD)) {
-//                                // End has been reached
-//                                // Do something
-//                                if (onLoadMoreListener != null) {
-//                                    onLoadMoreListener.onLoadMore();
-//                                }
-//                                mLoading = true;
-//                            }
-//                        }
-//                    });
-//        }
     }
 
     @Override
@@ -69,15 +36,6 @@ public class IncomeAdapter extends RecyclerView.Adapter {
         View v = LayoutInflater.from(parent.getContext()).inflate(
                 R.layout.item_bill, parent, false);
         vh = new BillViewHolder(v);
-//        if (viewType == VIEW_ITEM) {
-//            View v = LayoutInflater.from(parent.getContext()).inflate(
-//                    R.layout.item_bill, parent, false);
-//            vh = new BillViewHolder(v);
-//        } else {
-//            View v = LayoutInflater.from(parent.getContext()).inflate(
-//                    R.layout.bottom_progressbar, parent, false);
-//            vh = new ProgressViewHolder(v);
-//        }
         return vh;
     }
 
@@ -109,9 +67,6 @@ public class IncomeAdapter extends RecyclerView.Adapter {
 
             }
             ((BillViewHolder) holder).mAmountTv.setText(String.valueOf(item.getTotalIncome()));
-
-//        } else {
-//            ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
         }
     }
 
@@ -120,31 +75,8 @@ public class IncomeAdapter extends RecyclerView.Adapter {
         return mIncomes.size();
     }
 
-//    public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
-//        this.onLoadMoreListener = onLoadMoreListener;
-//    }
-
-//    public void setLoaded() {
-//        mLoading = false;
-//    }
-
     public void setIncomes(ArrayList<Income> incomes) {
         this.mIncomes = incomes;
         notifyDataSetChanged();
-    }
-
-//    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
-//
-//        public final ProgressBar progressBar;
-//
-//        public ProgressViewHolder(View itemView) {
-//            super(itemView);
-//            progressBar = (ProgressBar) itemView.findViewById(R.id.bottom_progress_bar);
-//        }
-//    }
-
-    interface Item {
-        RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent);
-        void onBindViewHolder(RecyclerView.ViewHolder holder, int position);
     }
 }

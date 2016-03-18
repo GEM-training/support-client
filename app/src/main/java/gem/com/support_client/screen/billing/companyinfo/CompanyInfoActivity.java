@@ -18,14 +18,19 @@ public class CompanyInfoActivity extends BaseActivityToolbar<CompanyInfoPresente
 
     @Bind(R.id.company_info_picture_iv)
     ImageView mCompanyPictureIv;
+
     @Bind(R.id.company_info_name_tv)
     TextView mCompanyNameTv;
+
     @Bind(R.id.company_info_word_email_tv)
     TextView mCompanyWordEmailTv;
+
     @Bind(R.id.company_info_home_email_tv)
     TextView mCompanyHomeEmailTv;
+
     @Bind(R.id.company_info_phone_tv)
     TextView mCompanyPhoneTv;
+
     @Bind(R.id.company_info_address_tv)
     TextView mCompanyAdressTv;
 
