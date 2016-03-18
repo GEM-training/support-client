@@ -91,6 +91,18 @@ public class CompanyBillsPresenterImpl implements CompanyBillsPresenter {
         });
     }
 
+    @Override
+    public void getPdfReport() {
+        EventLogger.info(("Get pdf report"));
+        // get file from server
+    }
+
+    @Override
+    public void getExcelReport() {
+        EventLogger.info("Get excel report");
+        // get file from server
+    }
+
     public ArrayList<Bill> getBills() {
         return mBills;
     }

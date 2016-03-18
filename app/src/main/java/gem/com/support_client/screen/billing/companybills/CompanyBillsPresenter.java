@@ -12,15 +12,19 @@ import gem.com.support_client.network.dto.SubscriptionDTO;
  */
 public interface CompanyBillsPresenter extends BasePresenter {
 
+    ArrayList<Bill> getBills();
+
+    BillAdapter getAdapter();
+
+    SubscriptionDTO getSubscription();
+
     void getAllBillsByCompanyId(String companyId);
 
     void loadMore(String companyId);
 
     void getCompanySubscription(String companyId);
 
-    ArrayList<Bill> getBills();
+    void getPdfReport();
 
-    BillAdapter getAdapter();
-
-    SubscriptionDTO getSubscription();
+    void getExcelReport();
 }

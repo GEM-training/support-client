@@ -30,6 +30,7 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
 
     private ArrayList<Bill> mBills;
     private ArrayList<Income> mIncomes;
+    private ArrayList arrayList;
     private Class mCurrentClass;
 
     public void setCurrentClass(Class currentClass) {
