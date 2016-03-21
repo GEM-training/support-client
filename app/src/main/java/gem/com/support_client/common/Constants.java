@@ -35,4 +35,9 @@ public interface Constants {
     // fake company info
     ArrayList<Company> companies = new ArrayList<Company>();
     String position = "position";
+
+    String FORMAT_EXCEL = "excel";
+    String FORMAT_PDF ="pdf";
+    String listKey = "bills";
+    String classKey ="class";
 }

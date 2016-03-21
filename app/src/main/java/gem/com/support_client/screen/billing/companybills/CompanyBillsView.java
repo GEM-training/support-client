@@ -14,4 +14,6 @@ public interface CompanyBillsView extends BaseView<CompanyBillsPresenter> {
     void onGetSubscription();
 
     void handleLoadMore();
+
+    void onDownloadFileSucces();
 }

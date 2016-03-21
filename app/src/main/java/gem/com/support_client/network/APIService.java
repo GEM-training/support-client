@@ -3,20 +3,19 @@ package gem.com.support_client.network;
 
 import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.CustomDate;
+import gem.com.support_client.network.dto.Income;
 import gem.com.support_client.network.dto.ListEnterpriseDTO;
 import gem.com.support_client.network.dto.ListFeedbackDTO;
-import gem.com.support_client.network.dto.SubscriptionDTO;
-import gem.com.support_client.network.model.Enterprise;
-import gem.com.support_client.network.model.FeedbackBrief;
-import gem.com.support_client.network.model.FeedbackDetail;
-import gem.com.support_client.network.dto.Income;
 import gem.com.support_client.network.dto.PageableResponse;
-import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
+import gem.com.support_client.network.dto.SubscriptionDTO;
+import gem.com.support_client.network.model.FeedbackDetail;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 
 /**
  * Created by huylv on 22/02/2016.
@@ -48,6 +47,13 @@ public interface APIService {
             int size,
             @Query("sort")
             String sort
+    );
+
+    @GET("billing/invoice")
+    @Streaming
+    Call<ResponseBody> getCompanyBillsFile(
+            @Query("download")
+            String fileFormat
     );
 
     @GET("/billing/revenue")

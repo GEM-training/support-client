@@ -13,6 +13,7 @@ import gem.com.support_client.common.Constants;
 
 /**
  * Created by quanda on 09/03/2016.
+ * display basic infomartion of a company
  */
 public class CompanyInfoActivity extends BaseActivityToolbar<CompanyInfoPresenter> implements CompanyInfoView {
 

@@ -149,6 +149,7 @@ public class AllCompaniesFragment extends BaseFragment<AllCompaniesPresenter> im
         mStatisticIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllIncomesFragment()).addToBackStack(null).commit();
             }
         });

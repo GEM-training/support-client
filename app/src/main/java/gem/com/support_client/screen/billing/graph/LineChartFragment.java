@@ -17,64 +17,25 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
-import gem.com.support_client.network.dto.Bill;
-import gem.com.support_client.network.dto.Income;
 
 /**
  * Created by huylv on 07-Mar-16.
+ * get list data and draw line chart
  */
 public class LineChartFragment extends BaseFragment<LineChartPresenter> implements LineChartView {
 
     @Bind(R.id.linechart)
     LineChart mChart;
 
-    private ArrayList<Bill> mBills;
-    private ArrayList<Income> mIncomes;
-    private ArrayList arrayList;
-    private Class mCurrentClass;
-
-    public void setCurrentClass(Class currentClass) {
-        this.mCurrentClass = currentClass;
-    }
-
-    public LineChartFragment() {
-    }
-
-    public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
-        mCurrentClass = targetClass;
-        if (mCurrentClass == Bill.class) {
-            mBills = (ArrayList<Bill>) arrayList;
-        } else if (mCurrentClass == Income.class) {
-            mIncomes = (ArrayList<Income>) arrayList;
-        }
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-        //setContentView(R.layout.fragment_linechart);
-
-        if (mCurrentClass == Bill.class) {
-            if (mBills.size() != 0 && mBills != null) {
-                getPresenter().initBillData(mBills);
-                LineData data = generateLineData();
-                mChart.setData(data);
-                config();
-                CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
-                mChart.setMarkerView(mv);
-            }
-        } else if (mCurrentClass == Income.class) {
-            if (mIncomes.size() != 0 && mIncomes != null) {
-                getPresenter().initIncomeData(mIncomes);
-                LineData data = generateLineData();
-                mChart.setData(data);
-                config();
-                CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
-                mChart.setMarkerView(mv);
-            }
-        }
+        getPresenter().initData();
+        LineData data = generateLineData();
+        mChart.setData(data);
+        config();
+        CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
+        mChart.setMarkerView(mv);
     }
 
     @Override

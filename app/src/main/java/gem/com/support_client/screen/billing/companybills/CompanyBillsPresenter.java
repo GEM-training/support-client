@@ -24,7 +24,5 @@ public interface CompanyBillsPresenter extends BasePresenter {
 
     void getCompanySubscription(String companyId);
 
-    void getPdfReport();
-
-    void getExcelReport();
+    void getCompanyBillsFile(String fileFormat);
 }

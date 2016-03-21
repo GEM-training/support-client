@@ -2,10 +2,12 @@ package gem.com.support_client.network.dto;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by quanda on 04/03/2016.
  */
-public class Bill {
+public class Bill implements Serializable{
     @SerializedName("id")
     private String id;
     private String companyId;

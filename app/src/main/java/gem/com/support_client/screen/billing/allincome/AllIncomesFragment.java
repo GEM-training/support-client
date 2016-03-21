@@ -15,12 +15,13 @@ import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
-import gem.com.support_client.network.dto.Income;
-import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
 /**
  * Created by huylv on 04-Mar-16.
+ * display all incomes of system by month
+ * demonstrate data via line chart
  */
 public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implements AllIncomesView {
 
@@ -72,7 +73,7 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
             @Override
             public void onClick(View v) {
                 getFragmentManager().popBackStack();
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllCompaniesFragment()).addToBackStack(null).commit();
+//                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllCompaniesFragment()).addToBackStack(null).commit();
             }
         });
     }
@@ -111,8 +112,7 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         hideProgress(mAllIncomesPb, mAllIncomesRv);
 
         // drawy chart from data
-        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getListIncomes(), Income.class);
-        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
+        drawChart();
     }
 
     @Override
@@ -120,8 +120,16 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
         EventLogger.info("Load more incomes successful");
 
         // redraw chart ater load more incomes
-//        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getListIncomes(), Income.class);
-//        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
+        drawChart();
+    }
+
+    private void drawChart() {
+        LineChartFragment lineChartFragment = new LineChartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.listKey, getPresenter().getListIncomes());
+        bundle.putSerializable(Constants.classKey, 1);
+        lineChartFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
     }
 
     @Override

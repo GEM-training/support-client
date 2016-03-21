@@ -8,24 +8,24 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.Bind;
-import butterknife.OnClick;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseActivityToolbar;
 import gem.com.support_client.base.log.EventLogger;
 import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
-import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.SubscriptionDTO;
 import gem.com.support_client.screen.billing.companyinfo.CompanyInfoActivity;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
 /**
  * Created by quanda on 07/03/2016.
+ * display all bills of a company
+ * demonstrate data via line chart
  */
 public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresenter> implements CompanyBillsView {
     @Bind(R.id.company_bills_rv)
@@ -40,8 +40,8 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     @Bind(R.id.company_bills_start_time_tv)
     TextView mCompanyBillsStartTimeTv;
 
-    @Bind(R.id.company_bills_download)
-    Button mCompanyBillsDownloadBt;
+//    @Bind(R.id.company_bills_download)
+//    Button mCompanyBillsDownloadBt;
 
     private LinearLayoutManager mLayoutManager;
 
@@ -81,12 +81,11 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     /**
      * handle download report file
      */
-    @OnClick(R.id.company_bills_download)
-    public void downloadReport() {
-        registerForContextMenu(findViewById(android.R.id.content));
-        openContextMenu(findViewById(android.R.id.content));
-
-    }
+//    @OnClick(R.id.company_bills_download)
+//    public void downloadReport() {
+//        registerForContextMenu(findViewById(android.R.id.content));
+//        openContextMenu(findViewById(android.R.id.content));
+//    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -100,11 +99,11 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case CONTEXT_MENU_PDF: {
-                getPresenter().getPdfReport();
+                getPresenter().getCompanyBillsFile(Constants.FORMAT_PDF);
             }
             break;
             case CONTEXT_MENU_EXCEL: {
-                getPresenter().getExcelReport();
+                getPresenter().getCompanyBillsFile(Constants.FORMAT_EXCEL);
             }
             break;
         }
@@ -137,6 +136,11 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
     }
 
     @Override
+    public void onDownloadFileSucces() {
+        Toast.makeText(this, "Download file complete", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.bill_fragment_menu, menu);
         return true;
@@ -163,8 +167,7 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         hideProgress(mCompanyBillsPb, mCompanyBillsRv);
 
         // draw chart
-        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
-        getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
+        drawChart();
     }
 
     @Override
@@ -172,7 +175,15 @@ public class CompanyBillsActivity extends BaseActivityToolbar<CompanyBillsPresen
         EventLogger.info("Load more bills successful:");
 
         // redraw chart when load more bills
-        LineChartFragment lineChartFragment = new LineChartFragment(getPresenter().getBills(), Bill.class);
+        drawChart();
+    }
+
+    private void drawChart(){
+        LineChartFragment lineChartFragment = new LineChartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.listKey, getPresenter().getBills());
+        bundle.putSerializable(Constants.classKey, 0);
+        lineChartFragment.setArguments(bundle);
         getFragmentManager().beginTransaction().replace(R.id.company_bills_chart, lineChartFragment).commit();
     }
 

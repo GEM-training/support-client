@@ -1,9 +1,11 @@
 package gem.com.support_client.network.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by quanda on 04/03/2016.
  */
-public class Company {
+public class Company implements Serializable {
     private long id;
     private String logo;
     private String name;
