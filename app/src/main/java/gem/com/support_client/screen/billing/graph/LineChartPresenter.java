@@ -5,22 +5,19 @@ import com.github.mikephil.charting.data.Entry;
 import java.util.ArrayList;
 
 import gem.com.support_client.base.BasePresenter;
-import gem.com.support_client.network.dto.Bill;
-import gem.com.support_client.network.dto.Income;
 
 /**
  * Created by huylv on 09-Mar-16.
  */
 public interface LineChartPresenter extends BasePresenter {
-    public ArrayList<Entry> getmListNumberOfUser();
+    ArrayList<Entry> getmListNumberOfUser();
 
-    public ArrayList<Entry> getmAmount();
+    ArrayList<Entry> getmAmount();
 
-    public ArrayList<String> getmPaidDate();
+    ArrayList<String> getmPaidDate();
 
-    public void initBillData(ArrayList<Bill> bills);
+    void initData();
 
-    public void initIncomeData(ArrayList<Income> incomes);
+    int getNumberOfItem();
 
-    public int getNumberOfItem();
 }

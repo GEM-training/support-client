@@ -17,63 +17,25 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
-import gem.com.support_client.network.dto.Bill;
-import gem.com.support_client.network.dto.Income;
 
 /**
  * Created by huylv on 07-Mar-16.
+ * get list data and draw line chart
  */
 public class LineChartFragment extends BaseFragment<LineChartPresenter> implements LineChartView {
 
     @Bind(R.id.linechart)
     LineChart mChart;
 
-    private ArrayList<Bill> mBills;
-    private ArrayList<Income> mIncomes;
-    private final int ITEM_COUNT = 12;
-    private Class mCurrentClass;
-    
-    public LineChartFragment(ArrayList<?> arrayList, Class<?> targetClass) {
-        if (targetClass == Bill.class) {
-            mBills = (ArrayList<Bill>) arrayList;
-            mCurrentClass = Bill.class;
-        } else if (targetClass == Income.class) {
-            mIncomes = (ArrayList<Income>) arrayList;
-            mCurrentClass = Income.class;
-        }
-
-    }
-
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
-        //setContentView(R.layout.fragment_linechart);
-
-        if (mCurrentClass == Bill.class) {
-            // mBills = ((CompanyBillsActivity) getActivity()).getmBills();
-            if (mBills.size() != 0 && mBills != null) {
-                getPresenter().initBillData(mBills);
-                LineData data = generateLineData();
-                mChart.setData(data);
-                config();
-                CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
-                mChart.setMarkerView(mv);
-            }
-        } else if (mCurrentClass == Income.class) {
-            if (mIncomes.size() != 0 && mIncomes != null) {
-                getPresenter().initIncomeData(mIncomes);
-                LineData data = generateLineData();
-                mChart.setData(data);
-                config();
-                CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
-                mChart.setMarkerView(mv);
-            }
-        }
-
-
+        getPresenter().initData();
+        LineData data = generateLineData();
+        mChart.setData(data);
+        config();
+        CustomMarkerView mv = new CustomMarkerView(getActivity(), R.layout.linechart_marker);
+        mChart.setMarkerView(mv);
     }
 
     @Override
@@ -100,12 +62,10 @@ public class LineChartFragment extends BaseFragment<LineChartPresenter> implemen
         LineData data = generateLineData();
         mChart.setData(data);
         mChart.setVisibleXRangeMaximum(5);
-        mChart.moveViewToX(getPresenter().getNumberOfItem()-5);
+        mChart.moveViewToX(getPresenter().getNumberOfItem() - 5);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawAxisLine(false);
         mChart.setHighlightPerTapEnabled(true);
-
-
         mChart.setTouchEnabled(true);
         mChart.getLegend().setEnabled(false);
         mChart.invalidate();

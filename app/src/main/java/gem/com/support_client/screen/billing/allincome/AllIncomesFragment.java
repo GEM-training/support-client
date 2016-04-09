@@ -11,20 +11,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 import gem.com.support_client.R;
-import gem.com.support_client.adapter.IncomeAdapter;
-import gem.com.support_client.adapter.listener.OnLoadMoreListener;
 import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.log.EventLogger;
-import gem.com.support_client.network.dto.Income;
-import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.screen.billing.graph.LineChartFragment;
 
 /**
  * Created by huylv on 04-Mar-16.
+ * display all incomes of system by month
+ * demonstrate data via line chart
  */
 public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implements AllIncomesView {
 
@@ -34,15 +31,112 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     @Bind(R.id.all_incomes_pb)
     ProgressBar mAllIncomesPb;
 
-    // TODO move data to Presenter
-    private ArrayList<Income> mIncomes;
-    private IncomeAdapter mAdapter;
-    private static int sCurrentPage;
+//    @Bind(R.id.all_incomes_sv)
+//    ScrollView mAllIncomesCv;
 
     private LinearLayoutManager mLayoutManager;
-    private LineChartFragment mLineChartFragment;
-    private Toolbar mToolbar;
-    private RelativeLayout mToolbarLayout;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        EventLogger.info("AllIncomesFragment create view");
+
+        customToolbar();
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mAllIncomesRv.setLayoutManager(mLayoutManager);
+        mAllIncomesRv.setAdapter(getPresenter().getAdapter());
+        mAllIncomesRv.setNestedScrollingEnabled(true);
+        showProgress(mAllIncomesPb, mAllIncomesRv);
+        getPresenter().getAllIncomes();
+
+        handleLoadMore();
+
+        return view;
+    }
+
+    /**
+     * custom action bar
+     */
+    private void customToolbar() {
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        RelativeLayout toolbarLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_toolbar, null);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        // remove current toolbar and add custom
+        toolbar.removeAllViews();
+        toolbar.addView(toolbarLayout, layoutParams);
+
+        // handle back button
+        ImageView backIv = (ImageView) toolbarLayout.findViewById(R.id.custom_toolbar_back_iv);
+        backIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+//                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllCompaniesFragment()).addToBackStack(null).commit();
+            }
+        });
+    }
+
+    /**
+     * handle loadmore
+     */
+    @Override
+    public void handleLoadMore() {
+        mAllIncomesRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            private boolean loading = true;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) //check for scroll down
+                {
+                    int visibleItemCount = mLayoutManager.getChildCount();
+                    int totalItemCount = mLayoutManager.getItemCount();
+                    int pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+
+                    if (loading) {
+                        if ((visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                            loading = false;
+//                            showProgress(mAllCompaniesPb, mAllCompaniesRv);
+                            getPresenter().loadMore();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onGetAllIncomesSuccess() {
+        EventLogger.info("Get all incomes successful");
+        hideProgress(mAllIncomesPb, mAllIncomesRv);
+
+        // drawy chart from data
+        drawChart();
+    }
+
+    @Override
+    public void onLoadMoreSuccess() {
+        EventLogger.info("Load more incomes successful");
+
+        // redraw chart ater load more incomes
+        drawChart();
+    }
+
+    private void drawChart() {
+        LineChartFragment lineChartFragment = new LineChartFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.listKey, getPresenter().getListIncomes());
+        bundle.putSerializable(Constants.classKey, 1);
+        lineChartFragment.setArguments(bundle);
+        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, lineChartFragment).commit();
+    }
+
+    @Override
+    public void onGetAllIncomesOfCompanySucces() {
+        // handle on get all income of company success
+
+    }
 
     @Override
     protected int getLayoutId() {
@@ -52,81 +146,5 @@ public class AllIncomesFragment extends BaseFragment<AllIncomesPresenter> implem
     @Override
     public AllIncomesPresenter onCreatePresenter() {
         return new AllIncomesPresenterImpl(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = super.onCreateView(inflater, container, savedInstanceState);
-        EventLogger.info("AllIncomesFragment create view");
-        mIncomes = new ArrayList<Income>();
-        sCurrentPage = 0;
-
-        mAllIncomesRv.setLayoutManager(mLayoutManager);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAllIncomesRv.setLayoutManager(mLayoutManager);
-        mAdapter = new IncomeAdapter(mIncomes, getActivity(), mAllIncomesRv);
-
-        mAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mIncomes.add(null);
-                sCurrentPage += 1;
-                getPresenter().loadMore(sCurrentPage);
-            }
-        });
-
-        mAllIncomesRv.setAdapter(mAdapter);
-        getPresenter().getAllIncomes();
-
-        mToolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        mToolbarLayout = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.custom_toolbar, null);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        mToolbar.removeAllViews();
-        mToolbar.addView(mToolbarLayout, layoutParams);
-        ImageView backIv = (ImageView) mToolbarLayout.findViewById(R.id.custom_toolbar_back_iv);
-        backIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().popBackStack();
-
-                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl, new AllCompaniesFragment()).addToBackStack(null).commit();
-
-            }
-        });
-
-        return view;
-    }
-
-    @Override
-    public void onGetAllIncomesSuccess(ArrayList<Income> incomes) {
-        this.mIncomes.clear();
-        this.mIncomes.addAll(incomes);
-        EventLogger.info("Get all incomes successful, current size:" + mIncomes.size());
-        mAdapter.notifyDataSetChanged();
-        hideProgress(mAllIncomesPb, mAllIncomesRv);
-
-        // drawy chart from data
-        mLineChartFragment = new LineChartFragment(mIncomes, Income.class);
-        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, mLineChartFragment).commit();
-    }
-
-    @Override
-    public void onLoadMoreSuccess(ArrayList<Income> moreIncomes) {
-        mIncomes.remove(mIncomes.size() - 1);
-        this.mIncomes.addAll(moreIncomes);
-        EventLogger.info("Load more incomes successful, current size:" + mIncomes.size());
-        mAdapter.notifyDataSetChanged();
-        mAdapter.setLoaded();
-
-        // redraw chart ater load more incomes
-//        mLineChartFragment = new LineChartFragment(mIncomes, Income.class);
-//        getFragmentManager().beginTransaction().replace(R.id.all_incomes_chart, mLineChartFragment).commit();
-    }
-
-    @Override
-    public void onGetAllIncomesOfCompanySucces(Income income) {
-        Income companyIncome = new Income();
-        companyIncome = income;
     }
 }

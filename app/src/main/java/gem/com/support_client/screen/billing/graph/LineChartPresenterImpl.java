@@ -1,9 +1,13 @@
 package gem.com.support_client.screen.billing.graph;
 
+import android.os.Bundle;
+
 import com.github.mikephil.charting.data.Entry;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.dto.Bill;
 import gem.com.support_client.network.dto.Income;
@@ -16,7 +20,9 @@ public class LineChartPresenterImpl implements LineChartPresenter {
     private ArrayList<Entry> mListNumberOfUser;
     private ArrayList<Entry> mAmount;
     private ArrayList<String> mPaidDate;
-    //private double feePerUser;
+
+    private List mList;
+    private Class mCurrentClass;
 
     public ArrayList<Entry> getmListNumberOfUser() {
         return mListNumberOfUser;
@@ -32,37 +38,68 @@ public class LineChartPresenterImpl implements LineChartPresenter {
 
     public LineChartPresenterImpl(LineChartView mView) {
         this.mView = mView;
+        LineChartFragment lineChartFragment = (LineChartFragment) mView;
+        // get data bundle include list data and class
+        Bundle bundle = lineChartFragment.getArguments();
+        mList = (List) bundle.getSerializable(Constants.listKey);
+        switch ((int) bundle.getSerializable(Constants.classKey)) {
+            case 0:
+                mCurrentClass = Bill.class;
+                break;
+            case 1:
+                mCurrentClass = Income.class;
+        }
+
     }
 
-    public void initBillData(ArrayList<Bill> bills) {
+    /**
+     * detect currentClass and init data
+     */
+    public void initData() {
+        if (mCurrentClass == Bill.class) {
+            this.initBillData();
+        } else if (mCurrentClass == Income.class) {
+            this.initIncomeData();
+        }
+    }
+
+    /**
+     * init data when list contains Bill
+     */
+    private void initBillData() {
         mListNumberOfUser = new ArrayList<Entry>();
         mAmount = new ArrayList<Entry>();
         mPaidDate = new ArrayList<String>();
-        // feePerUser = mBill.get(0).getFeePerUser();
         int k = 0;
-        for (int i = bills.size() - 2; i >= 0; i--) {
-            mListNumberOfUser.add(new Entry(bills.get(i).getNumOfUser(), k));
-            mAmount.add(new Entry((float) (bills.get(i).getNumOfUser() * bills.get(i).getFeePerUser()), k));
-            mPaidDate.add(StringUtils.getDateFromTimestamp(bills.get(i).getPaymentDate()));
+        int size = mList.size();
+        for (int i = size - 1; i >= 0; i--) {
+            Bill bill = (Bill) mList.get(i);
+            mListNumberOfUser.add(new Entry(bill.getNumOfUser(), k));
+            mAmount.add(new Entry((float) (bill.getNumOfUser() * bill.getFeePerUser()), k));
+            mPaidDate.add(StringUtils.getDateFromTimestamp(bill.getPaymentDate()));
             k++;
         }
     }
 
-    public void initIncomeData(ArrayList<Income> incomes) {
+    /**
+     * init data when list contains Income
+     */
+    private void initIncomeData() {
         mListNumberOfUser = new ArrayList<Entry>();
         mAmount = new ArrayList<Entry>();
         mPaidDate = new ArrayList<String>();
-        // feePerUser = mBill.get(0).getFeePerUser();
         int k = 0;
-        for (int i = incomes.size() - 2; i >= 0; i--) {
-            mListNumberOfUser.add(new Entry(incomes.get(i).getTotalUser(), k));
-            mAmount.add(new Entry((float) (incomes.get(i).getTotalIncome()), k));
-            mPaidDate.add(StringUtils.getDateFromTimestamp(incomes.get(i).getToDate()));
+        int size = mList.size();
+        for (int i = size - 1; i >= 0; i--) {
+            Income income = (Income) mList.get(i);
+            mListNumberOfUser.add(new Entry(income.getTotalUser(), k));
+            mAmount.add(new Entry((float) (income.getTotalIncome()), k));
+            mPaidDate.add(StringUtils.getDateFromTimestamp(income.getToDate()));
             k++;
         }
     }
 
-    public int getNumberOfItem(){
+    public int getNumberOfItem() {
         return mPaidDate.size();
     }
 }
