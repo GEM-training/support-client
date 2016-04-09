@@ -12,11 +12,13 @@ import gem.com.support_client.network.model.FeedbackDetail;
 import gem.com.support_client.network.dto.Income;
 import gem.com.support_client.network.dto.PageableResponse;
 import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import retrofit2.http.Streaming;
 
 /**
  * Created by huylv on 22/02/2016.
@@ -84,5 +86,9 @@ public interface APIService {
 
     @GET("/feedback/company/{companyId}")
     Call<ListFeedbackDTO> getListFeebbackOfCompany(@Path("companyId") String companyId, @Query("page") int page, @Query("size") int size);
+
+    @GET("/feedback/statistic")
+    @Streaming
+    Call<ResponseBody> getExcel();
 
 }

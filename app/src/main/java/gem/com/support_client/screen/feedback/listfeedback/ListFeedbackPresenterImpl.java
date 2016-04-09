@@ -3,10 +3,16 @@ package gem.com.support_client.screen.feedback.listfeedback;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.malinskiy.superrecyclerview.swipe.SwipeItemManagerInterface;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +23,8 @@ import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.dto.ListFeedbackDTO;
 import gem.com.support_client.network.model.FeedbackBrief;
 import gem.com.support_client.screen.feedback.feedbackdetail.FeedbackDetailActivity;
+import gem.com.support_client.screen.main.MainActivity;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -173,5 +181,55 @@ public class ListFeedbackPresenterImpl implements ListFeedbackPresenter {
         });
     }
 
+    @Override
+    public void getFile() {
+        ServiceBuilder.getService().getExcel().enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
+                if(response.isSuccess()) {
+                    InputStream is = response.body().byteStream();
+
+                        String dir = Environment.getExternalStorageDirectory() + File.separator + "feedback";
+                        //create folder
+                        File folder = new File(dir); //folder name
+                        folder.mkdirs();
+
+                        //create file
+                        File file = new File(dir, "feedbacks.xls");
+
+
+                        try {
+                            OutputStream output = new FileOutputStream(file);
+
+                            byte[] buffer = new byte[4 * 1024]; // or other buffer size
+                            int read;
+
+                            while ((read = is.read(buffer)) != -1) {
+                                output.write(buffer, 0, read);
+                            }
+                            output.flush();
+                            output.close();
+
+                            mView.onDownloadFileSuccess(file);
+
+                        } catch (Exception e) {
+                            e.printStackTrace(); // handle exception, define IOException and others
+                            Toast.makeText(mView.getContextBase(), "Write file error", Toast.LENGTH_SHORT).show();
+                        }
+
+                } else {
+                    DialogUtils.showErrorAlert(mView.getContextBase(), response.code() + " " + response.message());
+                }
+
+                Toast.makeText(MainActivity.thiz , "Download Success" , Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
+            }
+        });
+    }
 }

@@ -83,6 +83,7 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
 
         holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
 
+        if(mData.get(position).getAvatar() != "")
         Picasso.with(holder.btnUndo.getContext()).load(mData.get(position).getAvatar()).placeholder(R.drawable.default_user).error(R.drawable.default_user).into(holder.imgUser);
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));

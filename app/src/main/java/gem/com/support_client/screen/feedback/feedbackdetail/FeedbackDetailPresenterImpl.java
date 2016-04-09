@@ -14,6 +14,7 @@ import retrofit2.Response;
  */
 public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
     FeedbackDetailView mView;
+
     public FeedbackDetailPresenterImpl(FeedbackDetailView mView){
         this.mView = mView;
     }
@@ -38,5 +39,6 @@ public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
                 mView.onGetDetailFail();
             }
         });
+
     }
 }

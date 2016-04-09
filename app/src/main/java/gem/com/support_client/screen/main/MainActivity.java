@@ -6,7 +6,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,7 +23,6 @@ import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 import nhom1.gem.com.exceptionplugin.ExceptionHandlerUtil;
 import nhom1.gem.com.exceptionplugin.config.ReportCrash;
 import nhom1.gem.com.exceptionplugin.datatest.Data;
-import nhom1.gem.com.exceptionplugin.handler.ExceptionHandle;
 import nhom1.gem.com.exceptionplugin.network.dto.FeedbackDTO;
 
 /**
@@ -76,16 +74,17 @@ public class MainActivity extends BaseActivityDrawer<MainPresenter> implements M
 
         thiz = this;
 
-        List<FeedbackDTO.UserInfo> userInfos = Data.listUserInfo();
+      /*  List<FeedbackDTO.UserInfo> userInfos = Data.listUserInfo();
 
         Random random = new Random();
 
-        int  i = random.nextInt(userInfos.size() - 1);
+        for(int j = 0 ; j <= 50 ; j++){
+            int  i = random.nextInt(userInfos.size() - 1);
+            ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
+            ExceptionHandlerUtil.sendFeedback("Good App !");
+        }
+*/
 
-        ExceptionHandlerUtil.setUpUserInfo(userInfos.get(i));
-
-
-        //ExceptionHandlerUtil.sendFeedback("Good App !");
 
     }
 

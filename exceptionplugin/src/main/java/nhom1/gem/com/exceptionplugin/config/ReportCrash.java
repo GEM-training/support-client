@@ -15,5 +15,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(value = { ElementType.TYPE })
 public @interface ReportCrash {
-    public String formUri() default "http://172.16.10.71:8080";
+    public String formUri() default "http://172.16.10.80:8080";
 }

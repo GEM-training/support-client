@@ -14,4 +14,5 @@ public interface ListFeedbackPresenter extends BasePresenter {
     FeedbackAdapter getAdapter();
     List<FeedbackBrief> getListData();
     List<FeedbackBrief> filter(String query);
-}
+
+    void getFile();}
