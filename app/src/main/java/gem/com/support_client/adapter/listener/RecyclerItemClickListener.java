@@ -1,4 +1,4 @@
-package gem.com.support_client.common.util;
+package gem.com.support_client.adapter.listener;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+    //TODO move to another package
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {

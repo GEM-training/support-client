@@ -1,17 +1,17 @@
 package gem.com.support_client.screen.feedback.listfeedback;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.malinskiy.superrecyclerview.swipe.BaseSwipeAdapter;
 import com.malinskiy.superrecyclerview.swipe.SwipeLayout;
+import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -20,14 +20,15 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import gem.com.support_client.R;
-import gem.com.support_client.network.model.FeedbackDetail;
+import gem.com.support_client.common.util.StringUtils;
+import gem.com.support_client.network.model.FeedbackBrief;
 
 public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder> {
 
-    private List<FeedbackDetail> mData;
+    private final List<FeedbackBrief> mData;
 
-    public FeedbackAdapter(List<FeedbackDetail> mData) {
-        this.mData = mData;
+    public FeedbackAdapter(List<FeedbackBrief> mData) {
+        this.mData = new ArrayList<>(mData);
     }
 
     @Override
@@ -41,18 +42,16 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         swipeLayout.setDragEdge(SwipeLayout.DragEdge.Right);
         swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
 
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
-            }
-        });
-
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(viewHolder.getPosition());
-                Toast.makeText(v.getContext(), "Deleted " + viewHolder.getPosition(), Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(v.getContext(), "Deleted ", Toast.LENGTH_SHORT).show();
+                if (mOnClickDeleteFeedback != null) {
+                    mOnClickDeleteFeedback.onClickDelete(mData.get(viewHolder.getLayoutPosition()),
+                            viewHolder.getLayoutPosition());
+                }
+                remove(viewHolder.getLayoutPosition());
             }
         });
 
@@ -65,25 +64,34 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return viewHolder;
     }
 
+    public void setData(List<FeedbackBrief> data){
+        mData.clear();
+        mData.addAll(data);
+    }
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         super.onBindViewHolder(holder, position);
 
-        holder.tvName.setText("default name");
-        if(mData.get(position).getContent().length() < 20){
-            holder.tvSubContent.setText(mData.get(position).getContent());
+        holder.tvName.setText(StringUtils.convertName2Standard(mData.get(position).getUsername()));
+        if(mData.get(position).getSubContent().length() < 50){
+            holder.tvSubContent.setText(mData.get(position).getSubContent());
         } else {
-            holder.tvSubContent.setText(mData.get(position).getContent().substring(0 , 20));
+            holder.tvSubContent.setText(mData.get(position).getSubContent().substring(0, 50));
         }
+        holder.tvName.setSelected(true);
 
-        holder.tvEnterprise.setText("Default Enterprise");
+        holder.tvEnterprise.setText(StringUtils.convertName2Standard(mData.get(position).getCompanyName()));
+
+        if(mData.get(position).getAvatar() != "")
+        Picasso.with(holder.btnUndo.getContext()).load(mData.get(position).getAvatar()).placeholder(R.drawable.default_user).error(R.drawable.default_user).into(holder.imgUser);
 
         java.sql.Date date = new java.sql.Date(Long.decode(mData.get(position).getTime()));
         java.util.Date utilDate = new java.util.Date();
         Date now = new Date(utilDate.getTime());
 
         SimpleDateFormat formatDay = new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm aa");
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
         String userDateDay = formatDay.format(date);
         String userDateTime = formatTime.format(date);
 
@@ -106,11 +114,8 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         return position;
     }
 
-    public void add(FeedbackDetail feedbackDetail ) {
-        insert(feedbackDetail , mData.size());
-    }
 
-    public void insert(FeedbackDetail feedbackDetail, int position) {
+    public void insert(FeedbackBrief feedbackDetail, int position) {
         closeAllExcept(null);
 
         mData.add(position, feedbackDetail);
@@ -126,33 +131,108 @@ public class FeedbackAdapter extends BaseSwipeAdapter<FeedbackAdapter.ViewHolder
         notifyItemRemoved(position);
     }
 
-
     public static class ViewHolder extends BaseSwipeAdapter.BaseSwipeableViewHolder {
-        CircleImageView imgUser;
+        //ImageView imgUser;
         TextView tvName;
         TextView tvTime;
         TextView tvEnterprise;
         TextView tvSubContent;
         Button btnDelete;
         Button btnUndo;
+        CircleImageView imgUser;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             tvName = (TextView) itemView.findViewById(R.id.tv_name);
-            imgUser = (CircleImageView) itemView.findViewById(R.id.avt_user);
+            //imgUser = (ImageView) itemView.findViewById(R.id.avt_user);
             tvTime = (TextView) itemView.findViewById(R.id.tv_time);
             tvEnterprise = (TextView) itemView.findViewById(R.id.tv_enterprise);
             tvSubContent = (TextView) itemView.findViewById(R.id.tv_subcontent);
             btnDelete = (Button) itemView.findViewById(R.id.btn_delete);
             btnUndo = (Button) itemView.findViewById(R.id.btn_undo);
+            imgUser = (CircleImageView) itemView.findViewById(R.id.avt_user);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //startActivity();
-
+                    if(mListener!=null){
+                        mListener.onRecyclerViewClick(getLayoutPosition());
+                    }
                 }
             });
         }
     }
+
+    private static RecyclerViewClickListener mListener;
+    private OnClickDeleteFeedback mOnClickDeleteFeedback;
+
+    public interface OnClickDeleteFeedback{
+        void onClickDelete(FeedbackBrief feedbackBrief, int position);
+    }
+
+    public void setOnClickDeleteFeedback(OnClickDeleteFeedback onClickDeleteFeedback){
+        this.mOnClickDeleteFeedback = onClickDeleteFeedback;
+    }
+
+    public  interface RecyclerViewClickListener{
+         void onRecyclerViewClick(int position);
+    }
+
+    public void setOnRecyclerViewClickListener( RecyclerViewClickListener recyclerViewClickListener){
+        mListener = recyclerViewClickListener;
+    }
+
+    public void animateTo(List<FeedbackBrief> models) {
+        applyAndAnimateRemovals(models);
+        applyAndAnimateAdditions(models);
+        applyAndAnimateMovedItems(models);
+    }
+
+    private void applyAndAnimateRemovals(List<FeedbackBrief> newModels) {
+        for (int i = mData.size() - 1; i >= 0; i--) {
+            final FeedbackBrief model = mData.get(i);
+            if (!newModels.contains(model)) {
+                removeItem(i);
+            }
+        }
+    }
+
+    private void applyAndAnimateAdditions(List<FeedbackBrief> newModels) {
+        for (int i = 0, count = newModels.size(); i < count; i++) {
+            final FeedbackBrief model = newModels.get(i);
+            if (!mData.contains(model)) {
+                addItem(i, model);
+            }
+        }
+    }
+
+    private void applyAndAnimateMovedItems(List<FeedbackBrief> newModels) {
+        for (int toPosition = newModels.size() - 1; toPosition >= 0; toPosition--) {
+            final FeedbackBrief model = newModels.get(toPosition);
+            final int fromPosition = mData.indexOf(model);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public FeedbackBrief removeItem(int position) {
+        final FeedbackBrief model = mData.remove(position);
+        notifyItemRemoved(position);
+        return model;
+    }
+
+    public void addItem(int position, FeedbackBrief model) {
+        mData.add(position, model);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        final FeedbackBrief model = mData.remove(fromPosition);
+        mData.add(toPosition, model);
+        notifyItemMoved(fromPosition, toPosition);
+    }
+
+
+    
 }

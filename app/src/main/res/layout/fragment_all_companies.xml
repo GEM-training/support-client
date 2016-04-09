@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/all_companies_ll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/margin_global"
     android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/all_companies_search_et"
+    <LinearLayout
+        android:id="@+id/layout_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:hint="@string/search" />
+        android:background="@color/grey_300"
+        android:gravity="center_horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_edit_search"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/search_margin_left"
+            android:layout_marginRight="@dimen/search_margin_left"
+            android:layout_marginTop="@dimen/margin_medium">
+
+            <EditText
+                android:id="@+id/all_companies_search_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_search"
+                android:gravity="center"
+                android:lines="1" />
+
+            <ImageView
+                android:id="@+id/all_companies_hint_search_iv"
+                android:layout_width="@dimen/width_search_hint"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/search_hint" />
+        </RelativeLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

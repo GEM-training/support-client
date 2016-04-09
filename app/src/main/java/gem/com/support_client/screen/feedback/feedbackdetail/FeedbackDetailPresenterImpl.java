@@ -1,11 +1,7 @@
 package gem.com.support_client.screen.feedback.feedbackdetail;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 
 import gem.com.support_client.common.Constants;
-import gem.com.support_client.common.util.DeviceUtils;
 import gem.com.support_client.common.util.DialogUtils;
 import gem.com.support_client.network.ServiceBuilder;
 import gem.com.support_client.network.model.FeedbackDetail;
@@ -18,6 +14,7 @@ import retrofit2.Response;
  */
 public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
     FeedbackDetailView mView;
+
     public FeedbackDetailPresenterImpl(FeedbackDetailView mView){
         this.mView = mView;
     }
@@ -30,16 +27,18 @@ public class FeedbackDetailPresenterImpl implements FeedbackDetailPresenter {
                 if(response.isSuccess()){
                     FeedbackDetail feedbackDetail = response.body();
                     mView.onGetDetailSuccess(feedbackDetail);
-                    Log.d("phuongtd" , new Gson().toJson(feedbackDetail));
                 } else {
                     DialogUtils.showErrorAlert(mView.getContextBase() , response.code() + " " + response.message());
+                    mView.onGetDetailFail();
                 }
             }
 
             @Override
             public void onFailure(Call<FeedbackDetail> call, Throwable t) {
                 DialogUtils.showErrorAlert(mView.getContextBase(), Constants.CONNECT_TO_SERVER_ERROR);
+                mView.onGetDetailFail();
             }
         });
+
     }
 }

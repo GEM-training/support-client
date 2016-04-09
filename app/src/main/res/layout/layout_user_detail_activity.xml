@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bg_tool_bar"
-        android:orientation="horizontal">
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <ImageView
-            android:id="@+id/img_user_detail_back"
-            android:layout_marginLeft="@dimen/icon_back_margin_left"
-            android:layout_gravity="center_vertical"
-            android:layout_width="@dimen/icon_back_width"
-            android:layout_height="@dimen/icon_back_height"
-            android:src="@drawable/back_icon"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="@dimen/tv_margin"
@@ -25,7 +21,8 @@
         android:layout_width="@dimen/width_userdetail_img"
         android:layout_height="@dimen/height_userdetail_img"
         android:padding="3dp"
-        android:background="@drawable/border_image">
+        android:background="@drawable/border_image"
+        android:layout_marginBottom="@dimen/tv_margin">
 
         <ImageView
             android:id="@+id/img_user_icon"
@@ -35,18 +32,15 @@
 
 
     </LinearLayout>
-    
-    <FrameLayout
-        android:layout_marginTop="@dimen/tv_margin"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"></FrameLayout>
+
+    <include layout="@layout/full_width_divider"></include>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/divider_marrgin_top">
 
         <ImageView
             android:src="@drawable/account_icon"
@@ -66,14 +60,10 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"></FrameLayout>
+    <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -103,14 +93,11 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"></FrameLayout>
+    <include layout="@layout/margin_left_62dp_divider"></include>
+
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -134,20 +121,16 @@
             android:id="@+id/tv_user_detail_email_home"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="hopnv@gemvietnam.com"
+            android:text="@string/email_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"></FrameLayout>
+   <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -171,20 +154,16 @@
             android:id="@+id/tv_user_detail_phone"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="+84(01673255990)"
+            android:text="@string/phone_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginLeft="62dp"
-        android:layout_marginTop="5dp"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"></FrameLayout>
+    <include layout="@layout/margin_left_62dp_divider"></include>
 
     <LinearLayout
+        android:layout_marginBottom="@dimen/divider_marrgin_top"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height_userdetail_tv_name"
         android:orientation="horizontal"
@@ -197,38 +176,28 @@
             android:src="@drawable/location_icon"/>
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/divider_marrgin_top"
             android:lines="2"
             android:textSize="@dimen/text_size_medium"
             android:textColor="#666"
             android:text="@string/work"
+            android:layout_marginRight="@dimen/tv_margin"
             android:layout_marginLeft="@dimen/tv_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="@dimen/divider_marrgin_top"
             android:lines="2"
             android:id="@+id/tv_user_detail_address"
             android:paddingRight="@dimen/tv_margin"
             android:gravity="right"
-            android:text="62 Tran Thai Tong, Cau Giay, Ha Noi, Viet Nam"
+            android:text="@string/address_demo"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_marginTop="@dimen/tv_margin"
-        android:background="#ccc"
-        android:layout_width="match_parent"
-        android:layout_height="0.3dp"></FrameLayout>
-
-
-
-
-
-
-
+    <include layout="@layout/full_width_divider"></include>
 
 </LinearLayout>

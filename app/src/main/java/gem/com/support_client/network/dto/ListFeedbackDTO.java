@@ -1,29 +1,21 @@
 package gem.com.support_client.network.dto;
 
-import gem.com.support_client.network.model.FeedbackDetail;
+import gem.com.support_client.network.model.FeedbackBrief;
 
 /**
- * Created by phuongtd on 09/03/2016.
+ * Created by phuongtd on 15/03/2016.
  */
+public class ListFeedbackDTO {
+    FeedbackBrief[] content;
 
-public class ListFeedBackDTO {
-    FeedbackDetail[] content;
     int totalElements;
     int totalPages;
     boolean last;
     int size;
     int number;
-    Sort[] sort;
+    Sort sort;
     int numberOfElements;
     boolean first;
-
-    public Sort[] getSort() {
-        return sort;
-    }
-
-    public void setSort(Sort[] sort) {
-        this.sort = sort;
-    }
 
     private class Sort {
         String direction;
@@ -82,10 +74,7 @@ public class ListFeedBackDTO {
         }
     }
 
-    public ListFeedBackDTO() {
-    }
-
-    public ListFeedBackDTO(FeedbackDetail[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort[] sort, int numberOfElements, boolean first) {
+    public ListFeedbackDTO(FeedbackBrief[] content, int totalElements, int totalPages, boolean last, int size, int number, Sort sort, int numberOfElements, boolean first) {
         this.content = content;
         this.totalElements = totalElements;
         this.totalPages = totalPages;
@@ -97,11 +86,11 @@ public class ListFeedBackDTO {
         this.first = first;
     }
 
-    public FeedbackDetail[] getContent() {
+    public FeedbackBrief[] getContent() {
         return content;
     }
 
-    public void setContent(FeedbackDetail[] content) {
+    public void setContent(FeedbackBrief[] content) {
         this.content = content;
     }
 
@@ -145,6 +134,14 @@ public class ListFeedBackDTO {
         this.number = number;
     }
 
+    public Sort getSort() {
+        return sort;
+    }
+
+    public void setSort(Sort sort) {
+        this.sort = sort;
+    }
+
     public int getNumberOfElements() {
         return numberOfElements;
     }
@@ -160,6 +157,4 @@ public class ListFeedBackDTO {
     public void setFirst(boolean first) {
         this.first = first;
     }
-
-
 }

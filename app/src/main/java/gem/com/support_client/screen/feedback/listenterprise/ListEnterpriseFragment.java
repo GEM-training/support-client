@@ -1,16 +1,24 @@
 package gem.com.support_client.screen.feedback.listenterprise;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import gem.com.support_client.R;
 import gem.com.support_client.base.BaseFragment;
+import gem.com.support_client.common.Constants;
 import gem.com.support_client.network.model.Enterprise;
+import gem.com.support_client.screen.feedback.listfeedback.ListFeedbackFragment;
 
 
 /**
@@ -21,18 +29,55 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     @Bind(R.id.list_enterprise)
     ListView mEnterpriseLv;
 
-    List<Enterprise> enterpriseList = new ArrayList<>();
+    @Bind(R.id.et_search_enterprise)
+    EditText mSearchEdt;
 
-    ListEnterpriseAdapter listEnterpriseAdapter;
+    @Bind(R.id.progress_list_enterprise)
+    ProgressBar progressBar;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listEnterpriseAdapter = new ListEnterpriseAdapter(getActivity() , enterpriseList);
-        mEnterpriseLv.setAdapter(listEnterpriseAdapter);
+        mEnterpriseLv.setAdapter(getPresenter().getAdapter());
 
+        showProgress(progressBar , mEnterpriseLv);
         getPresenter().getListEnterPrise();
+
+        mSearchEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = mSearchEdt.getText().toString().toLowerCase(Locale.getDefault());
+                getPresenter().getAdapter().filter(text);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mEnterpriseLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.COMPANY_ID, getPresenter().getListData().get(position).getUuid());
+
+                bundle.putString("enterpriseName" , getPresenter().getListData().get(position).getCompanyName());
+                bundle.putString("enterpriseId" , getPresenter().getListData().get(position).getUuid());
+
+                ListFeedbackFragment feedbackFragment = new ListFeedbackFragment();
+                feedbackFragment.setArguments(bundle);
+
+                getActivity().getFragmentManager().beginTransaction().replace(R.id.main_fl  , feedbackFragment).commit();
+            }
+        });
+
     }
 
     @Override
@@ -46,8 +91,12 @@ public class ListEnterpriseFragment extends BaseFragment<ListEnterprisePresenter
     }
 
     @Override
-    public void onLoadListEnterpriseSuccess(List<Enterprise> enterprises) {
-        enterpriseList.addAll(enterprises);
-        listEnterpriseAdapter.notifyDataSetChanged();
+    public void onLoadListEnterpriseSuccess() {
+        hideProgress(progressBar , mEnterpriseLv);
+    }
+
+    @Override
+    public void onLoadFail() {
+        hideProgress(progressBar , mEnterpriseLv);
     }
 }

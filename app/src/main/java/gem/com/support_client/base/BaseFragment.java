@@ -24,14 +24,15 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Presenter for this view
-        mPresenter = onCreatePresenter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(getLayoutId(), container,false);
+        View v = inflater.inflate(getLayoutId(), container, false);
         ButterKnife.bind(this, v);
+
+        // Presenter for this view
+        mPresenter = onCreatePresenter();
         return v;
     }
 

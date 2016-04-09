@@ -1,7 +1,12 @@
 package gem.com.support_client.base;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+
+import com.balysv.materialripple.MaterialRippleLayout;
 
 import gem.com.support_client.R;
 
@@ -10,17 +15,18 @@ import gem.com.support_client.R;
  */
 public abstract class BaseActivityToolbar <T extends BasePresenter> extends BaseActivity<T> implements BaseView<T>{
 
-    Toolbar toolBar;
+    Toolbar mToolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toolBar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolBar);
+        mToolBar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(mToolBar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setDisplayShowHomeEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
     }
 }

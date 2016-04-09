@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/indigo_600</color>
+    <color name="colorPrimary">#104570</color>
     <color name="colorPrimaryDark">@color/indigo_800</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -298,4 +298,9 @@
     <color name="bg_select_group">#99000000</color>
     <color name="bg_item_group">#ff0c385c</color>
     <color name="bg_tool_bar">#104570</color>
+
+    <color name="bg_search_edit">#e1e1e1</color>
+    <color name="bg_user_info_in_feedback_detail">#f2f2f2</color>
+
+    <color name="divider">#ccc</color>
 </resources>

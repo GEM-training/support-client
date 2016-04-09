@@ -2,13 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/bg_select_group"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.balysv.materialripple.MaterialRippleLayout
         android:id="@+id/group_by_all"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/group_by_height"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleColor="#ccc"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true">
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/bg_item_group"
         android:orientation="horizontal"
         android:weightSum="6">
@@ -22,28 +31,41 @@
             android:layout_weight="5"
             android:text="@string/group_by_all"
             android:textColor="#ffffff"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <ImageView
             android:id="@+id/group_by_all_selected"
             android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:layout_height="@dimen/img_selected_height"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@drawable/selected" />
 
 
     </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#cccccc"></FrameLayout>
+        android:background="#cccccc"/>
 
-    <LinearLayout
+
+    <include layout="@layout/full_width_divider"></include>
+
+
+    <com.balysv.materialripple.MaterialRippleLayout
         android:id="@+id/group_by_enterprise"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/group_by_height"
+        app:mrl_rippleAlpha="0.2"
+        app:mrl_rippleColor="#ccc"
+        app:mrl_rippleHover="true"
+        app:mrl_rippleOverlay="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/group_by_height"
         android:background="@color/bg_item_group"
         android:orientation="horizontal"
         android:weightSum="6">
@@ -61,12 +83,13 @@
         <ImageView
             android:id="@+id/group_by_enterprise_selected"
             android:layout_width="0dp"
-            android:layout_height="17dp"
+            android:layout_height="@dimen/img_selected_height"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@drawable/selected" />
 
 
     </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
 
 </LinearLayout>

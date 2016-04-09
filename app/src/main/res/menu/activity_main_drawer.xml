@@ -8,7 +8,7 @@
             android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_billing"
-            android:icon="@mipmap/money"
+            android:icon="@mipmap/ic_billing"
             android:title="@string/nav_billing_support" />
         <item
             android:id="@+id/nav_feedback"

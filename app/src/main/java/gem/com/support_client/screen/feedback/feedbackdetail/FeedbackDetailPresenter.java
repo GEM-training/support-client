@@ -1,6 +1,5 @@
 package gem.com.support_client.screen.feedback.feedbackdetail;
 
-import gem.com.support_client.base.BaseFragment;
 import gem.com.support_client.base.BasePresenter;
 
 /**

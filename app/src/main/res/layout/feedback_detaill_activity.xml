@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/bg_tool_bar"
-        android:orientation="horizontal">
+        android:background="@color/colorPrimary"
+        app:popupTheme="@style/Base.ThemeOverlay.AppCompat.Light"
+        app:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-        <ImageView
-            android:id="@+id/img_user_back"
-            android:layout_marginLeft="@dimen/icon_back_margin_left"
-            android:layout_gravity="center_vertical"
-            android:layout_width="@dimen/icon_back_width"
-            android:layout_height="@dimen/icon_back_height"
-            android:src="@drawable/back_icon"/>
-
-    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/feedback_detail_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/layout_user_detail"
-                android:background="#f2f2f2"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="@dimen/height_of_userinfo_in_feedback_detail"
+                app:mrl_rippleAlpha="0.2"
+                app:mrl_rippleColor="#585858"
+                app:mrl_rippleHover="true"
+                app:mrl_rippleOverlay="true">
+
+            <LinearLayout
+
+                android:background="@color/bg_user_info_in_feedback_detail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="5">
 
@@ -43,7 +52,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="80dp" />
+                    android:layout_height="@dimen/height_img_user_feedback_detail" />
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -60,7 +69,7 @@
                         <TextView
                             android:singleLine="true"
                             android:layout_marginLeft="@dimen/tv_name_margin_left"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="@dimen/tv_margin"
                             android:textStyle="bold"
                             android:textColor="@color/bg_tool_bar"
                             android:id="@+id/tv_user_name"
@@ -71,10 +80,9 @@
 
                         <TextView
                             android:id="@+id/tv_user_time"
-                            android:textSize="15sp"
-                            android:layout_marginTop="13dp"
-                            android:layout_marginRight="10dp"
-                            android:text="8:30"
+                            android:textSize="@dimen/text_size_medium"
+                            android:layout_marginTop="@dimen/tv_margin"
+                            android:layout_marginRight="@dimen/time_feedback_detail_margin_right"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true" />
@@ -83,37 +91,16 @@
                     </LinearLayout>
 
                     <TextView
-                        android:textSize="17sp"
+                        android:id="@+id/tv_feedback_detail_enterprisename"
+                        android:textSize="@dimen/text_size_medium"
                         android:layout_marginLeft="@dimen/tv_name_margin_left"
-                        android:text="GEM Vietnam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
+            </com.balysv.materialripple.MaterialRippleLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#cccccc">
-
-            </FrameLayout>
-
-            <TextView
-                android:textSize="@dimen/text_size_small"
-                android:textColor="#000"
-                android:layout_marginRight="@dimen/tv_margin"
-                android:layout_marginLeft="@dimen/tv_margin"
-                android:layout_marginTop="@dimen/tv_margin"
-                android:layout_marginBottom="@dimen/tv_margin"
-                android:id="@+id/tv_user_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#cccccc">
-            </FrameLayout>
+            <include layout="@layout/full_width_divider"></include>
 
 
             <TextView
@@ -216,10 +203,31 @@
 
             </LinearLayout>
 
+            <include layout="@layout/full_width_divider"></include>
+
+            <TextView
+                android:textSize="@dimen/text_size_small"
+                android:textColor="#000"
+                android:layout_marginRight="@dimen/tv_margin"
+                android:layout_marginLeft="@dimen/tv_margin"
+                android:layout_marginTop="@dimen/tv_margin"
+                android:layout_marginBottom="@dimen/tv_margin"
+                android:id="@+id/tv_user_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>
 
     </ScrollView>
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_feedback_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

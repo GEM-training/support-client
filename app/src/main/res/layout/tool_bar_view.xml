@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:id="@+id/select_group_by"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
 
     <TextView
-        android:layout_marginLeft="-20dp"
-        android:layout_marginTop="10dp"
-        android:textSize="18sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/feedback"
         android:textColor="#ffffff"
-        android:text="@string/feedback" />
+        android:textSize="18sp" />
 
-   <LinearLayout
-       android:layout_marginLeft="-20dp"
-       android:id="@+id/select_group_by"
-       android:orientation="horizontal"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-20dp"
+        android:orientation="horizontal">
 
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:id="@+id/tv_fillter"
-           android:text="@string/group_by_all"
-           android:textColor="#ffffff"/>
+        <TextView
+            android:id="@+id/tv_fillter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group_by_all"
+            android:textColor="#ffffff" />
 
-       <ImageView
-           android:layout_marginLeft="5dp"
-           android:layout_marginTop="5dp"
-           android:layout_width="12dp"
-           android:layout_height="12dp"
-           android:src="@drawable/arrow"/>
+        <ImageView
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/arrow" />
 
 
-   </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

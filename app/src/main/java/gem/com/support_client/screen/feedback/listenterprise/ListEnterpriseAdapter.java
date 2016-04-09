@@ -7,15 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import gem.com.support_client.R;
+import gem.com.support_client.common.util.StringUtils;
 import gem.com.support_client.network.model.Enterprise;
 
 /**
  * Created by phuongtd on 08/03/2016.
  */
 public class ListEnterpriseAdapter extends BaseAdapter {
+
+    private List<Enterprise> enterprises;
 
     Context context;
 
@@ -24,6 +29,8 @@ public class ListEnterpriseAdapter extends BaseAdapter {
     public ListEnterpriseAdapter(Context context , List<Enterprise> list){
         this.context = context;
         this.enterpriseList = list;
+        enterprises = new ArrayList<>();
+        this.enterprises.addAll(list);
     }
 
     @Override
@@ -44,16 +51,39 @@ public class ListEnterpriseAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null)
-            convertView = LayoutInflater.from(context).inflate(R.layout.layout_item_enterprise , null);
+            convertView = LayoutInflater.from(context).inflate(R.layout.layout_item_enterprise , parent , false);
 
         Enterprise enterprise = enterpriseList.get(position);
 
         TextView tvName = (TextView) convertView.findViewById(R.id.tv_enterprise_name);
         TextView tvNumOfTicket = (TextView) convertView.findViewById(R.id.tv_num_of_ticket);
 
-        tvName.setText(enterprise.getCompanyName());
-        tvNumOfTicket.setText(enterprise.getNumOfTicket()+"");
+        tvName.setText(StringUtils.convertName2Standard(enterprise.getCompanyName()));
+        tvNumOfTicket.setText(String.valueOf(enterprise.getNumOfTicket()));
 
         return convertView;
+    }
+
+    void filter(String charText){
+        charText = charText.toLowerCase(Locale.getDefault());
+        enterpriseList.clear();
+        if (charText.length() == 0) {
+            enterpriseList.addAll(enterprises);
+        }
+        else
+        {
+            for(int i= 0 ; i < enterprises.size() ; i++){
+                Enterprise e = enterprises.get(i);
+                if (e.getCompanyName().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    enterpriseList.add(e);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Enterprise> enterprises){
+        this.enterprises.addAll(enterprises);
     }
 }

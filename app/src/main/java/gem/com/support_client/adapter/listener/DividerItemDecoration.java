@@ -1,4 +1,4 @@
-package gem.com.support_client.common.util;
+package gem.com.support_client.adapter.listener;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
+    // TODO move to another package
 
     private Drawable mDivider;
     private boolean mShowFirstDivider = false;

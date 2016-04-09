@@ -75,12 +75,10 @@
     <dimen name="zero">0dp</dimen>
 
     <!-- imens ralated to item feedback-->
-    <dimen name="list_item_feedback_height">96dp</dimen>
+    <dimen name="list_item_feedback_height">80dp</dimen>
     <dimen name="list_item_feedback_padding_horizontal">16dp</dimen>
     <dimen name="list_item_feedback_padding_vertical">8dp</dimen>
-    <dimen name="icon_user_size">40dp</dimen>
-
-    <dimen name="line_chart_height">250dp</dimen>
+    <dimen name="icon_user_size">50dp</dimen>
 
     <!--/ search -->
     <dimen name="height_search_layout">50dp</dimen>
@@ -113,4 +111,17 @@
     <dimen name="height_userdetail_img">130dp</dimen>
     <dimen name="height_userdetail_tv_name">48dp</dimen>
     <dimen name="width_userdetail_account_icon">25dp</dimen>
+    <dimen name="all_incomes_menu_height">30dp</dimen>
+
+    <dimen name="back_button_width">70dp</dimen>
+    <dimen name="height_of_userinfo_in_feedback_detail">100dp</dimen>
+    <dimen name="height_img_user_feedback_detail">80dp</dimen>
+
+    <dimen name="time_feedback_detail_margin_right">10dp</dimen>
+    <dimen name="divider_margin_left">62dp</dimen>
+
+    <dimen name = "divider_marrgin_top">4.5dp</dimen>
+
+    <dimen name="group_by_height">48dp</dimen>
+    <dimen name="img_selected_height">17dp</dimen>
 </resources>

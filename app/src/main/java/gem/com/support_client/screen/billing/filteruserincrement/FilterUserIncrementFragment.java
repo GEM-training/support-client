@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,44 +20,124 @@ import gem.com.support_client.screen.billing.allcompanies.AllCompaniesFragment;
  */
 public class FilterUserIncrementFragment extends Fragment {
 
-    @Bind(R.id.filter_user_by_all_ll)
-    LinearLayout mFilterUserByAllLl;
+    private AllCompaniesFragment mAllCompaniesFragment;
+
     @Bind(R.id.filter_user_by_all_selected_iv)
     ImageView mFilterUserByAllSelectedIv;
 
-    @Bind(R.id.filter_user_by_increment_ll)
-    LinearLayout mFilterUserByIncrementLl;
     @Bind(R.id.filter_user_by_increment_selected_iv)
     ImageView mFilterUserByIncrementdSelectedIv;
 
-    @Bind(R.id.filter_user_by_invariable_ll)
-    LinearLayout mFilterUserByInvariableLl;
     @Bind(R.id.filter_user_by_invariable_selected_iv)
     ImageView mFilterUserByInvariableSelectedIv;
 
-    @Bind(R.id.filter_user_by_decrement_ll)
-    LinearLayout mFilterUserByDecrementLl;
     @Bind(R.id.filter_user_by_decrement_selected_iv)
-    ImageView mFilterUserByAllDecrementIv;
+    ImageView mFilterUserByAllDecrementSelectedIv;
+
+    public FilterUserIncrementFragment() {
+    }
+
+    public FilterUserIncrementFragment(AllCompaniesFragment allCompaniesFragment) {
+        this.mAllCompaniesFragment = allCompaniesFragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.filter_user_increment,container,false);
+        View view = inflater.inflate(R.layout.filter_user_increment, container, false);
         ButterKnife.bind(this, view);
-
-        if(AllCompaniesFragment.isSelected){
-//            mGroupByAllSelectedImg.setVisibility(View.VISIBLE);
-//            mGroupByEnterpriseSelectedImg.setVisibility(View.GONE);
-        } else {
-//            mGroupByAllSelectedImg.setVisibility(View.GONE);
-//            mGroupByEnterpriseSelectedImg.setVisibility(View.VISIBLE);
+        switch (AllCompaniesFragment.sItemChecked) {
+            case 1:
+                mFilterUserByAllSelectedIv.setVisibility(View.VISIBLE);
+                mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+                mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+                mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+                break;
+            case 2:
+                mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+                mFilterUserByIncrementdSelectedIv.setVisibility(View.VISIBLE);
+                mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+                mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+                break;
+            case 3:
+                mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+                mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+                mFilterUserByInvariableSelectedIv.setVisibility(View.VISIBLE);
+                mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+                break;
+            case 4:
+                mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+                mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+                mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+                mFilterUserByAllDecrementSelectedIv.setVisibility(View.VISIBLE);
+                break;
         }
         return view;
     }
 
     @OnClick(R.id.filter_user_by_all_ll)
-    public void filterAll(){
+    public void filterAllUser() {
+        AllCompaniesFragment.sItemChecked = 1;
+        mFilterUserByAllSelectedIv.setVisibility(View.VISIBLE);
+        mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+        mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+        mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+        AllCompaniesFragment.sIsShowFilter = false;
+        AllCompaniesFragment.sIsCheckAll = true;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
 
+        // show all user
+        mAllCompaniesFragment.showAllBills();
+    }
+
+    @OnClick(R.id.filter_user_by_increment_ll)
+    public void filterIncrementUser() {
+        AllCompaniesFragment.sItemChecked = 2;
+        mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+        mFilterUserByIncrementdSelectedIv.setVisibility(View.VISIBLE);
+        mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+        mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+        AllCompaniesFragment.sIsShowFilter = false;
+        AllCompaniesFragment.sIsCheckAll = false;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+
+        // show increased users
+        mAllCompaniesFragment.showIncreasedUserBills();
+    }
+
+    @OnClick(R.id.filter_user_by_invariable_ll)
+    public void filterInvariableUser() {
+        AllCompaniesFragment.sItemChecked = 3;
+        mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+        mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+        mFilterUserByInvariableSelectedIv.setVisibility(View.VISIBLE);
+        mFilterUserByAllDecrementSelectedIv.setVisibility(View.GONE);
+        AllCompaniesFragment.sIsShowFilter = false;
+        AllCompaniesFragment.sIsCheckAll = false;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+
+        // show invariable users
+        mAllCompaniesFragment.showInvariabledUserBills();
+    }
+
+    @OnClick(R.id.filter_user_by_decrement_ll)
+    public void filterDecrementUser() {
+        AllCompaniesFragment.sItemChecked = 4;
+        mFilterUserByAllSelectedIv.setVisibility(View.GONE);
+        mFilterUserByIncrementdSelectedIv.setVisibility(View.GONE);
+        mFilterUserByInvariableSelectedIv.setVisibility(View.GONE);
+        mFilterUserByAllDecrementSelectedIv.setVisibility(View.VISIBLE);
+        AllCompaniesFragment.sIsShowFilter = false;
+        AllCompaniesFragment.sIsCheckAll = false;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
+
+        // show decreased users
+        mAllCompaniesFragment.showDecreasedUserBills();
+    }
+
+    @OnClick(R.id.filter_cancel)
+    public void filterCancel() {
+        AllCompaniesFragment.sIsShowFilter = false;
+        getActivity().getFragmentManager().beginTransaction().remove(this).commit();
     }
 }
